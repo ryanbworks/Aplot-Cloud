@@ -14,7 +14,6 @@ import {
   Youtube,
   Github,
   Send,
-  ArrowRight,
   Heart,
   ExternalLink,
   FileText,

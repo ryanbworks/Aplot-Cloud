@@ -194,7 +194,7 @@ const Benefits = memo(() => {
           viewport={{ once: true }}
           className="grid lg:grid-cols-2 gap-8 lg:gap-10 mb-24"
         >
-          {mainBenefits.map((benefit, index) => (
+          {mainBenefits.map((benefit) => (
             <motion.div
               key={benefit.title}
               variants={itemVariants}

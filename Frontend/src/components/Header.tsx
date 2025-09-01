@@ -14,7 +14,6 @@ import {
   User,
   Menu,
   X,
-  HelpCircle,
   Ticket,
   Activity,
   BookOpen,
@@ -80,7 +79,7 @@ const Header = () => {
       title: 'Status dos Servidores',
       description: 'Monitore a disponibilidade em tempo real',
       icon: Activity,
-      href: '/suporte/status',
+      href: '/status',
     },
     {
       title: 'Base de Conhecimento',

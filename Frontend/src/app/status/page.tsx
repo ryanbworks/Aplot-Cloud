@@ -34,7 +34,7 @@ interface Service {
   status: ServiceStatus;
   uptime: number;
   responseTime: number;
-  icon: React.ComponentType<any>;
+  icon: React.ComponentType<{ className?: string }>;
   location: string;
   lastChecked: Date;
 }
