@@ -2,17 +2,17 @@
 # Multi-stage build para otimização
 
 # Stage 1: Dependências
-FROM node:18-alpine AS deps
+FROM node:20-alpine AS deps
 WORKDIR /app
 
 # Copiar arquivos de dependências
 COPY package.json package-lock.json ./
 
-# Instalar dependências
-RUN npm ci --only=production
+# Instalar dependências (excluindo scripts de prepare)
+RUN npm ci --only=production --ignore-scripts
 
 # Stage 2: Build
-FROM node:18-alpine AS builder
+FROM node:20-alpine AS builder
 WORKDIR /app
 
 # Copiar dependências do stage anterior
