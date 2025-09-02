@@ -27,7 +27,7 @@ ENV NODE_ENV=production
 RUN npm run build
 
 # Stage 3: Produção
-FROM node:18-alpine AS runner
+FROM node:20-alpine AS runner
 WORKDIR /app
 
 # Criar usuário não-root
