@@ -70,10 +70,10 @@ const Header = () => {
 
   const supportOptions = [
     {
-      title: 'Central de Suporte',
-      description: 'Acesse nossa central de suporte completa',
+      title: 'Abrir Ticket',
+      description: 'Solicite suporte técnico especializado',
       icon: Ticket,
-      href: '/suporte',
+      href: '/suporte/ticket',
     },
     {
       title: 'Status dos Servidores',
