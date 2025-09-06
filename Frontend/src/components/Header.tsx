@@ -70,10 +70,10 @@ const Header = () => {
 
   const supportOptions = [
     {
-      title: 'Abrir Ticket',
-      description: 'Solicite suporte técnico especializado',
+      title: 'Central de Suporte',
+      description: 'Acesse nossa central de suporte completa',
       icon: Ticket,
-      href: '/suporte/ticket',
+      href: '/suporte',
     },
     {
       title: 'Status dos Servidores',
@@ -418,19 +418,6 @@ const Header = () => {
               </AnimatePresence>
             </div>
 
-            <motion.a
-              href="/contato"
-              className="relative text-muted-foreground hover:text-primary transition-colors duration-200 px-2 py-1"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <span className="relative z-10">Contato</span>
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-primary/10 to-green-500/10 rounded-lg opacity-0"
-                whileHover={{ opacity: 1, scale: 1.1 }}
-                transition={{ duration: 0.2 }}
-              />
-            </motion.a>
           </nav>
 
           {/* Área do Cliente e Mobile Menu */}
@@ -650,7 +637,7 @@ const Header = () => {
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.25 }}
+                  transition={{ delay: 0.2 }}
                 >
                   <button
                     onClick={() => {
@@ -694,21 +681,12 @@ const Header = () => {
                   </AnimatePresence>
                 </motion.div>
 
-                <motion.a
-                  href="/contato"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.3 }}
-                  className="block px-2 py-2 text-muted-foreground hover:text-primary transition-colors duration-200"
-                >
-                  Contato
-                </motion.a>
 
                 {/* Mobile Client Area */}
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.35 }}
+                  transition={{ delay: 0.25 }}
                   className="border-t border-border pt-4 mt-4"
                 >
                   <button

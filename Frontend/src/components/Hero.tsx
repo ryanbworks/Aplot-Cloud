@@ -23,10 +23,10 @@ const Hero = memo(() => {
   ];
 
   const stats = [
-    { number: "50K+", label: "Clientes Ativos" },
     { number: "99.9%", label: "Uptime" },
     { number: "24/7", label: "Suporte" },
-    { number: "150+", label: "Países" }
+    { number: "100%", label: "Brasil" },
+    { number: "Premium", label: "Qualidade" }
   ];
 
   return (
@@ -229,7 +229,7 @@ const Hero = memo(() => {
                   ))}
                 </div>
                 <span className="text-sm text-muted-foreground ml-3">
-                  +50.000 clientes confiam
+                  Qualidade garantida
                 </span>
               </div>
               <div className="flex items-center space-x-1">

@@ -71,9 +71,9 @@ const TechnicalFeatures = memo(() => {
 
   const infrastructureStats = [
     { label: "Uptime SLA", value: "99.99%", color: "text-green-500" },
-    { label: "Data Centers", value: "15", color: "text-blue-500" },
-    { label: "Países", value: "150+", color: "text-purple-500" },
-    { label: "Clientes Ativos", value: "50K+", color: "text-orange-500" }
+    { label: "Data Centers", value: "3", color: "text-blue-500" },
+    { label: "Cobertura", value: "100% Brasil", color: "text-purple-500" },
+    { label: "Qualidade", value: "Premium", color: "text-orange-500" }
   ];
 
   const containerVariants = {
