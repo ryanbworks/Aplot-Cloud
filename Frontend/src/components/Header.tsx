@@ -6,8 +6,6 @@ import {
   ChevronDown,
   Server,
   Cloud,
-  Database,
-  Shield,
   Users,
   Settings,
   LogIn,

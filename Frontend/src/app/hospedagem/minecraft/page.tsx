@@ -10,14 +10,10 @@ import {
   Users, 
   Clock, 
   HardDrive, 
-  Cpu, 
-  Wifi,
   Check,
   Star,
   Play,
-  Server,
   Globe,
-  ArrowRight,
   Sparkles
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -695,7 +691,7 @@ const MinecraftHostingPage = () => {
                 </div>
                 
                 <p className="text-muted-foreground italic">
-                  "{testimonial.text}"
+                  <q>{testimonial.text}</q>
                 </p>
               </motion.div>
             ))}
