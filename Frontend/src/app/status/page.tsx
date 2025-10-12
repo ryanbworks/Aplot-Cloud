@@ -171,7 +171,7 @@ const StatusPage = () => {
   const getStatusColor = (status: ServiceStatus) => {
     switch (status) {
       case 'operational':
-        return 'text-green-400';
+        return 'text-green-500';
       case 'degraded':
         return 'text-yellow-400';
       case 'outage':
@@ -244,7 +244,7 @@ const StatusPage = () => {
     if (hasOutage) return { status: 'outage', text: 'Problemas Detectados', color: 'text-red-400' };
     if (hasDegraded) return { status: 'degraded', text: 'Performance Degradada', color: 'text-yellow-400' };
     if (hasMaintenance) return { status: 'maintenance', text: 'Manutenção em Andamento', color: 'text-blue-400' };
-    return { status: 'operational', text: 'Todos os Sistemas Operacionais', color: 'text-green-400' };
+    return { status: 'operational', text: 'Todos os Sistemas Operacionais', color: 'text-green-500' };
   };
 
   const calculateAverageUptime = () => {
@@ -258,7 +258,7 @@ const StatusPage = () => {
     <div className="min-h-screen bg-background">
       {/* Header da Página */}
       <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-green-500/5" />
+        <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 via-background to-green-500/5" />
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -267,16 +267,16 @@ const StatusPage = () => {
             className="text-center"
           >
             <motion.div
-              className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-green-500/20 mb-4 sm:mb-6"
+              className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-green-500/20 to-green-600/20 mb-4 sm:mb-6"
               whileHover={{ scale: 1.05, rotate: 5 }}
               transition={{ duration: 0.3 }}
             >
-              <Activity className="w-6 h-6 sm:w-8 sm:h-8 text-primary" />
+              <Activity className="w-6 h-6 sm:w-8 sm:h-8 text-green-500" />
             </motion.div>
 
             <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-foreground mb-3 sm:mb-4 px-2">
               Status dos{' '}
-              <span className="bg-gradient-to-r from-primary to-green-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-green-500 to-green-600 bg-clip-text text-transparent">
                 Serviços
               </span>
             </h1>
@@ -314,11 +314,11 @@ const StatusPage = () => {
             >
               <div className="bg-card/30 backdrop-blur-sm border border-border/40 rounded-xl px-3 sm:px-4 py-3 text-center">
                 <p className="text-xs sm:text-sm text-muted-foreground">Uptime Médio</p>
-                <p className="text-xl sm:text-2xl font-bold text-primary">{calculateAverageUptime()}%</p>
+                <p className="text-xl sm:text-2xl font-bold text-green-500">{calculateAverageUptime()}%</p>
               </div>
               <div className="bg-card/30 backdrop-blur-sm border border-border/40 rounded-xl px-3 sm:px-4 py-3 text-center">
                 <p className="text-xs sm:text-sm text-muted-foreground">Serviços Ativos</p>
-                <p className="text-xl sm:text-2xl font-bold text-green-400">{services.filter(s => s.status === 'operational').length}/{services.length}</p>
+                <p className="text-xl sm:text-2xl font-bold text-green-500">{services.filter(s => s.status === 'operational').length}/{services.length}</p>
               </div>
               <div className="bg-card/30 backdrop-blur-sm border border-border/40 rounded-xl px-3 sm:px-4 py-3 text-center sm:col-span-1 col-span-1">
                 <p className="text-xs sm:text-sm text-muted-foreground">Última Atualização</p>
@@ -343,7 +343,7 @@ const StatusPage = () => {
             disabled={isRefreshing}
             variant="outline"
             size="sm"
-            className="group bg-card/50 backdrop-blur-sm border-border/40 hover:border-primary/50 text-sm sm:text-base px-4 sm:px-6"
+            className="group bg-card/50 backdrop-blur-sm border-border/40 hover:border-green-500/50 text-sm sm:text-base px-4 sm:px-6"
           >
             <motion.div
               animate={isRefreshing ? { rotate: 360 } : {}}
@@ -364,7 +364,7 @@ const StatusPage = () => {
           className="mb-8 sm:mb-12"
         >
           <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4 sm:mb-6 flex items-center px-2 sm:px-0">
-            <Monitor className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 text-primary" />
+            <Monitor className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 text-green-500" />
             <span className="text-base sm:text-2xl">Serviços de Infraestrutura</span>
           </h2>
 
@@ -379,21 +379,21 @@ const StatusPage = () => {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.1 * index, duration: 0.5 }}
-                  className="group bg-card/50 backdrop-blur-sm border border-border/40 rounded-xl p-4 sm:p-6 hover:border-primary/30 transition-all duration-300"
+                  className="group bg-card/50 backdrop-blur-sm border border-border/40 rounded-xl p-4 sm:p-6 hover:border-green-500/30 transition-all duration-300"
                   whileHover={{ scale: 1.01, y: -2 }}
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-3 sm:space-y-0">
                     {/* Mobile: Stack vertically, Desktop: Side by side */}
                     <div className="flex items-center space-x-3 sm:space-x-4">
                       <motion.div
-                        className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-primary/10 to-green-500/10 group-hover:from-primary/20 group-hover:to-green-500/20 transition-all duration-300 flex-shrink-0"
+                        className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-green-500/10 to-green-600/10 group-hover:from-green-500/20 group-hover:to-green-600/20 transition-all duration-300 flex-shrink-0"
                         whileHover={{ rotate: 5, scale: 1.1 }}
                       >
-                        <ServiceIcon className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
+                        <ServiceIcon className="w-5 h-5 sm:w-6 sm:h-6 text-green-500" />
                       </motion.div>
 
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-base sm:text-lg font-semibold text-foreground group-hover:text-primary transition-colors duration-300 truncate">
+                        <h3 className="text-base sm:text-lg font-semibold text-foreground group-hover:text-green-500 transition-colors duration-300 truncate">
                           {service.name}
                         </h3>
                         <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2 sm:line-clamp-1">
@@ -406,7 +406,7 @@ const StatusPage = () => {
                             <MapPin className="w-3 h-3 mr-1 flex-shrink-0" />
                             <span className="truncate">{service.location}</span>
                           </span>
-                          <span className="bg-primary/10 px-2 py-1 rounded text-xs">
+                          <span className="bg-green-500/10 px-2 py-1 rounded text-xs">
                             {service.uptime}% uptime
                           </span>
                           {service.status !== 'maintenance' && (
@@ -495,7 +495,7 @@ const StatusPage = () => {
                         {incident.affectedServices.map(serviceId => {
                           const service = services.find(s => s.id === serviceId);
                           return service ? (
-                            <span key={serviceId} className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-md whitespace-nowrap">
+                            <span key={serviceId} className="text-xs bg-green-500/10 text-green-500 px-2 py-1 rounded-md whitespace-nowrap">
                               {service.name}
                             </span>
                           ) : null;
@@ -522,14 +522,14 @@ const StatusPage = () => {
           className="mt-8 sm:mt-12"
         >
           <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4 sm:mb-6 flex items-center px-2 sm:px-0">
-            <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 text-primary" />
+            <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 text-green-500" />
             <span className="text-base sm:text-2xl">Histórico dos Últimos 90 Dias</span>
           </h2>
 
           <div className="bg-card/50 backdrop-blur-sm border border-border/40 rounded-xl p-4 sm:p-6">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
               <div className="text-center p-3 sm:p-0">
-                <p className="text-2xl sm:text-3xl font-bold text-green-400">99.96%</p>
+                <p className="text-2xl sm:text-3xl font-bold text-green-500">99.96%</p>
                 <p className="text-xs sm:text-sm text-muted-foreground mt-1">Uptime Geral</p>
               </div>
               <div className="text-center p-3 sm:p-0 border-t sm:border-t-0 sm:border-l border-border/40 pt-4 sm:pt-0">

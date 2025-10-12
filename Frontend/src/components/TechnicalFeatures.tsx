@@ -7,344 +7,257 @@ import {
   HardDrive, 
   Wifi, 
   Shield, 
-  Database,
-  Cloud,
-  Server,
   Zap,
-  Globe,
-  Lock,
-  Activity,
-  Gauge,
-  Network,
-  Terminal,
-  Layers,
-  BarChart3
+  Clock,
+  CheckCircle,
+  Sparkles,
+  Award,
+  Users,
+  TrendingUp,
+  Server
 } from 'lucide-react';
 
 const TechnicalFeatures = memo(() => {
-  const technicalSpecs = [
+  // Benefícios simples e diretos
+  const mainFeatures = [
     {
-      category: "Performance",
       icon: Cpu,
-      color: "from-blue-500 to-cyan-500",
-      features: [
-        { label: "Processador", value: "AMD EPYC 7763", icon: Cpu },
-        { label: "Arquitetura", value: "64-core 2.45GHz", icon: Gauge },
-        { label: "Cache L3", value: "256MB", icon: Database },
-        { label: "Threads", value: "128 Threads", icon: Activity }
-      ]
+      title: "Processamento Poderoso",
+      description: "Processadores Intel XEON com 18 núcleos para rodar tudo que você precisa sem travamentos.",
+      benefit: "Seu site sempre rápido",
+      color: "from-green-500 to-green-600"
     },
     {
-      category: "Armazenamento",
       icon: HardDrive,
-      color: "from-green-500 to-emerald-500",
-      features: [
-        { label: "SSD NVMe", value: "Gen4 PCIe 4.0", icon: HardDrive },
-        { label: "IOPS", value: "1M+ IOPS", icon: BarChart3 },
-        { label: "Throughput", value: "7GB/s", icon: Zap },
-        { label: "Latência", value: "< 0.1ms", icon: Activity }
-      ]
+      title: "Armazenamento Rápido",
+      description: "Discos SSD ultra-rápidos que carregam suas páginas em milésimos de segundo.",
+      benefit: "Carregamento instantâneo",
+      color: "from-green-500 to-green-600"
     },
     {
-      category: "Rede",
-      icon: Network,
-      color: "from-purple-500 to-violet-500",
-      features: [
-        { label: "Largura de Banda", value: "100Gbps", icon: Wifi },
-        { label: "CDN", value: "300+ POPs", icon: Globe },
-        { label: "DDoS Protection", value: "Multi-Tbps", icon: Shield },
-        { label: "Latência Global", value: "< 20ms", icon: Network }
-      ]
+      icon: Wifi,
+      title: "Internet Veloz",
+      description: "Conexão de alta velocidade para seus visitantes acessarem seu site rapidamente.",
+      benefit: "Visitantes satisfeitos",
+      color: "from-green-500 to-green-600"
     },
     {
-      category: "Segurança",
-      icon: Lock,
-      color: "from-red-500 to-orange-500",
-      features: [
-        { label: "Criptografia", value: "AES-256", icon: Lock },
-        { label: "SSL/TLS", value: "1.3 + HSTS", icon: Shield },
-        { label: "Firewall", value: "WAF + Layer 7", icon: Server },
-        { label: "Compliance", value: "SOC2 + ISO27001", icon: Database }
-      ]
+      icon: Shield,
+      title: "Proteção Total",
+      description: "Segurança avançada que protege seu site contra ataques e mantém seus dados seguros.",
+      benefit: "Durma tranquilo",
+      color: "from-green-500 to-green-600"
     }
   ];
 
-  const infrastructureStats = [
-    { label: "Uptime SLA", value: "99.99%", color: "text-green-500" },
-    { label: "Data Centers", value: "3", color: "text-blue-500" },
-    { label: "Cobertura", value: "100% Brasil", color: "text-purple-500" },
-    { label: "Qualidade", value: "Premium", color: "text-orange-500" }
+  // O que está incluso
+  const includes = [
+    { icon: CheckCircle, text: "Backup automático todos os dias" },
+    { icon: CheckCircle, text: "Suporte técnico sempre que precisar" },
+    { icon: CheckCircle, text: "99% de disponibilidade garantida" },
+    { icon: CheckCircle, text: "Fácil de usar e configurar" },
+    { icon: CheckCircle, text: "SSL/HTTPS grátis incluído" },
+    { icon: CheckCircle, text: "Painel de controle simples" }
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
+  // Estatísticas impressionantes
+  const stats = [
+    {
+      icon: Zap,
+      value: "Super",
+      label: "Rápido",
+      description: "Carregamento em milésimos de segundo"
+    },
+    {
+      icon: Shield,
+      value: "100%",
+      label: "Seguro",
+      description: "Proteção contra ataques"
+    },
+    {
+      icon: Clock,
+      value: "99%",
+      label: "Online",
+      description: "Seu site sempre disponível"
+    },
+    {
+      icon: Users,
+      value: "24/7",
+      label: "Suporte",
+      description: "Ajuda quando você precisar"
     }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: {
-      opacity: 1,
-      y: 0
-    }
-  };
+  ];
 
   return (
-    <section className="relative py-24 lg:py-32 bg-gradient-to-b from-muted/20 via-background to-background overflow-hidden">
+    <section className="relative py-20 lg:py-32 overflow-hidden bg-gradient-to-b from-background to-green-500/5">
       {/* Background Effects */}
-      <div className="absolute inset-0">
-        <motion.div
-          className="absolute top-1/3 right-1/4 w-80 h-80 bg-gradient-to-r from-blue-500/8 to-purple-500/8 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
-        <motion.div
-          className="absolute bottom-1/3 left-1/4 w-96 h-96 bg-gradient-to-r from-green-500/8 to-cyan-500/8 rounded-full blur-3xl"
-          animate={{
-            scale: [1.2, 1, 1.2],
-            opacity: [0.2, 0.4, 0.2],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 3
-          }}
-        />
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/4 -left-48 w-96 h-96 bg-green-500/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/4 -right-48 w-96 h-96 bg-green-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Header */}
+        
+        {/* Header Section */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center max-w-4xl mx-auto mb-20"
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-3xl mx-auto mb-20"
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-full px-6 py-3 mb-6"
+            className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/20 rounded-full px-4 py-2 mb-6"
           >
-            <Terminal className="h-5 w-5 text-blue-500" />
-            <span className="text-sm font-semibold text-blue-500">
-              Especificações Técnicas Enterprise
-            </span>
+            <Sparkles className="w-4 h-4 text-green-500" />
+            <span className="text-sm font-semibold text-green-500">Por que somos diferentes</span>
           </motion.div>
 
-          <motion.h2 
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          >
-            <span className="block">Infraestrutura de</span>
-            <span className="bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500 bg-clip-text text-transparent">
-              última geração
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+            <span className="block text-foreground mb-2">Tudo que você precisa</span>
+            <span className="bg-gradient-to-r from-green-500 to-green-600 bg-clip-text text-transparent">
+              em um só lugar
             </span>
-          </motion.h2>
+          </h2>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="text-lg text-muted-foreground max-w-3xl mx-auto"
-          >
-            Hardware premium, rede global e segurança militar para garantir máxima 
-            performance e confiabilidade em todos os seus projetos.
-          </motion.p>
+          <p className="text-lg text-muted-foreground leading-relaxed">
+            Servidores potentes, rápidos e seguros. 
+            Tudo preparado para você focar no que realmente importa: seu negócio.
+          </p>
         </motion.div>
 
-        {/* Infrastructure Stats */}
+        {/* Stats Cards */}
         <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-20"
-        >
-          {infrastructureStats.map((stat, index) => (
-            <motion.div
-              key={stat.label}
-              variants={itemVariants}
-              transition={{ delay: index * 0.1 }}
-              className="text-center"
-            >
-              <motion.div
-                className={`text-4xl lg:text-5xl font-bold ${stat.color} mb-2`}
-                animate={{ scale: [1, 1.05, 1] }}
-                transition={{ duration: 2, repeat: Infinity, delay: index * 0.5 }}
-              >
-                {stat.value}
-              </motion.div>
-              <div className="text-sm text-muted-foreground">{stat.label}</div>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Technical Specifications Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid lg:grid-cols-2 gap-8 lg:gap-10 mb-20"
-        >
-          {technicalSpecs.map((spec, specIndex) => (
-            <motion.div
-              key={spec.category}
-              variants={itemVariants}
-              transition={{ delay: specIndex * 0.2 }}
-              className="group"
-            >
-              <motion.div
-                whileHover={{ y: -8, scale: 1.02 }}
-                transition={{ duration: 0.3 }}
-                className="bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-lg border border-border/50 rounded-3xl p-8 hover:border-primary/30 transition-all duration-500 shadow-xl hover:shadow-2xl hover:shadow-primary/10"
-              >
-                {/* Header */}
-                <div className="flex items-center space-x-4 mb-8">
-                  <motion.div
-                    className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${spec.color} flex items-center justify-center shadow-lg`}
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <spec.icon className="h-8 w-8 text-white" />
-                  </motion.div>
-                  <div>
-                    <h3 className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
-                      {spec.category}
-                    </h3>
-                    <div className="text-sm text-muted-foreground">Especificações Premium</div>
-                  </div>
-                </div>
-
-                {/* Features Grid */}
-                <div className="grid grid-cols-1 gap-4">
-                  {spec.features.map((feature, featureIndex) => (
-                    <motion.div
-                      key={feature.label}
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: specIndex * 0.2 + featureIndex * 0.1 }}
-                      className="flex items-center justify-between p-4 bg-gradient-to-r from-background/50 to-background/20 rounded-xl border border-border/30 hover:border-primary/20 transition-all duration-300"
-                    >
-                      <div className="flex items-center space-x-3">
-                        <motion.div
-                          className="w-8 h-8 rounded-lg bg-gradient-to-r from-primary/20 to-green-500/20 flex items-center justify-center"
-                          whileHover={{ scale: 1.1 }}
-                        >
-                          <feature.icon className="h-4 w-4 text-primary" />
-                        </motion.div>
-                        <span className="text-sm font-medium text-foreground">{feature.label}</span>
-                      </div>
-                      <span className="text-sm font-bold text-primary">{feature.value}</span>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Technology Stack */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="text-center mb-16"
+          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-20"
         >
-          <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
-            Stack Tecnológico Completo
-          </h3>
-          <p className="text-muted-foreground max-w-2xl mx-auto mb-12">
-            Tecnologias enterprise integradas para máxima confiabilidade e performance.
-          </p>
+          {stats.map((stat, index) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              whileHover={{ scale: 1.05 }}
+              className="bg-card border border-green-500/20 rounded-xl p-6 text-center hover:border-green-500/50 hover:shadow-lg hover:shadow-green-500/10 transition-all duration-300"
+            >
+              <div className="w-12 h-12 bg-green-500/10 border border-green-500/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <stat.icon className="w-6 h-6 text-green-500" />
+              </div>
+              <div className="text-3xl font-bold text-green-500 mb-2">{stat.value}</div>
+              <div className="text-sm font-semibold text-foreground mb-1">{stat.label}</div>
+              <div className="text-xs text-muted-foreground">{stat.description}</div>
+            </motion.div>
+          ))}
+        </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-            {[
-              { name: "Docker", icon: Layers, color: "from-blue-500 to-blue-600" },
-              { name: "Kubernetes", icon: Network, color: "from-purple-500 to-purple-600" },
-              { name: "Linux", icon: Terminal, color: "from-green-500 to-green-600" },
-              { name: "Nginx", icon: Server, color: "from-orange-500 to-orange-600" },
-              { name: "Redis", icon: Database, color: "from-red-500 to-red-600" },
-              { name: "CloudFlare", icon: Cloud, color: "from-cyan-500 to-cyan-600" }
-            ].map((tech, index) => (
+        {/* Main Features Grid */}
+        <div className="grid lg:grid-cols-2 gap-8 mb-20">
+          {mainFeatures.map((feature, index) => (
+            <motion.div
+              key={feature.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.15 }}
+            >
               <motion.div
-                key={tech.name}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ scale: 1.05, y: -4 }}
-                className="group"
+                whileHover={{ y: -5 }}
+                transition={{ duration: 0.3 }}
+                className="h-full bg-card border border-border rounded-2xl p-8 hover:border-green-500/50 hover:shadow-lg hover:shadow-green-500/10 transition-all duration-300"
               >
-                <div className="bg-gradient-to-br from-card/60 to-card/30 border border-border/30 rounded-2xl p-6 hover:border-primary/30 transition-all duration-300">
-                  <motion.div
-                    className={`w-12 h-12 rounded-xl bg-gradient-to-r ${tech.color} flex items-center justify-center mx-auto mb-3`}
-                    whileHover={{ rotate: 5 }}
-                  >
-                    <tech.icon className="h-6 w-6 text-white" />
-                  </motion.div>
-                  <div className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
-                    {tech.name}
+                {/* Icon */}
+                <div className="mb-6">
+                  <div className={`inline-flex w-16 h-16 bg-gradient-to-br ${feature.color} rounded-xl items-center justify-center shadow-lg shadow-green-500/20`}>
+                    <feature.icon className="w-8 h-8 text-white" />
                   </div>
                 </div>
+
+                {/* Content */}
+                <div className="mb-4">
+                  <h3 className="text-2xl font-bold text-foreground mb-2">
+                    {feature.title}
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {feature.description}
+                  </p>
+                </div>
+
+                {/* Benefit Badge */}
+                <div className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/20 rounded-full px-4 py-2">
+                  <CheckCircle className="w-4 h-4 text-green-500" />
+                  <span className="text-sm font-semibold text-green-500">
+                    {feature.benefit}
+                  </span>
+                </div>
+              </motion.div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* What's Included Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="bg-gradient-to-br from-green-500/5 to-green-500/10 border border-green-500/20 rounded-2xl p-8 md:p-12"
+        >
+          <div className="text-center mb-10">
+            <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              O que vem <span className="text-green-500">incluído</span>?
+            </h3>
+            <p className="text-muted-foreground">
+              Tudo que você precisa, sem surpresas ou custos extras
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            {includes.map((item, index) => (
+              <motion.div
+                key={item.text}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="flex items-center gap-3 bg-card/50 border border-border rounded-lg p-4 hover:border-green-500/30 hover:bg-green-500/5 transition-all duration-200"
+              >
+                <div className="flex-shrink-0 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                  <item.icon className="w-4 h-4 text-white" />
+                </div>
+                <span className="text-foreground font-medium text-sm">
+                  {item.text}
+                </span>
               </motion.div>
             ))}
           </div>
         </motion.div>
 
-        {/* Call to Action */}
+        {/* Final CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="text-center"
+          className="text-center mt-20"
         >
-          <div className="bg-gradient-to-r from-card/80 to-card/40 backdrop-blur-lg border border-border/50 rounded-3xl p-10 lg:p-12 max-w-4xl mx-auto">
-            <motion.h3 
-              className="text-2xl md:text-3xl font-bold text-foreground mb-4"
-              animate={{ scale: [1, 1.02, 1] }}
-              transition={{ duration: 3, repeat: Infinity }}
-            >
-              Quer conhecer nossa infraestrutura por dentro?
-            </motion.h3>
-            
-            <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Agende uma visita técnica virtual e veja de perto como nossa infraestrutura 
-              pode acelerar seus projetos.
-            </p>
-            
-            <motion.button
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.98 }}
-              className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold px-8 py-4 rounded-2xl shadow-lg transition-all duration-300"
-            >
-              Agendar Tour Técnico
-            </motion.button>
+          <div className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/20 rounded-full px-4 py-2 mb-4">
+            <Award className="w-4 h-4 text-green-500" />
+            <span className="text-sm font-semibold text-green-500">
+              Qualidade Garantida
+            </span>
           </div>
+          <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
+            Pronto para começar?
+          </h3>
+          <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
+            Escolha o plano ideal e tenha seu servidor rodando em minutos.
+          </p>
         </motion.div>
+
       </div>
     </section>
   );

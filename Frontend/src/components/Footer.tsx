@@ -124,7 +124,7 @@ const Footer = memo(() => {
       {/* Background Effects */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
-          className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-r from-primary/5 to-green-500/5 rounded-full blur-3xl"
+          className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-r from-green-500/5 to-green-600/5 rounded-full blur-3xl"
           animate={{
             scale: [1, 1.2, 1],
             opacity: [0.3, 0.5, 0.3],
@@ -136,7 +136,7 @@ const Footer = memo(() => {
           }}
         />
         <motion.div
-          className="absolute bottom-0 right-1/4 w-80 h-80 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-full blur-3xl"
+          className="absolute bottom-0 right-1/4 w-80 h-80 bg-gradient-to-r from-green-500/5 to-green-500/10 rounded-full blur-3xl"
           animate={{
             scale: [1.2, 1, 1.2],
             opacity: [0.2, 0.4, 0.2],
@@ -165,10 +165,10 @@ const Footer = memo(() => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="inline-flex items-center space-x-2 bg-gradient-to-r from-primary/10 to-green-500/10 border border-primary/20 rounded-full px-6 py-3 mb-6"
+              className="inline-flex items-center space-x-2 bg-gradient-to-r from-green-500/10 to-green-600/10 border border-green-500/20 rounded-full px-6 py-3 mb-6"
             >
-              <Mail className="h-5 w-5 text-primary" />
-              <span className="text-sm font-semibold text-primary">
+              <Mail className="h-5 w-5 text-green-500" />
+              <span className="text-sm font-semibold text-green-500">
                 Newsletter AplotCloud
               </span>
             </motion.div>
@@ -205,14 +205,14 @@ const Footer = memo(() => {
                 <input
                   type="email"
                   placeholder="Seu melhor email"
-                  className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
+                  className="w-full px-4 py-3 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
                 />
               </div>
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Button className="bg-gradient-to-r from-primary to-green-500 hover:from-primary/90 hover:to-green-500/90 px-6 py-3 rounded-xl">
+                <Button className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-500/90 hover:to-green-600/90 px-6 py-3 rounded-xl">
                   <Send className="h-4 w-4 mr-2" />
                   Assinar
                 </Button>
@@ -240,13 +240,13 @@ const Footer = memo(() => {
                 className="flex items-center space-x-3 mb-6"
               >
                 <motion.div
-                  className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-green-600"
+                  className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-green-500 to-green-600"
                   whileHover={{ scale: 1.1, rotate: 5 }}
                 >
                   <Cloud className="h-6 w-6 text-white" />
                 </motion.div>
                 <span className="text-2xl font-bold text-foreground">
-                  Aplot<span className="text-primary">Cloud</span>
+                  Aplot<span className="text-green-500">Cloud</span>
                 </span>
               </motion.div>
 
@@ -271,7 +271,7 @@ const Footer = memo(() => {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
-                    className="flex items-center space-x-3 text-muted-foreground hover:text-primary transition-colors duration-200 group"
+                    className="flex items-center space-x-3 text-muted-foreground hover:text-green-500 transition-colors duration-200 group"
                   >
                     <motion.div
                       className="w-5 h-5 flex items-center justify-center"
@@ -307,7 +307,7 @@ const Footer = memo(() => {
                     >
                       <motion.a
                         href={link.href}
-                        className="flex items-center space-x-2 text-muted-foreground hover:text-primary transition-colors duration-200 group"
+                        className="flex items-center space-x-2 text-muted-foreground hover:text-green-500 transition-colors duration-200 group"
                         whileHover={{ x: 4 }}
                       >
                         <link.icon className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
@@ -371,7 +371,7 @@ const Footer = memo(() => {
                   transition={{ delay: 0.7 + index * 0.1 }}
                   whileHover={{ scale: 1.2, y: -2 }}
                   whileTap={{ scale: 0.9 }}
-                  className={`w-10 h-10 rounded-xl bg-gradient-to-r from-card/60 to-card/30 border border-border/30 flex items-center justify-center text-muted-foreground ${social.color} transition-all duration-200 hover:border-primary/30`}
+                  className={`w-10 h-10 rounded-xl bg-gradient-to-r from-card/60 to-card/30 border border-border/30 flex items-center justify-center text-muted-foreground ${social.color} transition-all duration-200 hover:border-green-500/30`}
                 >
                   <social.icon className="h-5 w-5" />
                 </motion.a>

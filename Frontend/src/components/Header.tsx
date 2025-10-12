@@ -122,17 +122,17 @@ const Header = () => {
             whileTap={{ scale: 0.95 }}
           >
             <motion.div
-              className="relative flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-green-600"
+              className="relative flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-green-500 to-green-600"
               whileHover={{ 
                 rotate: 360,
                 scale: 1.1,
-                boxShadow: "0 0 20px rgba(16, 185, 129, 0.5)"
+                boxShadow: "0 0 20px rgba(34, 197, 94, 0.5)"
               }}
               animate={{
                 boxShadow: [
-                  "0 0 0px rgba(16, 185, 129, 0.0)",
-                  "0 0 8px rgba(16, 185, 129, 0.3)",
-                  "0 0 0px rgba(16, 185, 129, 0.0)"
+                  "0 0 0px rgba(34, 197, 94, 0.0)",
+                  "0 0 8px rgba(34, 197, 94, 0.3)",
+                  "0 0 0px rgba(34, 197, 94, 0.0)"
                 ],
                 scale: [1, 1.02, 1],
                 rotate: [0, 2, 0, -2, 0]
@@ -140,22 +140,22 @@ const Header = () => {
               transition={{
                 // Animações contínuas
                 boxShadow: {
-                  duration: 4,
+                  duration: 3,
                   repeat: Infinity,
                   ease: "easeInOut"
                 },
                 scale: {
-                  duration: 5,
+                  duration: 4,
                   repeat: Infinity,
                   ease: "easeInOut"
                 },
                 rotate: {
-                  duration: 6,
+                  duration: 5,
                   repeat: Infinity,
                   ease: "easeInOut"
                 },
                 // Transições de hover
-                default: { duration: 0.3, ease: "easeInOut" }
+                default: { duration: 0.2, ease: "easeInOut" }
               }}
             >
               <motion.div
@@ -176,7 +176,7 @@ const Header = () => {
               className="text-xl font-bold text-foreground"
               whileHover={{ 
                 scale: 1.02,
-                textShadow: "0 0 8px rgba(16, 185, 129, 0.3)"
+                textShadow: "0 0 8px rgba(34, 197, 94, 0.3)"
               }}
               animate={{
                 y: [0, -1, 0],
@@ -184,17 +184,17 @@ const Header = () => {
               }}
               transition={{
                 y: {
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                },
-                opacity: {
                   duration: 3,
                   repeat: Infinity,
                   ease: "easeInOut"
                 },
-                scale: { duration: 0.2 },
-                textShadow: { duration: 0.2 }
+                opacity: {
+                  duration: 2.5,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                },
+                scale: { duration: 0.15 },
+                textShadow: { duration: 0.15 }
               }}
             >
               <motion.span
@@ -205,13 +205,13 @@ const Header = () => {
                 Aplot
               </motion.span>
               <motion.span 
-                className="text-primary"
+                className="text-green-500"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.3 }}
+                transition={{ delay: 0.4, duration: 0.2 }}
                 whileHover={{ 
                   scale: 1.1,
-                  color: "#10b981"
+                  color: "#22c55e"
                 }}
               >
                 Cloud
@@ -223,15 +223,15 @@ const Header = () => {
           <nav className="hidden md:flex items-center space-x-8">
             <motion.a
               href="/"
-              className="relative text-muted-foreground hover:text-primary transition-colors duration-100 px-2 py-1"
+              className="relative text-muted-foreground hover:text-green-500 transition-colors duration-75 px-2 py-1"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               <span className="relative z-10">Início</span>
               <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-primary/10 to-green-500/10 rounded-lg opacity-0"
+                className="absolute inset-0 bg-gradient-to-r from-green-500/10 to-green-500/5 rounded-lg opacity-0"
                 whileHover={{ opacity: 1, scale: 1.1 }}
-                transition={{ duration: 0.1 }}
+                transition={{ duration: 0.05 }}
               />
             </motion.a>
 
@@ -243,22 +243,22 @@ const Header = () => {
                   setIsClientAreaOpen(false);
                   setIsSupportOpen(false);
                 }}
-                className="relative flex items-center space-x-1 text-muted-foreground hover:text-primary transition-colors duration-100 px-2 py-1"
+                className="relative flex items-center space-x-1 text-muted-foreground hover:text-green-500 transition-colors duration-75 px-2 py-1"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <span className="relative z-10">Hospedagem</span>
                 <motion.div
                   animate={{ rotate: isHostingOpen ? 180 : 0 }}
-                  transition={{ duration: 0.1 }}
+                  transition={{ duration: 0.05 }}
                   className="relative z-10"
                 >
                   <ChevronDown className="h-4 w-4" />
                 </motion.div>
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-primary/10 to-green-500/10 rounded-lg opacity-0"
+                  className="absolute inset-0 bg-gradient-to-r from-green-500/10 to-green-500/5 rounded-lg opacity-0"
                   whileHover={{ opacity: 1, scale: 1.1 }}
-                  transition={{ duration: 0.1 }}
+                  transition={{ duration: 0.05 }}
                 />
               </motion.button>
 
@@ -268,14 +268,14 @@ const Header = () => {
                     initial={{ opacity: 0, y: 10, scale: 0.95 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                    transition={{ duration: 0.1 }}
-                    className="absolute left-0 top-full mt-2 w-96 rounded-xl border border-border/40 bg-gradient-to-br from-background/95 to-background/80 backdrop-blur-xl p-4 shadow-2xl shadow-primary/10"
+                    transition={{ duration: 0.05 }}
+                    className="absolute left-0 top-full mt-2 w-96 rounded-xl border border-green-500/20 bg-gradient-to-br from-background/95 to-background/80 backdrop-blur-xl p-4 shadow-2xl shadow-green-500/10"
                     onMouseLeave={() => setIsHostingOpen(false)}
                   >
                     <div className="grid gap-2">
                       <div className="mb-2">
-                        <h3 className="text-sm font-semibold text-primary mb-1">Soluções de Hospedagem</h3>
-                        <div className="h-px bg-gradient-to-r from-primary/50 to-transparent"></div>
+                        <h3 className="text-sm font-semibold text-green-500 mb-1">Soluções de Hospedagem</h3>
+                        <div className="h-px bg-gradient-to-r from-green-500/50 to-transparent"></div>
                       </div>
                       {hostingOptions.map((option, index) => (
                         <motion.a
@@ -283,26 +283,26 @@ const Header = () => {
                           href={option.href}
                           initial={{ opacity: 0, x: -10 }}
                           animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.02 }}
-                          className="group flex items-start space-x-4 rounded-xl p-4 hover:bg-gradient-to-r hover:from-primary/5 hover:to-green-500/5 transition-all duration-150 border border-transparent hover:border-primary/20"
+                          transition={{ delay: index * 0.01 }}
+                          className="group flex items-start space-x-4 rounded-xl p-4 hover:bg-gradient-to-r hover:from-green-500/5 hover:to-green-500/3 transition-all duration-75 border border-transparent hover:border-green-500/20"
                           whileHover={{ scale: 1.02, x: 4 }}
                           whileTap={{ scale: 0.98 }}
                         >
                           <motion.div 
-                            className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary/10 to-green-500/10 group-hover:from-primary/20 group-hover:to-green-500/20 transition-all duration-150"
+                            className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-green-500/10 to-green-500/5 group-hover:from-green-500/20 group-hover:to-green-500/10 transition-all duration-75"
                             whileHover={{ rotate: 5, scale: 1.1 }}
                           >
-                            <option.icon className="h-6 w-6 text-primary group-hover:text-green-400 transition-colors duration-150" />
+                            <option.icon className="h-6 w-6 text-green-500 group-hover:text-green-400 transition-colors duration-75" />
                           </motion.div>
                           <div className="flex-1">
-                            <h4 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors duration-150">
+                            <h4 className="text-sm font-semibold text-foreground group-hover:text-green-500 transition-colors duration-75">
                               {option.title}
                             </h4>
-                            <p className="text-xs text-muted-foreground mt-1 group-hover:text-foreground/80 transition-colors duration-150">
+                            <p className="text-xs text-muted-foreground mt-1 group-hover:text-foreground/80 transition-colors duration-75">
                               {option.description}
                             </p>
-                            <div className="flex items-center mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-150">
-                              <span className="text-xs text-primary font-medium">Saiba mais</span>
+                            <div className="flex items-center mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-75">
+                              <span className="text-xs text-green-500 font-medium">Saiba mais</span>
                               <motion.div
                                 initial={{ x: 0 }}
                                 whileHover={{ x: 4 }}
@@ -322,15 +322,15 @@ const Header = () => {
 
             <motion.a
               href="/sobre"
-              className="relative text-muted-foreground hover:text-primary transition-colors duration-100 px-2 py-1"
+              className="relative text-muted-foreground hover:text-green-500 transition-colors duration-75 px-2 py-1"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               <span className="relative z-10">Sobre</span>
               <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-primary/10 to-green-500/10 rounded-lg opacity-0"
+                className="absolute inset-0 bg-gradient-to-r from-green-500/10 to-green-500/5 rounded-lg opacity-0"
                 whileHover={{ opacity: 1, scale: 1.1 }}
-                transition={{ duration: 0.1 }}
+                transition={{ duration: 0.05 }}
               />
             </motion.a>
 
@@ -342,22 +342,22 @@ const Header = () => {
                   setIsHostingOpen(false);
                   setIsClientAreaOpen(false);
                 }}
-                className="relative flex items-center space-x-1 text-muted-foreground hover:text-primary transition-colors duration-100 px-2 py-1"
+                className="relative flex items-center space-x-1 text-muted-foreground hover:text-green-500 transition-colors duration-75 px-2 py-1"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <span className="relative z-10">Suporte</span>
                 <motion.div
                   animate={{ rotate: isSupportOpen ? 180 : 0 }}
-                  transition={{ duration: 0.1 }}
+                  transition={{ duration: 0.05 }}
                   className="relative z-10"
                 >
                   <ChevronDown className="h-4 w-4" />
                 </motion.div>
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-primary/10 to-green-500/10 rounded-lg opacity-0"
+                  className="absolute inset-0 bg-gradient-to-r from-green-500/10 to-green-500/5 rounded-lg opacity-0"
                   whileHover={{ opacity: 1, scale: 1.1 }}
-                  transition={{ duration: 0.1 }}
+                  transition={{ duration: 0.05 }}
                 />
               </motion.button>
 
@@ -367,14 +367,14 @@ const Header = () => {
                     initial={{ opacity: 0, y: 10, scale: 0.95 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                    transition={{ duration: 0.1 }}
-                    className="absolute left-0 top-full mt-2 w-96 rounded-xl border border-border/40 bg-gradient-to-br from-background/95 to-background/80 backdrop-blur-xl p-4 shadow-2xl shadow-primary/10"
+                    transition={{ duration: 0.05 }}
+                    className="absolute left-0 top-full mt-2 w-96 rounded-xl border border-green-500/20 bg-gradient-to-br from-background/95 to-background/80 backdrop-blur-xl p-4 shadow-2xl shadow-green-500/10"
                     onMouseLeave={() => setIsSupportOpen(false)}
                   >
                     <div className="grid gap-2">
                       <div className="mb-2">
-                        <h3 className="text-sm font-semibold text-primary mb-1">Central de Suporte</h3>
-                        <div className="h-px bg-gradient-to-r from-primary/50 to-transparent"></div>
+                        <h3 className="text-sm font-semibold text-green-500 mb-1">Central de Suporte</h3>
+                        <div className="h-px bg-gradient-to-r from-green-500/50 to-transparent"></div>
                       </div>
                       {supportOptions.map((option, index) => (
                         <motion.a
@@ -382,26 +382,26 @@ const Header = () => {
                           href={option.href}
                           initial={{ opacity: 0, x: -10 }}
                           animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.02 }}
-                          className="group flex items-start space-x-4 rounded-xl p-4 hover:bg-gradient-to-r hover:from-primary/5 hover:to-green-500/5 transition-all duration-150 border border-transparent hover:border-primary/20"
+                          transition={{ delay: index * 0.01 }}
+                          className="group flex items-start space-x-4 rounded-xl p-4 hover:bg-gradient-to-r hover:from-green-500/5 hover:to-green-500/3 transition-all duration-75 border border-transparent hover:border-green-500/20"
                           whileHover={{ scale: 1.02, x: 4 }}
                           whileTap={{ scale: 0.98 }}
                         >
                           <motion.div 
-                            className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary/10 to-green-500/10 group-hover:from-primary/20 group-hover:to-green-500/20 transition-all duration-150"
+                            className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-green-500/10 to-green-500/5 group-hover:from-green-500/20 group-hover:to-green-500/10 transition-all duration-75"
                             whileHover={{ rotate: 5, scale: 1.1 }}
                           >
-                            <option.icon className="h-6 w-6 text-primary group-hover:text-green-400 transition-colors duration-150" />
+                            <option.icon className="h-6 w-6 text-green-500 group-hover:text-green-400 transition-colors duration-75" />
                           </motion.div>
                           <div className="flex-1">
-                            <h4 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors duration-150">
+                            <h4 className="text-sm font-semibold text-foreground group-hover:text-green-500 transition-colors duration-75">
                               {option.title}
                             </h4>
-                            <p className="text-xs text-muted-foreground mt-1 group-hover:text-foreground/80 transition-colors duration-150">
+                            <p className="text-xs text-muted-foreground mt-1 group-hover:text-foreground/80 transition-colors duration-75">
                               {option.description}
                             </p>
-                            <div className="flex items-center mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-150">
-                              <span className="text-xs text-primary font-medium">Acessar</span>
+                            <div className="flex items-center mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-75">
+                              <span className="text-xs text-green-500 font-medium">Acessar</span>
                               <motion.div
                                 initial={{ x: 0 }}
                                 whileHover={{ x: 4 }}
@@ -431,7 +431,7 @@ const Header = () => {
                   setIsHostingOpen(false);
                   setIsSupportOpen(false);
                 }}
-                className="relative flex items-center space-x-2 text-muted-foreground hover:text-primary transition-colors duration-200 px-2 py-1"
+                className="relative flex items-center space-x-2 text-muted-foreground hover:text-green-500 transition-colors duration-75 px-2 py-1"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -439,15 +439,15 @@ const Header = () => {
                 <span className="relative z-10">Área do Cliente</span>
                 <motion.div
                   animate={{ rotate: isClientAreaOpen ? 180 : 0 }}
-                  transition={{ duration: 0.1 }}
+                  transition={{ duration: 0.05 }}
                   className="relative z-10"
                 >
                   <ChevronDown className="h-4 w-4" />
                 </motion.div>
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-primary/10 to-green-500/10 rounded-lg opacity-0"
+                  className="absolute inset-0 bg-gradient-to-r from-green-500/10 to-green-500/5 rounded-lg opacity-0"
                   whileHover={{ opacity: 1, scale: 1.1 }}
-                  transition={{ duration: 0.1 }}
+                  transition={{ duration: 0.05 }}
                 />
               </motion.button>
 
@@ -457,14 +457,14 @@ const Header = () => {
                     initial={{ opacity: 0, y: 10, scale: 0.95 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                    transition={{ duration: 0.1 }}
-                    className="absolute right-0 top-full mt-2 w-80 rounded-xl border border-border/40 bg-gradient-to-br from-background/95 to-background/80 backdrop-blur-xl p-4 shadow-2xl shadow-primary/10"
+                    transition={{ duration: 0.05 }}
+                    className="absolute right-0 top-full mt-2 w-80 rounded-xl border border-green-500/20 bg-gradient-to-br from-background/95 to-background/80 backdrop-blur-xl p-4 shadow-2xl shadow-green-500/10"
                     onMouseLeave={() => setIsClientAreaOpen(false)}
                   >
                     <div className="grid gap-2">
                       <div className="mb-2">
-                        <h3 className="text-sm font-semibold text-primary mb-1">Área do Cliente</h3>
-                        <div className="h-px bg-gradient-to-r from-primary/50 to-transparent"></div>
+                        <h3 className="text-sm font-semibold text-green-500 mb-1">Área do Cliente</h3>
+                        <div className="h-px bg-gradient-to-r from-green-500/50 to-transparent"></div>
                       </div>
                       {clientAreaOptions.map((option, index) => (
                         <motion.a
@@ -472,35 +472,35 @@ const Header = () => {
                           href={option.href}
                           initial={{ opacity: 0, x: 10 }}
                           animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.02 }}
-                          className="group flex items-center space-x-4 rounded-xl p-4 hover:bg-gradient-to-r hover:from-primary/5 hover:to-green-500/5 transition-all duration-150 border border-transparent hover:border-primary/20"
+                          transition={{ delay: index * 0.01 }}
+                          className="group flex items-center space-x-4 rounded-xl p-4 hover:bg-gradient-to-r hover:from-green-500/5 hover:to-green-500/3 transition-all duration-75 border border-transparent hover:border-green-500/20"
                           whileHover={{ scale: 1.02, x: -4 }}
                           whileTap={{ scale: 0.98 }}
                         >
                           <motion.div 
-                            className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary/10 to-green-500/10 group-hover:from-primary/20 group-hover:to-green-500/20 transition-all duration-150"
+                            className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-green-500/10 to-green-500/5 group-hover:from-green-500/20 group-hover:to-green-500/10 transition-all duration-75"
                             whileHover={{ rotate: -5, scale: 1.1 }}
                           >
-                            <option.icon className="h-5 w-5 text-primary group-hover:text-green-400 transition-colors duration-150" />
+                            <option.icon className="h-5 w-5 text-green-500 group-hover:text-green-400 transition-colors duration-75" />
                           </motion.div>
                           <div className="flex-1">
-                            <h4 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors duration-150">
+                            <h4 className="text-sm font-semibold text-foreground group-hover:text-green-500 transition-colors duration-75">
                               {option.title}
                             </h4>
-                            <p className="text-xs text-muted-foreground mt-1 group-hover:text-foreground/80 transition-colors duration-150">
+                            <p className="text-xs text-muted-foreground mt-1 group-hover:text-foreground/80 transition-colors duration-75">
                               {option.description}
                             </p>
                           </div>
                           <motion.div
                             initial={{ x: 0 }}
                             whileHover={{ x: -4 }}
-                            className="opacity-0 group-hover:opacity-100 transition-opacity duration-150"
+                            className="opacity-0 group-hover:opacity-100 transition-opacity duration-75"
                           >
                             ←
                           </motion.div>
                         </motion.a>
                       ))}
-                      <div className="border-t border-primary/20 pt-4 mt-2">
+                      <div className="border-t border-green-500/20 pt-4 mt-2">
                         <motion.div
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
@@ -508,7 +508,7 @@ const Header = () => {
                           <Button
                             variant="outline"
                             size="sm"
-                            className="w-full justify-center bg-gradient-to-r from-primary/10 to-green-500/10 border-primary/30 hover:from-primary/20 hover:to-green-500/20 hover:border-primary/50 transition-all duration-150"
+                            className="w-full justify-center bg-gradient-to-r from-green-500/10 to-green-500/5 border-green-500/30 hover:from-green-500/20 hover:to-green-500/10 hover:border-green-500/50 transition-all duration-75"
                           >
                             <LogIn className="h-4 w-4 mr-2" />
                             <span className="font-medium">Fazer Login</span>
@@ -524,7 +524,7 @@ const Header = () => {
             {/* Mobile Menu Button */}
             <motion.button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden flex items-center justify-center w-8 h-8 rounded-md hover:bg-accent transition-colors duration-200"
+              className="md:hidden flex items-center justify-center w-8 h-8 rounded-md hover:bg-green-500/10 transition-colors duration-75"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -535,7 +535,7 @@ const Header = () => {
                     initial={{ rotate: -90, opacity: 0 }}
                     animate={{ rotate: 0, opacity: 1 }}
                     exit={{ rotate: 90, opacity: 0 }}
-                    transition={{ duration: 0.1 }}
+                    transition={{ duration: 0.05 }}
                   >
                     <X className="h-5 w-5" />
                   </motion.div>
@@ -545,7 +545,7 @@ const Header = () => {
                     initial={{ rotate: 90, opacity: 0 }}
                     animate={{ rotate: 0, opacity: 1 }}
                     exit={{ rotate: -90, opacity: 0 }}
-                    transition={{ duration: 0.1 }}
+                    transition={{ duration: 0.05 }}
                   >
                     <Menu className="h-5 w-5" />
                   </motion.div>
@@ -562,16 +562,16 @@ const Header = () => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.15 }}
-              className="md:hidden border-t border-border overflow-hidden"
+              transition={{ duration: 0.1 }}
+              className="md:hidden border-t border-green-500/20 overflow-hidden"
             >
               <div className="py-4 space-y-2">
                 <motion.a
                   href="/"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.1 }}
-                  className="block px-2 py-2 text-muted-foreground hover:text-primary transition-colors duration-100"
+                  transition={{ delay: 0.05 }}
+                  className="block px-2 py-2 text-muted-foreground hover:text-green-500 transition-colors duration-75"
                 >
                   Início
                 </motion.a>
@@ -580,7 +580,7 @@ const Header = () => {
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.15 }}
+                  transition={{ delay: 0.1 }}
                 >
                   <button
                     onClick={() => {
@@ -588,12 +588,12 @@ const Header = () => {
                       setIsClientAreaOpen(false);
                       setIsSupportOpen(false);
                     }}
-                    className="flex w-full items-center justify-between px-2 py-2 text-muted-foreground hover:text-primary transition-colors duration-100"
+                    className="flex w-full items-center justify-between px-2 py-2 text-muted-foreground hover:text-green-500 transition-colors duration-75"
                   >
                     <span>Hospedagem</span>
                     <motion.div
                       animate={{ rotate: isHostingOpen ? 180 : 0 }}
-                      transition={{ duration: 0.1 }}
+                      transition={{ duration: 0.05 }}
                     >
                       <ChevronDown className="h-4 w-4" />
                     </motion.div>
@@ -612,8 +612,8 @@ const Header = () => {
                             href={option.href}
                             initial={{ opacity: 0, x: -10 }}
                             animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: index * 0.02 }}
-                            className="flex items-center space-x-3 px-2 py-3 text-sm text-muted-foreground hover:text-primary transition-colors duration-100"
+                            transition={{ delay: index * 0.01 }}
+                            className="flex items-center space-x-3 px-2 py-3 text-sm text-muted-foreground hover:text-green-500 transition-colors duration-75"
                           >
                             <option.icon className="h-4 w-4" />
                             <span>{option.title}</span>
@@ -628,8 +628,8 @@ const Header = () => {
                   href="/sobre"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.2 }}
-                  className="block px-2 py-2 text-muted-foreground hover:text-primary transition-colors duration-100"
+                  transition={{ delay: 0.15 }}
+                  className="block px-2 py-2 text-muted-foreground hover:text-green-500 transition-colors duration-75"
                 >
                   Sobre
                 </motion.a>
@@ -646,12 +646,12 @@ const Header = () => {
                       setIsHostingOpen(false);
                       setIsClientAreaOpen(false);
                     }}
-                    className="flex w-full items-center justify-between px-2 py-2 text-muted-foreground hover:text-primary transition-colors duration-100"
+                    className="flex w-full items-center justify-between px-2 py-2 text-muted-foreground hover:text-green-500 transition-colors duration-75"
                   >
                     <span>Suporte</span>
                     <motion.div
                       animate={{ rotate: isSupportOpen ? 180 : 0 }}
-                      transition={{ duration: 0.1 }}
+                      transition={{ duration: 0.05 }}
                     >
                       <ChevronDown className="h-4 w-4" />
                     </motion.div>
@@ -670,8 +670,8 @@ const Header = () => {
                             href={option.href}
                             initial={{ opacity: 0, x: -10 }}
                             animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: index * 0.02 }}
-                            className="flex items-center space-x-3 px-2 py-3 text-sm text-muted-foreground hover:text-primary transition-colors duration-100"
+                            transition={{ delay: index * 0.01 }}
+                            className="flex items-center space-x-3 px-2 py-3 text-sm text-muted-foreground hover:text-green-500 transition-colors duration-75"
                           >
                             <option.icon className="h-4 w-4" />
                             <span>{option.title}</span>
@@ -688,7 +688,7 @@ const Header = () => {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.25 }}
-                  className="border-t border-border pt-4 mt-4"
+                  className="border-t border-green-500/20 pt-4 mt-4"
                 >
                   <button
                     onClick={() => {
@@ -696,7 +696,7 @@ const Header = () => {
                       setIsHostingOpen(false);
                       setIsSupportOpen(false);
                     }}
-                    className="flex w-full items-center justify-between px-2 py-2 text-muted-foreground hover:text-primary transition-colors duration-100"
+                    className="flex w-full items-center justify-between px-2 py-2 text-muted-foreground hover:text-green-500 transition-colors duration-75"
                   >
                     <div className="flex items-center space-x-2">
                       <User className="h-4 w-4" />
@@ -704,7 +704,7 @@ const Header = () => {
                     </div>
                     <motion.div
                       animate={{ rotate: isClientAreaOpen ? 180 : 0 }}
-                      transition={{ duration: 0.1 }}
+                      transition={{ duration: 0.05 }}
                     >
                       <ChevronDown className="h-4 w-4" />
                     </motion.div>
@@ -723,8 +723,8 @@ const Header = () => {
                             href={option.href}
                             initial={{ opacity: 0, x: -10 }}
                             animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: index * 0.02 }}
-                            className="flex items-center space-x-3 px-2 py-3 text-sm text-muted-foreground hover:text-primary transition-colors duration-100"
+                            transition={{ delay: index * 0.01 }}
+                            className="flex items-center space-x-3 px-2 py-3 text-sm text-muted-foreground hover:text-green-500 transition-colors duration-75"
                           >
                             <option.icon className="h-4 w-4" />
                             <span>{option.title}</span>
@@ -733,13 +733,13 @@ const Header = () => {
                         <motion.div
                           initial={{ opacity: 0, x: -10 }}
                           animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: 0.1 }}
+                          transition={{ delay: 0.05 }}
                           className="px-2 py-2"
                         >
                           <Button
                             variant="outline"
                             size="sm"
-                            className="w-full justify-start"
+                            className="w-full justify-start border-green-500/30 text-green-500 hover:bg-green-500/10 hover:border-green-500/50 transition-all duration-75"
                           >
                             <LogIn className="h-4 w-4 mr-2" />
                             Fazer Login

@@ -10,93 +10,100 @@ import {
   Globe, 
   TrendingUp,
   CheckCircle,
-  Star
+  Star,
+  Server,
+  Users,
+  Award,
+  Building2,
+  Activity
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Hero = memo(() => {
   const features = [
     { icon: Zap, text: "99.9% Uptime Garantido" },
-    { icon: Shield, text: "Segurança SSL Grátis" },
-    { icon: Globe, text: "CDN Global Incluído" },
-    { icon: TrendingUp, text: "Escalabilidade Automática" }
+    { icon: Shield, text: "Segurança Enterprise" },
+    { icon: Globe, text: "CDN Global Premium" },
+    { icon: TrendingUp, text: "Escalabilidade Ilimitada" }
   ];
 
-  const stats = [
-    { number: "99.9%", label: "Uptime" },
-    { number: "24/7", label: "Suporte" },
-    { number: "100%", label: "Brasil" },
-    { number: "Premium", label: "Qualidade" }
+
+  const capabilities = [
+    { icon: Activity, label: "99.9% Uptime", description: "SLA Garantido" },
+    { icon: Users, label: "Suporte 24/7", description: "Equipe especializada" },
+    { icon: Award, label: "Tecnologia Premium", description: "Hardware de ponta" },
+    { icon: Building2, label: "Escalabilidade", description: "Cresça sem limites" }
   ];
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-background to-primary/5">
+    <section className="relative py-12 md:py-20 flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-background to-green-500/5">
       {/* Background Effects */}
       <div className="absolute inset-0">
-        {/* Optimized Animated Gradient Orbs */}
+        {/* Enterprise-grade Background Orbs */}
         <motion.div
-          className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-r from-primary/15 to-green-500/15 rounded-full blur-3xl"
+          className="absolute top-20 left-10 w-80 h-80 bg-gradient-to-r from-green-500/20 to-green-500/10 rounded-full blur-3xl"
           animate={{
-            scale: [1, 1.1, 1],
-            opacity: [0.3, 0.5, 0.3],
+            scale: [1, 1.2, 1],
+            opacity: [0.4, 0.6, 0.4],
           }}
           transition={{
-            duration: 8,
+            duration: 12,
             repeat: Infinity,
             ease: "easeInOut"
           }}
         />
         <motion.div
-          className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-r from-green-500/10 to-primary/10 rounded-full blur-3xl"
+          className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-r from-green-500/15 to-green-500/5 rounded-full blur-3xl"
           animate={{
-            scale: [1.1, 1, 1.1],
-            opacity: [0.2, 0.4, 0.2],
+            scale: [1.2, 1, 1.2],
+            opacity: [0.3, 0.5, 0.3],
           }}
           transition={{
-            duration: 10,
+            duration: 15,
             repeat: Infinity,
             ease: "easeInOut",
-            delay: 2
+            delay: 3
           }}
         />
         
-        {/* Animated Floating Particles */}
-        {[...Array(4)].map((_, i) => (
+        {/* Enterprise Network Visualization */}
+        {[...Array(6)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-2 h-2 bg-primary/30 rounded-full"
+            className="absolute w-1 h-1 bg-green-500/40 rounded-full"
             style={{
-              left: `${25 + (i * 15)}%`,
-              top: `${35 + (i * 10)}%`,
+              left: `${20 + (i * 12)}%`,
+              top: `${30 + (i * 8)}%`,
             }}
             animate={{
-              y: [-10, -20, -10],
-              opacity: [0.3, 0.7, 0.3],
+              y: [-15, -25, -15],
+              opacity: [0.4, 0.8, 0.4],
+              scale: [1, 1.2, 1],
             }}
             transition={{
-              duration: 3 + i * 0.5,
+              duration: 4 + i * 0.3,
               repeat: Infinity,
               ease: "easeInOut",
-              delay: i * 0.5
+              delay: i * 0.4
             }}
           />
         ))}
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left Content */}
-          <div className="space-y-8">
-            {/* Badge */}
+          <div className="space-y-4 md:space-y-6">
+            {/* Technology Badge */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="inline-flex items-center space-x-2 bg-gradient-to-r from-primary/10 to-green-500/10 border border-primary/20 rounded-full px-4 py-2"
+              className="inline-flex items-center space-x-2 bg-gradient-to-r from-green-500/10 to-green-500/5 border border-green-500/20 rounded-full px-3 py-1.5 md:px-4 md:py-2"
             >
-              <Star className="h-4 w-4 text-primary" />
-              <span className="text-sm font-medium text-primary">
-                #1 em Cloud Computing no Brasil
+              <Zap className="h-3 w-3 md:h-4 md:w-4 text-green-500" />
+              <span className="text-xs md:text-sm font-semibold text-green-500">
+                Tecnologia Cloud de Última Geração
               </span>
             </motion.div>
 
@@ -105,19 +112,19 @@ const Hero = memo(() => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="space-y-4"
+              className="space-y-3 md:space-y-4"
             >
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
                 <span className="text-foreground">Hospedagem</span>
                 <br />
-                <span className="bg-gradient-to-r from-primary to-green-400 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-green-500 to-green-400 bg-clip-text text-transparent">
                   Cloud Premium
                 </span>
                 <br />
-                <span className="text-foreground">para seu</span>
+                <span className="text-foreground">para</span>
                 <br />
                 <motion.span
-                  className="text-primary"
+                  className="text-green-500"
                   animate={{ 
                     scale: [1, 1.02, 1],
                   }}
@@ -127,7 +134,7 @@ const Hero = memo(() => {
                     ease: "easeInOut"
                   }}
                 >
-                  Sucesso
+                  Seu Sucesso
                 </motion.span>
               </h1>
             </motion.div>
@@ -137,19 +144,19 @@ const Hero = memo(() => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed"
+              className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-xl leading-relaxed"
             >
-              Transforme seu negócio com nossa infraestrutura cloud de última geração. 
-              Performance excepcional, segurança avançada e suporte 24/7 para levar 
-              seus projetos ao próximo nível.
+              Infraestrutura cloud enterprise construída com 
+              <span className="text-green-500 font-semibold"> tecnologia de ponta</span> 
+              e foco em performance, segurança e escalabilidade.
             </motion.p>
 
-            {/* Features List */}
+            {/* Enterprise Features */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="grid grid-cols-2 gap-4"
+              className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4"
             >
               {features.map((feature, index) => (
                 <motion.div
@@ -157,27 +164,27 @@ const Hero = memo(() => {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
-                  className="flex items-center space-x-3 group"
+                  className="flex items-center space-x-2 md:space-x-3 group"
                 >
                   <motion.div
-                    className="flex items-center justify-center w-8 h-8 bg-gradient-to-r from-primary/20 to-green-500/20 rounded-lg"
+                    className="flex items-center justify-center w-7 h-7 md:w-8 md:h-8 bg-gradient-to-r from-green-500/20 to-green-500/10 rounded-lg border border-green-500/20"
                     whileHover={{ scale: 1.1, rotate: 5 }}
                   >
-                    <feature.icon className="h-4 w-4 text-primary" />
+                    <feature.icon className="h-3.5 w-3.5 md:h-4 md:w-4 text-green-500" />
                   </motion.div>
-                  <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
+                  <span className="text-xs md:text-sm font-semibold text-foreground group-hover:text-green-500 transition-colors">
                     {feature.text}
                   </span>
                 </motion.div>
               ))}
             </motion.div>
 
-            {/* CTA Buttons */}
+            {/* Premium CTA Buttons */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.0 }}
-              className="flex flex-col sm:flex-row gap-4"
+              className="flex flex-col sm:flex-row gap-3 md:gap-4"
             >
               <motion.div
                 whileHover={{ scale: 1.05 }}
@@ -185,14 +192,14 @@ const Hero = memo(() => {
               >
                 <Button 
                   size="lg" 
-                  className="group bg-gradient-to-r from-primary to-green-500 hover:from-primary/90 hover:to-green-500/90 text-white font-semibold px-8 py-6 text-lg shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all duration-300"
+                  className="group bg-gradient-to-r from-green-500 to-green-600 hover:from-green-500/90 hover:to-green-600/90 text-white font-bold px-6 py-3 md:px-8 md:py-4 text-base md:text-lg shadow-xl shadow-green-500/25 hover:shadow-green-500/40 transition-all duration-300 w-full sm:w-auto"
                 >
                   Começar Agora
                   <motion.div
                     animate={{ x: [0, 4, 0] }}
                     transition={{ duration: 2, repeat: Infinity }}
                   >
-                    <ArrowRight className="ml-2 h-5 w-5" />
+                    <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
                   </motion.div>
                 </Button>
               </motion.div>
@@ -204,144 +211,143 @@ const Hero = memo(() => {
                 <Button 
                   variant="outline" 
                   size="lg"
-                  className="group border-primary/30 hover:border-primary/50 hover:bg-primary/5 font-semibold px-8 py-6 text-lg"
+                  className="group border-green-500/30 hover:border-green-500/50 hover:bg-green-500/5 font-bold px-6 py-3 md:px-8 md:py-4 text-base md:text-lg w-full sm:w-auto"
                 >
-                  <Play className="mr-2 h-5 w-5" />
-                  Ver Demo
+                  <Play className="mr-2 h-4 w-4 md:h-5 md:w-5" />
+                  Ver Demonstração
                 </Button>
               </motion.div>
             </motion.div>
 
-            {/* Trust Indicators */}
+            {/* Technology Highlights */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.2 }}
-              className="flex items-center space-x-6 pt-8"
+              className="flex flex-col sm:flex-row items-start sm:items-center space-y-3 sm:space-y-0 sm:space-x-4 md:space-x-6 pt-4 md:pt-6"
             >
               <div className="flex items-center space-x-2">
-                <div className="flex -space-x-2">
-                  {[...Array(4)].map((_, i) => (
-                    <div
-                      key={i}
-                      className="w-8 h-8 bg-gradient-to-r from-primary to-green-500 rounded-full border-2 border-background"
-                    />
-                  ))}
+                <div className="w-6 h-6 md:w-8 md:h-8 bg-gradient-to-r from-green-500/20 to-green-500/10 rounded-lg flex items-center justify-center border border-green-500/20">
+                  <Shield className="h-3 w-3 md:h-4 md:w-4 text-green-500" />
                 </div>
-                <span className="text-sm text-muted-foreground ml-3">
-                  Qualidade garantida
-                </span>
+                <div>
+                  <div className="text-xs md:text-sm font-semibold text-foreground">Segurança Enterprise</div>
+                  <div className="text-xs text-muted-foreground">Criptografia de ponta a ponta</div>
+                </div>
               </div>
-              <div className="flex items-center space-x-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-primary text-primary" />
-                ))}
-                <span className="text-sm text-muted-foreground ml-2">4.9/5</span>
+              <div className="flex items-center space-x-2">
+                <div className="w-6 h-6 md:w-8 md:h-8 bg-gradient-to-r from-green-500/20 to-green-500/10 rounded-lg flex items-center justify-center border border-green-500/20">
+                  <Zap className="h-3 w-3 md:h-4 md:w-4 text-green-500" />
+                </div>
+                <div>
+                  <div className="text-xs md:text-sm font-semibold text-foreground">Performance Premium</div>
+                  <div className="text-xs text-muted-foreground">Hardware de última geração</div>
+                </div>
               </div>
             </motion.div>
           </div>
 
-          {/* Right Content - Visual Elements */}
-          <div className="relative lg:pl-8">
-            {/* Main Visual Card */}
+          {/* Right Content - Enterprise Dashboard */}
+          <div className="relative lg:pl-8 mt-8 lg:mt-0">
+            {/* Main Enterprise Dashboard */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8, rotateY: 15 }}
               animate={{ opacity: 1, scale: 1, rotateY: 0 }}
               transition={{ duration: 1, delay: 0.5 }}
               className="relative"
             >
-              {/* Dashboard Mockup */}
-              <div className="relative bg-gradient-to-br from-card to-card/50 border border-border/40 rounded-2xl p-6 shadow-2xl shadow-primary/10 backdrop-blur-sm">
+              {/* Enterprise Dashboard */}
+              <div className="relative bg-gradient-to-br from-card to-card/80 border border-green-500/20 rounded-xl md:rounded-2xl p-4 md:p-6 shadow-xl shadow-green-500/10 backdrop-blur-sm">
                 {/* Header */}
-                <div className="flex items-center justify-between mb-6">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                    <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                <div className="flex items-center justify-between mb-4 md:mb-6">
+                  <div className="flex items-center space-x-1.5 md:space-x-2">
+                    <div className="w-2.5 h-2.5 md:w-3 md:h-3 bg-red-500 rounded-full"></div>
+                    <div className="w-2.5 h-2.5 md:w-3 md:h-3 bg-yellow-500 rounded-full"></div>
+                    <div className="w-2.5 h-2.5 md:w-3 md:h-3 bg-green-500 rounded-full"></div>
                   </div>
-                  <div className="text-xs text-muted-foreground">dashboard.aplotcloud.com</div>
+                  <div className="text-xs text-muted-foreground font-mono hidden sm:block">dashboard.aplotcloud.com</div>
                 </div>
 
-                {/* Stats Cards */}
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                  {stats.map((stat, index) => (
+                {/* Technology Capabilities Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mb-4 md:mb-6">
+                  {capabilities.map((capability, index) => (
                     <motion.div
-                      key={stat.label}
+                      key={capability.label}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.5, delay: 1 + index * 0.1 }}
-                      className="bg-gradient-to-br from-primary/5 to-green-500/5 border border-primary/10 rounded-xl p-4"
+                      className="bg-gradient-to-br from-green-500/10 to-green-500/5 border border-green-500/20 rounded-lg md:rounded-xl p-3 md:p-4"
                     >
-                      <motion.div
-                        className="text-2xl font-bold text-primary"
-                        animate={{ scale: [1, 1.05, 1] }}
-                        transition={{ duration: 2, repeat: Infinity, delay: index * 0.3 }}
-                      >
-                        {stat.number}
-                      </motion.div>
-                      <div className="text-xs text-muted-foreground">{stat.label}</div>
+                      <div className="flex items-center space-x-2 mb-1.5 md:mb-2">
+                        <div className="w-5 h-5 md:w-6 md:h-6 bg-green-500/20 rounded-md flex items-center justify-center">
+                          <capability.icon className="h-2.5 w-2.5 md:h-3 md:w-3 text-green-500" />
+                        </div>
+                        <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">{capability.label}</span>
+                      </div>
+                      <div className="text-xs text-foreground font-medium">{capability.description}</div>
                     </motion.div>
                   ))}
                 </div>
 
+
                 {/* Performance Chart */}
-                <div className="bg-gradient-to-r from-primary/10 to-green-500/10 rounded-xl p-4">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-sm font-medium text-foreground">Performance</span>
-                    <span className="text-xs text-primary">↗ +15.3%</span>
+                <div className="bg-gradient-to-r from-green-500/10 to-green-500/5 border border-green-500/20 rounded-lg md:rounded-xl p-3 md:p-4">
+                  <div className="flex items-center justify-between mb-2 md:mb-3">
+                    <span className="text-sm md:text-base font-bold text-foreground">Monitoramento em Tempo Real</span>
+                    <span className="text-xs text-green-500 font-semibold">Estável</span>
                   </div>
-                  <div className="flex items-end space-x-1 h-16">
+                  <div className="flex items-end space-x-0.5 md:space-x-1 h-12 md:h-16">
                     {[...Array(12)].map((_, i) => (
                       <motion.div
                         key={i}
-                        className="bg-gradient-to-t from-primary to-green-400 rounded-sm flex-1"
+                        className="bg-gradient-to-t from-green-500 to-green-400 rounded-sm flex-1"
                         initial={{ height: 0 }}
-                        animate={{ height: `${Math.random() * 100}%` }}
-                        transition={{ duration: 0.5, delay: 1.5 + i * 0.1 }}
+                        animate={{ height: `${60 + Math.random() * 40}%` }}
+                        transition={{ duration: 0.5, delay: 2 + i * 0.05 }}
                       />
                     ))}
                   </div>
                 </div>
               </div>
 
-                          {/* Animated Floating Elements */}
-            <motion.div
-              className="absolute -top-4 -right-4 bg-gradient-to-r from-primary to-green-500 text-white p-3 rounded-xl shadow-lg"
-              animate={{
-                y: [0, -8, 0],
-                rotate: [0, 3, 0]
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            >
-              <CheckCircle className="h-6 w-6" />
-            </motion.div>
+              {/* Floating Enterprise Elements */}
+              <motion.div
+                className="absolute -top-3 -right-3 md:-top-4 md:-right-4 bg-gradient-to-r from-green-500 to-green-600 text-white p-2 md:p-3 rounded-lg md:rounded-xl shadow-xl"
+                animate={{
+                  y: [0, -8, 0],
+                  rotate: [0, 5, 0]
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              >
+                <CheckCircle className="h-4 w-4 md:h-6 md:w-6" />
+              </motion.div>
 
-            <motion.div
-              className="absolute -bottom-4 -left-4 bg-card border border-border rounded-xl p-3 shadow-lg"
-              animate={{
-                y: [0, 8, 0],
-                rotate: [0, -3, 0]
-              }}
-              transition={{
-                duration: 5,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 1
-              }}
-            >
-              <Zap className="h-6 w-6 text-primary" />
-            </motion.div>
+              <motion.div
+                className="absolute -bottom-3 -left-3 md:-bottom-4 md:-left-4 bg-card border border-green-500/30 rounded-lg md:rounded-xl p-2 md:p-3 shadow-xl"
+                animate={{
+                  y: [0, 8, 0],
+                  rotate: [0, -5, 0]
+                }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 1
+                }}
+              >
+                <Server className="h-4 w-4 md:h-6 md:w-6 text-green-500" />
+              </motion.div>
             </motion.div>
           </div>
         </div>
       </div>
 
-      {/* Bottom Gradient */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent"></div>
+      {/* Bottom Enterprise Gradient */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background via-background/95 to-transparent"></div>
     </section>
   );
 });
