@@ -10,7 +10,6 @@ import {
   Globe, 
   TrendingUp,
   CheckCircle,
-  Star,
   Server,
   Users,
   Award,

@@ -11,12 +11,8 @@ import {
   Award,
   Lock,
   RefreshCw,
-  Headphones,
-  ArrowRight,
-  CheckCircle,
   Sparkles,
   Users,
-  BarChart3,
   Server,
   TrendingUp,
   Activity

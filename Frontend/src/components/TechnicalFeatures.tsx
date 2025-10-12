@@ -12,9 +12,7 @@ import {
   CheckCircle,
   Sparkles,
   Award,
-  Users,
-  TrendingUp,
-  Server
+  Users
 } from 'lucide-react';
 
 const TechnicalFeatures = memo(() => {
