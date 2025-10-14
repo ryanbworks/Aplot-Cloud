@@ -392,7 +392,7 @@ export default function DashboardPage() {
                   { name: 'Servidores', status: 'online' },
                   { name: 'Painel de Controle', status: 'online' },
                   { name: 'API', status: 'online' },
-                ].map((item, index) => (
+                ].map((item) => (
                   <div
                     key={item.name}
                     className="flex items-center justify-between text-sm"

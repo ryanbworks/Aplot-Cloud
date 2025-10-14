@@ -6,7 +6,6 @@ import { ExternalLink, Power, MoreVertical, Calendar, Server } from 'lucide-reac
 import { Button } from '@/components/ui/button';
 
 interface ServiceCardProps {
-  id: string;
   name: string;
   type: 'minecraft' | 'discord-bot' | 'vps' | 'website';
   status: 'online' | 'offline' | 'suspended';
@@ -56,7 +55,6 @@ const statusConfig = {
 };
 
 export const ServiceCard: React.FC<ServiceCardProps> = ({
-  id,
   name,
   type,
   status,

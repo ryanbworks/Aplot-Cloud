@@ -108,7 +108,7 @@ export default function RegisterPage() {
                   ))}
                 </div>
                 <p className="text-foreground font-medium mb-3">
-                  "A melhor hospedagem que já usei! Rápida, confiável e com suporte excepcional."
+                  &quot;A melhor hospedagem que já usei! Rápida, confiável e com suporte excepcional.&quot;
                 </p>
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-green-500/20 rounded-full flex items-center justify-center text-green-500 font-bold">

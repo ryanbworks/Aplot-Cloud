@@ -9,7 +9,6 @@ import {
   Users,
   Settings,
   LogIn,
-  User,
   Menu,
   X,
   Ticket,
@@ -25,7 +24,6 @@ import { Button } from '@/components/ui/button';
 
 const Header = () => {
   const [isHostingOpen, setIsHostingOpen] = useState(false);
-  const [isClientAreaOpen, setIsClientAreaOpen] = useState(false);
   const [isSupportOpen, setIsSupportOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -56,21 +54,6 @@ const Header = () => {
     },
   ];
 
-  const clientAreaOptions = [
-    {
-      title: 'Painel de Controle',
-      description: 'Gerencie seus serviços',
-      icon: Settings,
-      href: '/cliente/painel',
-    },
-    {
-      title: 'Suporte Técnico',
-      description: 'Central de ajuda 24/7',
-      icon: Users,
-      href: '/cliente/suporte',
-    },
-  ];
-
   const supportOptions = [
     {
       title: 'Abrir Ticket',
@@ -96,7 +79,7 @@ const Header = () => {
     <>
       {/* Backdrop para dropdowns */}
       <AnimatePresence>
-        {(isHostingOpen || isClientAreaOpen || isSupportOpen) && (
+        {(isHostingOpen || isSupportOpen) && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -104,7 +87,6 @@ const Header = () => {
             className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm"
             onClick={() => {
               setIsHostingOpen(false);
-              setIsClientAreaOpen(false);
               setIsSupportOpen(false);
             }}
           />
@@ -242,7 +224,6 @@ const Header = () => {
               <motion.button
                 onClick={() => {
                   setIsHostingOpen(!isHostingOpen);
-                  setIsClientAreaOpen(false);
                   setIsSupportOpen(false);
                 }}
                 className="relative flex items-center space-x-1 text-muted-foreground hover:text-green-500 transition-colors duration-75 px-2 py-1"
@@ -342,7 +323,6 @@ const Header = () => {
                 onClick={() => {
                   setIsSupportOpen(!isSupportOpen);
                   setIsHostingOpen(false);
-                  setIsClientAreaOpen(false);
                 }}
                 className="relative flex items-center space-x-1 text-muted-foreground hover:text-green-500 transition-colors duration-75 px-2 py-1"
                 whileHover={{ scale: 1.05 }}
@@ -523,7 +503,6 @@ const Header = () => {
                   <button
                     onClick={() => {
                       setIsHostingOpen(!isHostingOpen);
-                      setIsClientAreaOpen(false);
                       setIsSupportOpen(false);
                     }}
                     className="flex w-full items-center justify-between px-2 py-2 text-muted-foreground hover:text-green-500 transition-colors duration-75"
@@ -582,7 +561,6 @@ const Header = () => {
                     onClick={() => {
                       setIsSupportOpen(!isSupportOpen);
                       setIsHostingOpen(false);
-                      setIsClientAreaOpen(false);
                     }}
                     className="flex w-full items-center justify-between px-2 py-2 text-muted-foreground hover:text-green-500 transition-colors duration-75"
                   >

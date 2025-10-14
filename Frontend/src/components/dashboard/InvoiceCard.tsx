@@ -6,7 +6,6 @@ import { FileText, Download, CheckCircle, Clock, XCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface InvoiceCardProps {
-  id: string;
   date: string;
   amount: number;
   status: 'paid' | 'pending' | 'overdue';
@@ -39,7 +38,6 @@ const statusConfig = {
 };
 
 export const InvoiceCard: React.FC<InvoiceCardProps> = ({
-  id,
   date,
   amount,
   status,
