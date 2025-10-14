@@ -1,17 +1,37 @@
-# Dockerfile para desenvolvimento
-FROM node:18-alpine
+# ============================================
+# Dockerfile de Desenvolvimento - Aplot Frontend
+# ============================================
+# Configuração otimizada para desenvolvimento com hot-reload
+
+FROM node:20-alpine
 
 WORKDIR /app
 
-# Instalar dependências
+# Instalar dependências do sistema
+RUN apk add --no-cache libc6-compat git
+
+# Variáveis de ambiente de desenvolvimento
+ENV NODE_ENV=development
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV PORT=3000
+ENV HOSTNAME=0.0.0.0
+
+# Copiar arquivos de dependências
 COPY package.json package-lock.json ./
+
+# Instalar todas as dependências
 RUN npm ci
 
-# Copiar código fonte
+# Copiar o resto da aplicação
 COPY . .
 
 # Expor porta
 EXPOSE 3000
 
-# Comando para desenvolvimento
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+  CMD node -e "require('http').get('http://localhost:3000/api/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})" || exit 1
+
+# Comando de inicialização
 CMD ["npm", "run", "dev"]
+

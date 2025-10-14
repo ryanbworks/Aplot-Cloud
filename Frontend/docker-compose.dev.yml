@@ -1,0 +1,43 @@
+version: '3.9'
+
+# ============================================
+# Docker Compose - Desenvolvimento
+# ============================================
+
+services:
+  # ==========================================
+  # Frontend - Modo Desenvolvimento
+  # ==========================================
+  frontend:
+    container_name: aplot-frontend-dev
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - NEXT_TELEMETRY_DISABLED=1
+    env_file:
+      - .env.local
+    volumes:
+      # Montar código fonte para hot-reload
+      - ./src:/app/src:cached
+      - ./public:/app/public:cached
+      - ./next.config.ts:/app/next.config.ts:cached
+      - ./tailwind.config.ts:/app/tailwind.config.ts:cached
+      - ./tsconfig.json:/app/tsconfig.json:cached
+      # Excluir node_modules e .next do volume
+      - /app/node_modules
+      - /app/.next
+    restart: unless-stopped
+    networks:
+      - aplot-network-dev
+    stdin_open: true
+    tty: true
+
+networks:
+  aplot-network-dev:
+    driver: bridge
+    name: aplot-network-dev
+
