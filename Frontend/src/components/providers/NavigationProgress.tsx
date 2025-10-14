@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, Suspense } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { PageLoader } from '@/components/ui/PageLoader';
 
@@ -16,7 +16,7 @@ const NavigationProgressContext = createContext<NavigationProgressContextType>({
 
 export const useNavigationProgress = () => useContext(NavigationProgressContext);
 
-export function NavigationProgressProvider({ children }: { children: React.ReactNode }) {
+function NavigationProgressContent({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(false);
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -38,6 +38,14 @@ export function NavigationProgressProvider({ children }: { children: React.React
       <PageLoader isLoading={isLoading} />
       {children}
     </NavigationProgressContext.Provider>
+  );
+}
+
+export function NavigationProgressProvider({ children }: { children: React.ReactNode }) {
+  return (
+    <Suspense fallback={<PageLoader isLoading={true} />}>
+      <NavigationProgressContent>{children}</NavigationProgressContent>
+    </Suspense>
   );
 }
 
