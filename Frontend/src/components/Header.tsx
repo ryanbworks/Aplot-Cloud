@@ -18,7 +18,9 @@ import {
   Gamepad2,
   Bot,
   Globe,
+  UserPlus,
 } from 'lucide-react';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
 const Header = () => {
@@ -421,104 +423,40 @@ const Header = () => {
 
           </nav>
 
-          {/* Área do Cliente e Mobile Menu */}
-          <div className="flex items-center space-x-4">
-            {/* Área do Cliente - Desktop */}
-            <div className="hidden md:block relative">
-              <motion.button
-                onClick={() => {
-                  setIsClientAreaOpen(!isClientAreaOpen);
-                  setIsHostingOpen(false);
-                  setIsSupportOpen(false);
-                }}
-                className="relative flex items-center space-x-2 text-muted-foreground hover:text-green-500 transition-colors duration-75 px-2 py-1"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <User className="h-4 w-4 relative z-10" />
-                <span className="relative z-10">Área do Cliente</span>
+          {/* Botões de Autenticação e Mobile Menu */}
+          <div className="flex items-center space-x-3">
+            {/* Botões de Auth - Desktop */}
+            <div className="hidden md:flex items-center space-x-3">
+              <Link href="/auth/login">
                 <motion.div
-                  animate={{ rotate: isClientAreaOpen ? 180 : 0 }}
-                  transition={{ duration: 0.05 }}
-                  className="relative z-10"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  <ChevronDown className="h-4 w-4" />
-                </motion.div>
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-green-500/10 to-green-500/5 rounded-lg opacity-0"
-                  whileHover={{ opacity: 1, scale: 1.1 }}
-                  transition={{ duration: 0.05 }}
-                />
-              </motion.button>
-
-              <AnimatePresence>
-                {isClientAreaOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                    transition={{ duration: 0.05 }}
-                    className="absolute right-0 top-full mt-2 w-80 rounded-xl border border-green-500/20 bg-gradient-to-br from-background/95 to-background/80 backdrop-blur-xl p-4 shadow-2xl shadow-green-500/10"
-                    onMouseLeave={() => setIsClientAreaOpen(false)}
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-muted-foreground hover:text-green-500 hover:bg-green-500/10 transition-all duration-200"
                   >
-                    <div className="grid gap-2">
-                      <div className="mb-2">
-                        <h3 className="text-sm font-semibold text-green-500 mb-1">Área do Cliente</h3>
-                        <div className="h-px bg-gradient-to-r from-green-500/50 to-transparent"></div>
-                      </div>
-                      {clientAreaOptions.map((option, index) => (
-                        <motion.a
-                          key={option.href}
-                          href={option.href}
-                          initial={{ opacity: 0, x: 10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.01 }}
-                          className="group flex items-center space-x-4 rounded-xl p-4 hover:bg-gradient-to-r hover:from-green-500/5 hover:to-green-500/3 transition-all duration-75 border border-transparent hover:border-green-500/20"
-                          whileHover={{ scale: 1.02, x: -4 }}
-                          whileTap={{ scale: 0.98 }}
-                        >
-                          <motion.div 
-                            className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-green-500/10 to-green-500/5 group-hover:from-green-500/20 group-hover:to-green-500/10 transition-all duration-75"
-                            whileHover={{ rotate: -5, scale: 1.1 }}
-                          >
-                            <option.icon className="h-5 w-5 text-green-500 group-hover:text-green-400 transition-colors duration-75" />
-                          </motion.div>
-                          <div className="flex-1">
-                            <h4 className="text-sm font-semibold text-foreground group-hover:text-green-500 transition-colors duration-75">
-                              {option.title}
-                            </h4>
-                            <p className="text-xs text-muted-foreground mt-1 group-hover:text-foreground/80 transition-colors duration-75">
-                              {option.description}
-                            </p>
-                          </div>
-                          <motion.div
-                            initial={{ x: 0 }}
-                            whileHover={{ x: -4 }}
-                            className="opacity-0 group-hover:opacity-100 transition-opacity duration-75"
-                          >
-                            ←
-                          </motion.div>
-                        </motion.a>
-                      ))}
-                      <div className="border-t border-green-500/20 pt-4 mt-2">
-                        <motion.div
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
-                        >
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="w-full justify-center bg-gradient-to-r from-green-500/10 to-green-500/5 border-green-500/30 hover:from-green-500/20 hover:to-green-500/10 hover:border-green-500/50 transition-all duration-75"
-                          >
-                            <LogIn className="h-4 w-4 mr-2" />
-                            <span className="font-medium">Fazer Login</span>
-                          </Button>
-                        </motion.div>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                    <LogIn className="h-4 w-4 mr-2" />
+                    Entrar
+                  </Button>
+                </motion.div>
+              </Link>
+
+              <Link href="/auth/register">
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Button
+                    size="sm"
+                    className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white shadow-lg shadow-green-500/20 transition-all duration-200"
+                  >
+                    <UserPlus className="h-4 w-4 mr-2" />
+                    Criar Conta
+                  </Button>
+                </motion.div>
+              </Link>
             </div>
 
             {/* Mobile Menu Button */}
@@ -683,71 +621,31 @@ const Header = () => {
                 </motion.div>
 
 
-                {/* Mobile Client Area */}
+                {/* Mobile Auth Buttons */}
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.25 }}
-                  className="border-t border-green-500/20 pt-4 mt-4"
+                  className="border-t border-green-500/20 pt-4 mt-4 space-y-3"
                 >
-                  <button
-                    onClick={() => {
-                      setIsClientAreaOpen(!isClientAreaOpen);
-                      setIsHostingOpen(false);
-                      setIsSupportOpen(false);
-                    }}
-                    className="flex w-full items-center justify-between px-2 py-2 text-muted-foreground hover:text-green-500 transition-colors duration-75"
-                  >
-                    <div className="flex items-center space-x-2">
-                      <User className="h-4 w-4" />
-                      <span>Área do Cliente</span>
-                    </div>
-                    <motion.div
-                      animate={{ rotate: isClientAreaOpen ? 180 : 0 }}
-                      transition={{ duration: 0.05 }}
+                  <Link href="/auth/login">
+                    <Button
+                      variant="outline"
+                      className="w-full justify-start border-green-500/30 text-green-500 hover:bg-green-500/10 hover:border-green-500/50 transition-all duration-200"
                     >
-                      <ChevronDown className="h-4 w-4" />
-                    </motion.div>
-                  </button>
-                  <AnimatePresence>
-                    {isClientAreaOpen && (
-                      <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        className="ml-4 overflow-hidden"
-                      >
-                        {clientAreaOptions.map((option, index) => (
-                          <motion.a
-                            key={option.href}
-                            href={option.href}
-                            initial={{ opacity: 0, x: -10 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: index * 0.01 }}
-                            className="flex items-center space-x-3 px-2 py-3 text-sm text-muted-foreground hover:text-green-500 transition-colors duration-75"
-                          >
-                            <option.icon className="h-4 w-4" />
-                            <span>{option.title}</span>
-                          </motion.a>
-                        ))}
-                        <motion.div
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: 0.05 }}
-                          className="px-2 py-2"
-                        >
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="w-full justify-start border-green-500/30 text-green-500 hover:bg-green-500/10 hover:border-green-500/50 transition-all duration-75"
-                          >
-                            <LogIn className="h-4 w-4 mr-2" />
-                            Fazer Login
-                          </Button>
-                        </motion.div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                      <LogIn className="h-4 w-4 mr-2" />
+                      Entrar
+                    </Button>
+                  </Link>
+
+                  <Link href="/auth/register">
+                    <Button
+                      className="w-full justify-start bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white shadow-lg shadow-green-500/20 transition-all duration-200"
+                    >
+                      <UserPlus className="h-4 w-4 mr-2" />
+                      Criar Conta
+                    </Button>
+                  </Link>
                 </motion.div>
               </div>
             </motion.div>
