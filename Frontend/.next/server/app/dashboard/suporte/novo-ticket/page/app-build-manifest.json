@@ -1,0 +1,20 @@
+{
+  "pages": {
+    "/dashboard/suporte/novo-ticket/page": [
+      "static/chunks/ff1a16fafef87110.js",
+      "static/chunks/7dd66bdf8a7e5707.js",
+      "static/chunks/2473c16c0c2f6b5f.css",
+      "static/chunks/956602f0b710fe5f.css",
+      "static/chunks/9927c138d87daa67.js",
+      "static/chunks/3303fc834eebc704.js",
+      "static/chunks/d78757ac722b935a.js",
+      "static/chunks/3dcd42307175bd43.js",
+      "static/chunks/3c55314d6dcaf3c9.js",
+      "static/chunks/aaea1e64ef7e0faa.js",
+      "static/chunks/569f8ca39997ccda.js",
+      "static/chunks/63dba52cde864d84.js",
+      "static/chunks/8082ab48faca5ea1.js",
+      "static/chunks/turbopack-068bb5fc05147710.js"
+    ]
+  }
+}
