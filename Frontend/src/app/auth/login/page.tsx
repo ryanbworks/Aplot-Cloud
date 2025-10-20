@@ -1,10 +1,49 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { LoginForm } from '@/components/auth/LoginForm';
-import { ArrowLeft, Sparkles } from 'lucide-react';
+import { ArrowLeft, Sparkles, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+
+// Componente separado para usar useSearchParams com Suspense
+function LoginMessage() {
+  const searchParams = useSearchParams();
+  const [showMessage, setShowMessage] = useState(false);
+  const message = searchParams.get('message');
+
+  useEffect(() => {
+    if (message) {
+      setShowMessage(true);
+      // Esconder a mensagem após 5 segundos
+      const timer = setTimeout(() => {
+        setShowMessage(false);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [message]);
+
+  if (!showMessage || !message) return null;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      className="relative z-20 p-6"
+    >
+      <div className="container mx-auto">
+        <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4 flex items-center gap-3">
+          <AlertCircle className="w-5 h-5 text-yellow-500 flex-shrink-0" />
+          <p className="text-sm text-yellow-700 dark:text-yellow-300">
+            {message}
+          </p>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
 
 export default function LoginPage() {
   return (
@@ -42,6 +81,11 @@ export default function LoginPage() {
           </Link>
         </div>
       </motion.header>
+
+      {/* Message Alert with Suspense */}
+      <Suspense fallback={null}>
+        <LoginMessage />
+      </Suspense>
 
       {/* Main Content */}
       <main className="flex-1 flex items-center justify-center p-6 relative z-10">
@@ -117,4 +161,3 @@ export default function LoginPage() {
     </div>
   );
 }
-

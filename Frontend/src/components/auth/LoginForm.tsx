@@ -6,22 +6,29 @@ import { Mail, Lock, LogIn, Eye, EyeOff, Sparkles } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/contexts/AuthContext';
 
 export const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+  const { login } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     
-    // Simulação de login
+    // Simulação de login - aceita qualquer email/senha
     await new Promise(resolve => setTimeout(resolve, 1500));
     
-    setIsLoading(false);
-    console.log('Login:', { email, password });
+    // Fazer login usando o contexto
+    login(email, password);
+    
+    // Redirecionar para o dashboard após login bem-sucedido
+    router.push('/dashboard');
   };
 
   return (

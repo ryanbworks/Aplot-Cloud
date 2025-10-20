@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
-import { NavigationProgressProvider } from "@/components/providers/NavigationProgress";
+import ConditionalHeader from "@/components/ConditionalHeader";
+import { AuthProvider } from "@/contexts/AuthContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,12 +29,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <NavigationProgressProvider>
-          <Header />
+        <AuthProvider>
+          <ConditionalHeader />
           <main className="min-h-screen">
             {children}
           </main>
-        </NavigationProgressProvider>
+        </AuthProvider>
       </body>
     </html>
   );

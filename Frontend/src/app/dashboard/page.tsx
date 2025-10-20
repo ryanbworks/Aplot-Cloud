@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Server, 
@@ -14,14 +14,27 @@ import {
   Sparkles,
   TrendingUp,
   AlertCircle,
+  MessageSquare,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { StatsCard } from '@/components/dashboard/StatsCard';
 import { ServiceCard } from '@/components/dashboard/ServiceCard';
 import { InvoiceCard } from '@/components/dashboard/InvoiceCard';
+import { PageLoader } from '@/components/ui/PageLoader';
 import Link from 'next/link';
 
 export default function DashboardPage() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Simular carregamento inicial do dashboard
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000); // 1 segundo de loading para simular carregamento de dados
+
+    return () => clearTimeout(timer);
+  }, []);
+
   // Mock data - em produção virá da API
   const stats = [
     {
@@ -129,6 +142,10 @@ export default function DashboardPage() {
       time: 'Há 5 horas',
     },
   ];
+
+  if (isLoading) {
+    return <PageLoader isLoading={true} />;
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-background to-green-500/5">
@@ -358,15 +375,26 @@ export default function DashboardPage() {
               <p className="text-sm text-muted-foreground mb-4">
                 Nossa equipe está pronta para te ajudar 24/7
               </p>
-              <Link href="/dashboard/suporte/novo-ticket">
-                <Button
-                  variant="outline"
-                  className="w-full border-green-500/30 hover:bg-green-500/10 hover:border-green-500/50"
-                >
-                  <Users className="w-4 h-4 mr-2" />
-                  Abrir Ticket
-                </Button>
-              </Link>
+              <div className="space-y-2">
+                <Link href="/dashboard/suporte/novo-ticket">
+                  <Button
+                    variant="outline"
+                    className="w-full border-green-500/30 hover:bg-green-500/10 hover:border-green-500/50"
+                  >
+                    <Users className="w-4 h-4 mr-2" />
+                    Novo Ticket
+                  </Button>
+                </Link>
+                <Link href="/dashboard/suporte/ticket">
+                  <Button
+                    variant="ghost"
+                    className="w-full text-green-500 hover:bg-green-500/10"
+                  >
+                    <MessageSquare className="w-4 h-4 mr-2" />
+                    Meus Tickets
+                  </Button>
+                </Link>
+              </div>
             </motion.div>
 
             {/* Status do Sistema */}
