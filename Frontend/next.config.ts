@@ -1,8 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Output standalone para Docker
-  output: 'standalone',
+  // Output standalone para Docker (desabilitado na Vercel)
+  ...(process.env.DOCKER_BUILD === 'true' && { output: 'standalone' }),
   
   // Performance optimizations
   experimental: {
