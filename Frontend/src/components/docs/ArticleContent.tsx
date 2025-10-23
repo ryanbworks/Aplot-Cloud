@@ -75,7 +75,7 @@ export function ArticleContent({ article, relatedArticles }: ArticleContentProps
                   </h3>
                 </div>
                 <div className="space-y-4">
-                  {relatedArticles.map((relatedArticle, index) => (
+                  {relatedArticles.map((relatedArticle) => (
                     <Link
                       key={relatedArticle.slug}
                       href={`/suporte/base-conhecimento/${relatedArticle.category}/${relatedArticle.slug}`}

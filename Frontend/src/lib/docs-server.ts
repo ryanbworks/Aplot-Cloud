@@ -1,15 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { 
-  Gamepad2, 
-  Bot, 
-  Server, 
-  Wallet, 
-  HelpCircle, 
-  Rocket,
-  type LucideIcon 
-} from 'lucide-react';
+// Icons are now stored as strings in the categories array
 import { Category, Article, SearchResult } from '@/types/docs';
 
 // Configuração das categorias

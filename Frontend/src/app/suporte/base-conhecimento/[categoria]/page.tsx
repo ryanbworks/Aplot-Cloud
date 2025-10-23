@@ -5,20 +5,21 @@ import { ArticlesList } from '@/components/docs/ArticlesList';
 import { getCategories, getArticlesByCategory } from '@/lib/docs-server';
 
 interface CategoryPageProps {
-  params: {
+  params: Promise<{
     categoria: string;
-  };
+  }>;
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
+  const { categoria } = await params;
   const categories = await getCategories();
-  const category = categories.find(cat => cat.id === params.categoria);
+  const category = categories.find(cat => cat.id === categoria);
   
   if (!category) {
     notFound();
   }
 
-  const articles = await getArticlesByCategory(params.categoria);
+  const articles = await getArticlesByCategory(categoria);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-background to-green-500/5">

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import { SearchResult, Article } from '@/types/docs';
 
 // Função para calcular tempo de leitura
 function calculateReadTime(content: string): number {
@@ -67,7 +68,7 @@ function getArticle(categoryId: string, slug: string) {
 // Função para buscar artigos
 function searchArticles(query: string) {
   const categories = ['primeiros-passos', 'minecraft', 'discord-bot', 'vps', 'faturamento', 'faq'];
-  const results = [];
+  const results: SearchResult[] = [];
   
   categories.forEach(categoryId => {
     const articles = getArticlesByCategory(categoryId);
@@ -81,12 +82,19 @@ function searchArticles(query: string) {
         let score = 0;
         if (article.title.toLowerCase().includes(queryLower)) score += 10;
         if (article.description.toLowerCase().includes(queryLower)) score += 5;
-        if (article.tags.some(tag => tag.toLowerCase().includes(queryLower))) score += 3;
+        if (article.tags.some((tag: string) => tag.toLowerCase().includes(queryLower))) score += 3;
         if (article.content.toLowerCase().includes(queryLower)) score += 1;
         
         results.push({
           article,
-          category: { id: categoryId, name: categoryId.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase()) },
+          category: { 
+            id: categoryId, 
+            name: categoryId.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase()),
+            icon: '',
+            description: '',
+            color: '',
+            articleCount: 0
+          },
           relevanceScore: score
         });
       }
@@ -127,7 +135,7 @@ export async function GET(request: Request) {
     
     // Todos os artigos
     const allCategories = ['primeiros-passos', 'minecraft', 'discord-bot', 'vps', 'faturamento', 'faq'];
-    const allArticles = [];
+    const allArticles: Article[] = [];
     
     allCategories.forEach(categoryId => {
       const articles = getArticlesByCategory(categoryId);

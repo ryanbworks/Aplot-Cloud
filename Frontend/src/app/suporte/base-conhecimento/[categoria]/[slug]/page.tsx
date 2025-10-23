@@ -5,21 +5,22 @@ import { ArticleContent } from '@/components/docs/ArticleContent';
 import { getArticle, getCategories, getRelatedArticles } from '@/lib/docs-server';
 
 interface ArticlePageProps {
-  params: {
+  params: Promise<{
     categoria: string;
     slug: string;
-  };
+  }>;
 }
 
 export default async function ArticlePage({ params }: ArticlePageProps) {
-  const article = await getArticle(params.categoria, params.slug);
+  const { categoria, slug } = await params;
+  const article = await getArticle(categoria, slug);
   
   if (!article) {
     notFound();
   }
 
   const categories = await getCategories();
-  const category = categories.find(cat => cat.id === params.categoria);
+  const category = categories.find(cat => cat.id === categoria);
   const relatedArticles = await getRelatedArticles(article, 3);
 
   return (

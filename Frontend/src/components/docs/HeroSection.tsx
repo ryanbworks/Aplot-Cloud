@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { BookOpen, Search } from 'lucide-react';
+import { BookOpen } from 'lucide-react';
 import { SearchBar } from './SearchBar';
 
 interface HeroSectionProps {

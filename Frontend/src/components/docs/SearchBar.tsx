@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, X, Clock, ArrowRight, BookOpen } from 'lucide-react';
 import { SearchResult } from '@/types/docs';
@@ -43,6 +43,14 @@ export function SearchBar({ onResultClick, placeholder = "Buscar na base de conh
     return () => clearTimeout(timeoutId);
   }, [query]);
 
+  const handleResultClick = useCallback(() => {
+    onResultClick?.();
+    setIsOpen(false);
+    setQuery('');
+    setSelectedIndex(-1);
+    // Navigation will be handled by the Link component
+  }, [onResultClick]);
+
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -64,7 +72,7 @@ export function SearchBar({ onResultClick, placeholder = "Buscar na base de conh
         case 'Enter':
           e.preventDefault();
           if (selectedIndex >= 0 && results[selectedIndex]) {
-            handleResultClick(results[selectedIndex]);
+            handleResultClick();
           }
           break;
         case 'Escape':
@@ -77,7 +85,7 @@ export function SearchBar({ onResultClick, placeholder = "Buscar na base de conh
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, selectedIndex, results]);
+  }, [isOpen, selectedIndex, results, handleResultClick]);
 
   // Global keyboard shortcut (Ctrl+K)
   useEffect(() => {
@@ -91,14 +99,6 @@ export function SearchBar({ onResultClick, placeholder = "Buscar na base de conh
     document.addEventListener('keydown', handleGlobalKeyDown);
     return () => document.removeEventListener('keydown', handleGlobalKeyDown);
   }, []);
-
-  const handleResultClick = (result: SearchResult) => {
-    onResultClick?.();
-    setIsOpen(false);
-    setQuery('');
-    setSelectedIndex(-1);
-    // Navigation will be handled by the Link component
-  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
@@ -167,7 +167,7 @@ export function SearchBar({ onResultClick, placeholder = "Buscar na base de conh
                 <motion.a
                   key={`${result.article.category}-${result.article.slug}`}
                   href={`/suporte/base-conhecimento/${result.article.category}/${result.article.slug}`}
-                  onClick={() => handleResultClick(result)}
+                  onClick={() => handleResultClick()}
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.02 }}

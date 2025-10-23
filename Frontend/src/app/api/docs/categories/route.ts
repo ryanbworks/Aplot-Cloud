@@ -2,15 +2,7 @@ import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { 
-  Gamepad2, 
-  Bot, 
-  Server, 
-  Wallet, 
-  HelpCircle, 
-  Rocket,
-  type LucideIcon 
-} from 'lucide-react';
+// Icons are stored as strings in the categories array
 
 // Configuração das categorias
 const categories = [

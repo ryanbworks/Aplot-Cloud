@@ -239,6 +239,7 @@ export function MarkdownRenderer({ content, className = "" }: MarkdownRendererPr
           // Enhanced images
           img: ({ src, alt, ...props }) => (
             <div className="my-8 flex justify-center">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={src}
                 alt={alt}

@@ -97,7 +97,7 @@ export function ArticleHeader({ article, categoryName }: ArticleHeaderProps) {
                 transition={{ delay: 0.6, duration: 0.5 }}
                 className="flex flex-wrap gap-3"
               >
-                {article.tags.map((tag, index) => (
+                {article.tags.map((tag) => (
                   <span
                     key={tag}
                     className="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-green-300 bg-gradient-to-r from-green-500/20 to-green-400/10 rounded-xl border border-green-500/30 hover:border-green-400/50 hover:bg-gradient-to-r hover:from-green-500/30 hover:to-green-400/20 transition-all duration-200"
