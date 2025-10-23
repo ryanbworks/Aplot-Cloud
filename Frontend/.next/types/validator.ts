@@ -101,6 +101,36 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   handler satisfies AppPageConfig<"/status">
 }
 
+// Validate ../../src/app/suporte/base-conhecimento/[categoria]/[slug]/page.tsx
+{
+  const handler = {} as typeof import("../../src/app/suporte/base-conhecimento/[categoria]/[slug]/page.js")
+  handler satisfies AppPageConfig<"/suporte/base-conhecimento/[categoria]/[slug]">
+}
+
+// Validate ../../src/app/suporte/base-conhecimento/[categoria]/page.tsx
+{
+  const handler = {} as typeof import("../../src/app/suporte/base-conhecimento/[categoria]/page.js")
+  handler satisfies AppPageConfig<"/suporte/base-conhecimento/[categoria]">
+}
+
+// Validate ../../src/app/suporte/base-conhecimento/page.tsx
+{
+  const handler = {} as typeof import("../../src/app/suporte/base-conhecimento/page.js")
+  handler satisfies AppPageConfig<"/suporte/base-conhecimento">
+}
+
+// Validate ../../src/app/api/docs/articles/route.ts
+{
+  const handler = {} as typeof import("../../src/app/api/docs/articles/route.js")
+  handler satisfies RouteHandlerConfig<"/api/docs/articles">
+}
+
+// Validate ../../src/app/api/docs/categories/route.ts
+{
+  const handler = {} as typeof import("../../src/app/api/docs/categories/route.js")
+  handler satisfies RouteHandlerConfig<"/api/docs/categories">
+}
+
 // Validate ../../src/app/api/health/route.ts
 {
   const handler = {} as typeof import("../../src/app/api/health/route.js")

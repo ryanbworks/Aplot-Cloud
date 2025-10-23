@@ -77,7 +77,7 @@ const Header = () => {
     <>
       {/* Backdrop para dropdowns */}
       <AnimatePresence>
-        {(isHostingOpen || isSupportOpen) && (
+        {(isHostingOpen || isSupportOpen || isMobileMenuOpen) && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -86,6 +86,7 @@ const Header = () => {
             onClick={() => {
               setIsHostingOpen(false);
               setIsSupportOpen(false);
+              setIsMobileMenuOpen(false);
             }}
           />
         )}
@@ -488,6 +489,11 @@ const Header = () => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.05 }}
                   className="block px-2 py-2 text-muted-foreground hover:text-green-500 transition-colors duration-75"
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    setIsHostingOpen(false);
+                    setIsSupportOpen(false);
+                  }}
                 >
                   Início
                 </motion.a>
@@ -529,6 +535,11 @@ const Header = () => {
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: index * 0.01 }}
                             className="flex items-center space-x-3 px-2 py-3 text-sm text-muted-foreground hover:text-green-500 transition-colors duration-75"
+                            onClick={() => {
+                              setIsMobileMenuOpen(false);
+                              setIsHostingOpen(false);
+                              setIsSupportOpen(false);
+                            }}
                           >
                             <option.icon className="h-4 w-4" />
                             <span>{option.title}</span>
@@ -545,6 +556,11 @@ const Header = () => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.15 }}
                   className="block px-2 py-2 text-muted-foreground hover:text-green-500 transition-colors duration-75"
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    setIsHostingOpen(false);
+                    setIsSupportOpen(false);
+                  }}
                 >
                   Sobre
                 </motion.a>
@@ -586,6 +602,11 @@ const Header = () => {
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: index * 0.01 }}
                             className="flex items-center space-x-3 px-2 py-3 text-sm text-muted-foreground hover:text-green-500 transition-colors duration-75"
+                            onClick={() => {
+                              setIsMobileMenuOpen(false);
+                              setIsHostingOpen(false);
+                              setIsSupportOpen(false);
+                            }}
                           >
                             <option.icon className="h-4 w-4" />
                             <span>{option.title}</span>
@@ -608,6 +629,11 @@ const Header = () => {
                     <Button
                       variant="outline"
                       className="w-full justify-start border-green-500/30 text-green-500 hover:bg-green-500/10 hover:border-green-500/50 transition-all duration-200"
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        setIsHostingOpen(false);
+                        setIsSupportOpen(false);
+                      }}
                     >
                       <LogIn className="h-4 w-4 mr-2" />
                       Entrar
@@ -617,6 +643,11 @@ const Header = () => {
                   <Link href="/auth/register">
                     <Button
                       className="w-full justify-start bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white shadow-lg shadow-green-500/20 transition-all duration-200"
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        setIsHostingOpen(false);
+                        setIsSupportOpen(false);
+                      }}
                     >
                       <UserPlus className="h-4 w-4 mr-2" />
                       Criar Conta
