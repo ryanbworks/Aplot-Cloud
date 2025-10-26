@@ -9,8 +9,6 @@ import {
   Activity,
   Plus,
   Bell,
-  Settings,
-  LogOut,
   Sparkles,
   TrendingUp,
   AlertCircle,
@@ -20,6 +18,7 @@ import { Button } from '@/components/ui/button';
 import { StatsCard } from '@/components/dashboard/StatsCard';
 import { ServiceCard } from '@/components/dashboard/ServiceCard';
 import { InvoiceCard } from '@/components/dashboard/InvoiceCard';
+import { UserMenu } from '@/components/dashboard/UserMenu';
 import { PageLoader } from '@/components/ui/PageLoader';
 import Link from 'next/link';
 
@@ -194,27 +193,7 @@ export default function DashboardPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.3 }}
               >
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="border-border hover:bg-muted"
-                >
-                  <Settings className="w-4 h-4" />
-                </Button>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.4 }}
-              >
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="text-muted-foreground hover:text-red-500"
-                >
-                  <LogOut className="w-4 h-4" />
-                </Button>
+                <UserMenu userName="Ryan" userEmail="ryan@aplotcloud.com" />
               </motion.div>
             </div>
           </div>

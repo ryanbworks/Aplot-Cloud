@@ -1,1 +1,4 @@
-"use strict";(()=>{var a={};a.id=636,a.ids=[636],a.modules={8732:a=>{a.exports=require("react/jsx-runtime")},82015:a=>{a.exports=require("react")}};var b=require("../webpack-runtime.js");b.C(a);var c=b.X(0,[96],()=>b(b.s=625));module.exports=c})();
+var R=require("../chunks/ssr/[turbopack]_runtime.js")("server/pages/_app.js")
+R.c("server/chunks/ssr/[root-of-the-server]__70a73b34._.js")
+R.m("[project]/node_modules/next/app.js [ssr] (ecmascript)")
+module.exports=R.m("[project]/node_modules/next/app.js [ssr] (ecmascript)").exports

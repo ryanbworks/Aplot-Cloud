@@ -1,19 +1,11 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
-  "/api/docs/categories/route": "app/api/docs/categories/route.js",
-  "/api/health/route": "app/api/health/route.js",
-  "/api/docs/articles/route": "app/api/docs/articles/route.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
   "/auth/login/page": "app/auth/login/page.js",
-  "/auth/register/page": "app/auth/register/page.js",
+  "/dashboard/configuracoes/page": "app/dashboard/configuracoes/page.js",
+  "/dashboard/conta/page": "app/dashboard/conta/page.js",
   "/dashboard/page": "app/dashboard/page.js",
-  "/dashboard/suporte/novo-ticket/page": "app/dashboard/suporte/novo-ticket/page.js",
-  "/dashboard/suporte/ticket/[id]/page": "app/dashboard/suporte/ticket/[id]/page.js",
-  "/dashboard/suporte/ticket/page": "app/dashboard/suporte/ticket/page.js",
-  "/hospedagem/minecraft/page": "app/hospedagem/minecraft/page.js",
+  "/dashboard/perfil/page": "app/dashboard/perfil/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
   "/page": "app/page.js",
-  "/suporte/base-conhecimento/[categoria]/[slug]/page": "app/suporte/base-conhecimento/[categoria]/[slug]/page.js",
-  "/status/page": "app/status/page.js",
-  "/suporte/base-conhecimento/[categoria]/page": "app/suporte/base-conhecimento/[categoria]/page.js",
   "/suporte/base-conhecimento/page": "app/suporte/base-conhecimento/page.js"
 }

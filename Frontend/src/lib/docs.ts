@@ -3,8 +3,12 @@ import { Category, Article, SearchResult } from '@/types/docs';
 // Função para obter todas as categorias
 export async function getCategories(): Promise<Category[]> {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-    const response = await fetch(`${baseUrl}/api/docs/categories`, { cache: 'no-store' });
+    const response = await fetch('/api/docs/categories', { 
+      cache: 'no-store',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
     if (!response.ok) throw new Error('Erro ao buscar categorias');
     return await response.json();
   } catch (error) {
@@ -16,8 +20,12 @@ export async function getCategories(): Promise<Category[]> {
 // Função para obter artigos de uma categoria
 export async function getArticlesByCategory(categoryId: string): Promise<Article[]> {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-    const response = await fetch(`${baseUrl}/api/docs/articles?category=${categoryId}`, { cache: 'no-store' });
+    const response = await fetch(`/api/docs/articles?category=${categoryId}`, { 
+      cache: 'no-store',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
     if (!response.ok) throw new Error('Erro ao buscar artigos');
     return await response.json();
   } catch (error) {
@@ -29,8 +37,12 @@ export async function getArticlesByCategory(categoryId: string): Promise<Article
 // Função para obter um artigo específico
 export async function getArticle(categoryId: string, slug: string): Promise<Article | null> {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-    const response = await fetch(`${baseUrl}/api/docs/articles?category=${categoryId}&slug=${slug}`, { cache: 'no-store' });
+    const response = await fetch(`/api/docs/articles?category=${categoryId}&slug=${slug}`, { 
+      cache: 'no-store',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
     if (!response.ok) return null;
     return await response.json();
   } catch (error) {
@@ -42,9 +54,18 @@ export async function getArticle(categoryId: string, slug: string): Promise<Arti
 // Função para buscar artigos
 export async function searchArticles(query: string): Promise<SearchResult[]> {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-    const response = await fetch(`${baseUrl}/api/docs/articles?search=${encodeURIComponent(query)}`, { cache: 'no-store' });
-    if (!response.ok) throw new Error('Erro ao buscar artigos');
+    // Use relative URL for internal API calls
+    const response = await fetch(`/api/docs/articles?search=${encodeURIComponent(query)}`, { 
+      cache: 'no-store',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
     return await response.json();
   } catch (error) {
     console.error('Erro ao buscar artigos:', error);
@@ -55,8 +76,12 @@ export async function searchArticles(query: string): Promise<SearchResult[]> {
 // Função para obter todos os artigos
 export async function getAllArticles(): Promise<Article[]> {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-    const response = await fetch(`${baseUrl}/api/docs/articles`, { cache: 'no-store' });
+    const response = await fetch('/api/docs/articles', { 
+      cache: 'no-store',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
     if (!response.ok) throw new Error('Erro ao buscar artigos');
     return await response.json();
   } catch (error) {
