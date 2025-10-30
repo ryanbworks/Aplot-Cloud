@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   User, 
   Mail, 
@@ -14,16 +14,17 @@ import {
   Bell,
   Save,
   ArrowLeft,
-  Settings
+  Settings,
+  ChevronRight,
+  Sparkles
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { PageLoader } from '@/components/ui/PageLoader';
 import Link from 'next/link';
 
 export default function ContaPage() {
-  const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [activeTab, setActiveTab] = useState<'perfil' | 'preferencias' | 'notificacoes'>('perfil');
 
   // Dados do usuário (em produção virá da API)
   const [userData, setUserData] = useState({
@@ -39,7 +40,7 @@ export default function ContaPage() {
 
   const [notifications, setNotifications] = useState({
     email: {
-      serverDown: true,
+      serverDown: false,
       maintenance: true,
       billing: true,
       security: true
@@ -62,23 +63,27 @@ export default function ContaPage() {
   };
 
   const updateNotification = (path: string, value: boolean) => {
-    setNotifications(prev => {
+    setNotifications((prev) => {
       const keys = path.split('.');
-      const newNotifications = { ...prev };
-      let current: any = newNotifications;
-      
-      for (let i = 0; i < keys.length - 1; i++) {
-        current = current[keys[i]];
+      // Estrutura imutável (somente para email neste caso):
+      if (keys[0] === 'email' && keys.length === 2) {
+        return {
+          ...prev,
+          email: {
+            ...prev.email,
+            [keys[1]]: value
+          }
+        };
       }
-      
-      current[keys[keys.length - 1]] = value;
-      return newNotifications;
+      return prev;
     });
   };
 
-  if (isLoading) {
-    return <PageLoader isLoading={true} />;
-  }
+  const sidebarItems = [
+    { id: 'perfil', icon: User, label: 'Perfil' },
+    { id: 'preferencias', icon: Settings, label: 'Preferências' },
+    { id: 'notificacoes', icon: Bell, label: 'Notificações' },
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-background to-green-500/5">
@@ -114,44 +119,128 @@ export default function ContaPage() {
       </div>
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="max-w-4xl mx-auto space-y-8">
-          
-          {/* Avatar Section */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 lg:py-8">
+        <div className="flex flex-col lg:flex-row gap-4 lg:gap-8">
+          {/* Sidebar */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="bg-card border border-border rounded-xl p-6"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="lg:w-72 flex-shrink-0"
           >
-            <div className="flex items-center gap-6">
-              <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white font-bold text-2xl">
-                {userData.name.charAt(0)}
+            <div className="bg-gradient-to-b from-card to-card/50 backdrop-blur border border-border rounded-xl lg:rounded-2xl shadow-lg lg:sticky lg:top-8 overflow-hidden">
+              {/* Sidebar Header */}
+              <div className="bg-gradient-to-r from-green-500/10 to-green-500/5 p-4 border-b border-border">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-green-500/20 rounded-xl flex items-center justify-center">
+                    <User className="w-5 h-5 text-green-500" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-semibold text-foreground">Menu de Conta</h3>
+                    <p className="text-xs text-muted-foreground">Perfil e configurações</p>
+                  </div>
+                </div>
               </div>
-              <div>
-                <h3 className="text-lg font-semibold text-foreground mb-1">Foto do Perfil</h3>
-                <p className="text-sm text-muted-foreground mb-3">
-                  Avatar gerado automaticamente com suas iniciais
-                </p>
-                <Button variant="outline" size="sm" className="border-green-500/30 hover:bg-green-500/10">
-                  Alterar Avatar
-                </Button>
+
+              {/* Sidebar Navigation */}
+              <nav className="p-2 lg:p-3 space-y-1.5 lg:space-y-2">
+                {sidebarItems.map((item) => (
+                  <motion.button
+                    key={item.id}
+                    onClick={() => setActiveTab(item.id as 'perfil' | 'preferencias' | 'notificacoes')}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className={`w-full flex items-center justify-between p-2.5 lg:p-3.5 rounded-lg lg:rounded-xl transition-all group relative ${
+                      activeTab === item.id
+                        ? 'bg-gradient-to-r from-green-500/10 to-green-500/5 border border-green-500/30 shadow-md'
+                        : 'hover:bg-muted/50 border border-transparent'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2 lg:gap-3">
+                      <div className={`w-8 h-8 lg:w-10 lg:h-10 flex items-center justify-center rounded-lg lg:rounded-xl transition-all ${
+                        activeTab === item.id
+                          ? 'bg-green-500/20 shadow-lg'
+                          : 'bg-muted/50 group-hover:bg-green-500/10'
+                      }`}>
+                        <item.icon className={`w-4 h-4 lg:w-5 lg:h-5 transition-all ${
+                          activeTab === item.id ? 'text-green-500' : 'text-muted-foreground group-hover:text-green-500'
+                        }`} />
+                      </div>
+                      <div className="text-left">
+                        <span className={`font-semibold text-xs lg:text-sm block ${
+                          activeTab === item.id ? 'text-foreground' : 'text-muted-foreground group-hover:text-foreground'
+                        }`}>
+                          {item.label}
+                        </span>
+                      </div>
+                    </div>
+                    <ChevronRight 
+                      className={`w-3 h-3 lg:w-4 lg:h-4 transition-all ${
+                        activeTab === item.id ? 'text-green-500 rotate-90' : 'text-muted-foreground group-hover:text-green-500'
+                      }`} 
+                    />
+                    {activeTab === item.id && (
+                      <motion.div
+                        layoutId="activeTab"
+                        className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-green-500 to-green-600 rounded-r-full"
+                      />
+                    )}
+                  </motion.button>
+                ))}
+              </nav>
+
+              {/* Sidebar Footer */}
+              <div className="p-4 pt-3 border-t border-border">
+                <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-3">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Sparkles className="w-4 h-4 text-blue-500" />
+                    <span className="text-xs font-semibold text-foreground">Dica</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    Mantenha suas informações atualizadas para melhor experiência
+                  </p>
+                </div>
               </div>
             </div>
           </motion.div>
 
-          {/* Informações Pessoais */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="bg-card border border-border rounded-xl p-6"
-          >
-            <h3 className="text-lg font-semibold text-foreground mb-6 flex items-center gap-2">
-              <User className="w-5 h-5 text-green-500" />
+          {/* Content Area */}
+          <div className="flex-1 min-w-0">
+            <AnimatePresence mode="wait">
+              {/* Perfil Tab */}
+              {activeTab === 'perfil' && (
+                <motion.div
+                  key="perfil"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  className="space-y-6"
+                >
+                  {/* Avatar Section */}
+                  <div className="bg-card border border-border rounded-xl p-4 lg:p-6">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 lg:gap-6">
+                      <div className="w-16 h-16 lg:w-20 lg:h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white font-bold text-xl lg:text-2xl flex-shrink-0">
+                        {userData.name.charAt(0)}
+                      </div>
+                      <div className="flex-1 w-full sm:w-auto">
+                        <h3 className="text-base lg:text-lg font-semibold text-foreground mb-1">Foto do Perfil</h3>
+                        <p className="text-sm text-muted-foreground mb-3">
+                          Avatar gerado automaticamente com suas iniciais
+                        </p>
+                        <Button variant="outline" size="sm" className="w-full sm:w-auto border-green-500/30 hover:bg-green-500/10">
+                          Alterar Avatar
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Informações Pessoais */}
+                  <div className="bg-card border border-border rounded-xl p-4 lg:p-6">
+            <h3 className="text-base lg:text-lg font-semibold text-foreground mb-4 lg:mb-6 flex items-center gap-2">
+              <User className="w-4 h-4 lg:w-5 lg:h-5 text-green-500" />
               Informações Pessoais
             </h3>
             
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid gap-4 lg:gap-6 md:grid-cols-2">
               <div>
                 <label className="block text-sm font-medium text-foreground mb-2">
                   Nome Completo
@@ -210,21 +299,47 @@ export default function ContaPage() {
                 </div>
               </div>
             </div>
-          </motion.div>
+                  </div>
 
-          {/* Preferências */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="bg-card border border-border rounded-xl p-6"
-          >
-            <h3 className="text-lg font-semibold text-foreground mb-6 flex items-center gap-2">
-              <Settings className="w-5 h-5 text-green-500" />
+                  {/* Save Button */}
+                  <div className="flex justify-end pt-4 lg:pt-6">
+                    <Button
+                      onClick={handleSave}
+                      disabled={isSaving}
+                      className="w-full sm:w-auto bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-6 lg:px-8 py-2.5 lg:py-3"
+                    >
+                      {isSaving ? (
+                        <>
+                          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                          Salvando...
+                        </>
+                      ) : (
+                        <>
+                          <Save className="w-4 h-4 mr-2" />
+                          Salvar Alterações
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Preferências Tab */}
+              {activeTab === 'preferencias' && (
+                <motion.div
+                  key="preferencias"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  className="space-y-6"
+                >
+                  <div className="bg-card border border-border rounded-xl p-4 lg:p-6">
+            <h3 className="text-base lg:text-lg font-semibold text-foreground mb-4 lg:mb-6 flex items-center gap-2">
+              <Settings className="w-4 h-4 lg:w-5 lg:h-5 text-green-500" />
               Preferências
             </h3>
             
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid gap-4 lg:gap-6 md:grid-cols-2">
               <div>
                 <label className="block text-sm font-medium text-foreground mb-2">
                   Idioma
@@ -298,24 +413,50 @@ export default function ContaPage() {
                 </div>
               </div>
             </div>
-          </motion.div>
+                  </div>
 
-          {/* Notificações */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="bg-card border border-border rounded-xl p-6"
-          >
-            <h3 className="text-lg font-semibold text-foreground mb-6 flex items-center gap-2">
-              <Bell className="w-5 h-5 text-green-500" />
+                  {/* Save Button */}
+                  <div className="flex justify-end pt-4 lg:pt-6">
+                    <Button
+                      onClick={handleSave}
+                      disabled={isSaving}
+                      className="w-full sm:w-auto bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-6 lg:px-8 py-2.5 lg:py-3"
+                    >
+                      {isSaving ? (
+                        <>
+                          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                          Salvando...
+                        </>
+                      ) : (
+                        <>
+                          <Save className="w-4 h-4 mr-2" />
+                          Salvar Alterações
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Notificações Tab */}
+              {activeTab === 'notificacoes' && (
+                <motion.div
+                  key="notificacoes"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  className="space-y-6"
+                >
+                  <div className="bg-card border border-border rounded-xl p-4 lg:p-6">
+            <h3 className="text-base lg:text-lg font-semibold text-foreground mb-4 lg:mb-6 flex items-center gap-2">
+              <Bell className="w-4 h-4 lg:w-5 lg:h-5 text-green-500" />
               Notificações
             </h3>
             
             {/* Email Notifications */}
             <div className="mb-6">
-              <h4 className="text-md font-medium text-foreground mb-4 flex items-center gap-2">
-                <Mail className="w-4 h-4 text-green-500" />
+              <h4 className="text-sm lg:text-md font-medium text-foreground mb-4 flex items-center gap-2">
+                <Mail className="w-3 h-3 lg:w-4 lg:h-4 text-green-500" />
                 Notificações por Email
               </h4>
               <div className="space-y-3">
@@ -343,34 +484,32 @@ export default function ContaPage() {
                 ))}
               </div>
             </div>
+                  </div>
 
-          </motion.div>
-
-          {/* Save Button */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="flex justify-end pt-6"
-          >
-            <Button
-              onClick={handleSave}
-              disabled={isSaving}
-              className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-8 py-3"
-            >
-              {isSaving ? (
-                <>
-                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
-                  Salvando...
-                </>
-              ) : (
-                <>
-                  <Save className="w-4 h-4 mr-2" />
-                  Salvar Alterações
-                </>
+                  {/* Save Button */}
+                  <div className="flex justify-end pt-4 lg:pt-6">
+                    <Button
+                      onClick={handleSave}
+                      disabled={isSaving}
+                      className="w-full sm:w-auto bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-6 lg:px-8 py-2.5 lg:py-3"
+                    >
+                      {isSaving ? (
+                        <>
+                          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                          Salvando...
+                        </>
+                      ) : (
+                        <>
+                          <Save className="w-4 h-4 mr-2" />
+                          Salvar Alterações
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                </motion.div>
               )}
-            </Button>
-          </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
       </div>
     </div>

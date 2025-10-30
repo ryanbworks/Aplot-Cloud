@@ -65,10 +65,22 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   handler satisfies AppPageConfig<"/dashboard/conta">
 }
 
+// Validate ../../src/app/dashboard/faturamento/page.tsx
+{
+  const handler = {} as typeof import("../../src/app/dashboard/faturamento/page.js")
+  handler satisfies AppPageConfig<"/dashboard/faturamento">
+}
+
 // Validate ../../src/app/dashboard/page.tsx
 {
   const handler = {} as typeof import("../../src/app/dashboard/page.js")
   handler satisfies AppPageConfig<"/dashboard">
+}
+
+// Validate ../../src/app/dashboard/seguranca/page.tsx
+{
+  const handler = {} as typeof import("../../src/app/dashboard/seguranca/page.js")
+  handler satisfies AppPageConfig<"/dashboard/seguranca">
 }
 
 // Validate ../../src/app/dashboard/suporte/novo-ticket/page.tsx
