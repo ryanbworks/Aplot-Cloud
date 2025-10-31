@@ -3,21 +3,16 @@
 # ============================================
 # Multi-stage build otimizado para produção
 
-# Stage 1: Dependencies
-FROM node:20-alpine AS deps
+# Stage 1: Builder
+FROM node:20-alpine AS builder
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-# Copiar apenas arquivos de dependências
+# Copiar arquivos de dependências
 COPY package.json package-lock.json* ./
-RUN npm ci --omit=dev
 
-# Stage 2: Builder
-FROM node:20-alpine AS builder
-WORKDIR /app
-
-# Copiar dependências do stage anterior
-COPY --from=deps /app/node_modules ./node_modules
+# Instalar todas as dependências (incluindo devDependencies para build)
+RUN npm ci --ignore-scripts
 
 # Copiar código fonte
 COPY . .
@@ -29,7 +24,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 # Build da aplicação
 RUN npm run build
 
-# Stage 3: Runner (produção)
+# Stage 2: Runner (produção)
 FROM node:20-alpine AS runner
 WORKDIR /app
 
