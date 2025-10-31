@@ -1,65 +1,49 @@
 # ============================================
-# Dockerfile de Produção - Aplot Frontend
+# Dockerfile - Aplot Frontend (Produção)
 # ============================================
-# Multi-stage build otimizado para Next.js 15
+# Multi-stage build otimizado para produção
 
-# ============================================
-# Stage 1: Dependências
-# ============================================
+# Stage 1: Dependencies
 FROM node:20-alpine AS deps
+RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-# Instalar dependências do sistema necessárias
-RUN apk add --no-cache libc6-compat
+# Copiar apenas arquivos de dependências
+COPY package.json package-lock.json* ./
+RUN npm ci --omit=dev
 
-# Copiar arquivos de dependências
-COPY package.json package-lock.json ./
-
-# Instalar dependências de produção
-RUN npm ci --only=production && \
-    npm cache clean --force
-
-# ============================================
 # Stage 2: Builder
-# ============================================
 FROM node:20-alpine AS builder
 WORKDIR /app
 
-# Copiar dependências instaladas
+# Copiar dependências do stage anterior
 COPY --from=deps /app/node_modules ./node_modules
+
+# Copiar código fonte
 COPY . .
 
-# Instalar todas as dependências (incluindo dev)
-RUN npm ci
-
-# Variáveis de ambiente de build
-ENV NEXT_TELEMETRY_DISABLED=1
-ENV NODE_ENV=production
+# Configurar variável de ambiente para standalone build
 ENV DOCKER_BUILD=true
+ENV NEXT_TELEMETRY_DISABLED=1
 
 # Build da aplicação
 RUN npm run build
 
-# ============================================
-# Stage 3: Runner (Produção)
-# ============================================
+# Stage 3: Runner (produção)
 FROM node:20-alpine AS runner
 WORKDIR /app
 
-# Variáveis de ambiente
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
-ENV PORT=3000
-ENV HOSTNAME=0.0.0.0
 
-# Criar usuário não-root para segurança
+# Criar usuário não-root
 RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 nextjs
 
-# Copiar arquivos necessários do builder
-COPY --from=builder /app/public ./public
+# Copiar arquivos necessários do standalone build
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 
 # Mudar para usuário não-root
 USER nextjs
@@ -67,9 +51,8 @@ USER nextjs
 # Expor porta
 EXPOSE 3000
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
-  CMD node -e "require('http').get('http://localhost:3000/api/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
 
 # Comando de inicialização
 CMD ["node", "server.js"]
