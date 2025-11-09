@@ -6,6 +6,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { Toaster } from "@/components/ui/toaster";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { generateMetadata as generateMetadataUtil, defaultMetadata } from "@/lib/metadata";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,6 +37,7 @@ export default function RootLayout({
               {children}
             </main>
             <Toaster />
+            <SpeedInsights />
           </AuthProvider>
         </ErrorBoundary>
       </body>
