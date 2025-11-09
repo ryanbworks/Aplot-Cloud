@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
+import dynamic from 'next/dynamic';
 import { 
   Server, 
   Wallet, 
@@ -15,24 +16,31 @@ import {
   MessageSquare,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { StatsCard } from '@/components/dashboard/StatsCard';
-import { ServiceCard } from '@/components/dashboard/ServiceCard';
-import { InvoiceCard } from '@/components/dashboard/InvoiceCard';
-import { UserMenu } from '@/components/dashboard/UserMenu';
 import { PageLoader } from '@/components/ui/PageLoader';
 import Link from 'next/link';
+import { useLoading } from '@/hooks/use-loading';
 
+// Lazy load componentes pesados do dashboard
+const StatsCard = dynamic(() => import('@/components/dashboard/StatsCard').then(mod => ({ default: mod.StatsCard })));
+const ServiceCard = dynamic(() => import('@/components/dashboard/ServiceCard').then(mod => ({ default: mod.ServiceCard })));
+const InvoiceCard = dynamic(() => import('@/components/dashboard/InvoiceCard').then(mod => ({ default: mod.InvoiceCard })));
+const UserMenu = dynamic(() => import('@/components/dashboard/UserMenu').then(mod => ({ default: mod.UserMenu })));
+
+/**
+ * Página principal do dashboard
+ * Exibe estatísticas, serviços ativos, faturas e ações rápidas
+ */
 export default function DashboardPage() {
-  const [isLoading, setIsLoading] = useState(true);
+  const { isLoading, setLoading } = useLoading({ dashboard: true });
 
   // Simular carregamento inicial do dashboard
   useEffect(() => {
     const timer = setTimeout(() => {
-      setIsLoading(false);
+      setLoading('dashboard', false);
     }, 1000); // 1 segundo de loading para simular carregamento de dados
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [setLoading]);
 
   // Mock data - em produção virá da API
   const stats = [
@@ -142,7 +150,7 @@ export default function DashboardPage() {
     },
   ];
 
-  if (isLoading) {
+  if (isLoading('dashboard')) {
     return <PageLoader isLoading={true} />;
   }
 

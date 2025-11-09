@@ -5,48 +5,78 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Search, X, Clock, ArrowRight, BookOpen } from 'lucide-react';
 import { SearchResult } from '@/types/docs';
 import { searchArticles } from '@/lib/docs';
+import { logger } from '@/lib/logger';
+import { useToast } from '@/hooks/use-toast';
+import { useLoading } from '@/hooks/use-loading';
 
+/**
+ * Props do componente SearchBar
+ */
 interface SearchBarProps {
+  /** Callback executado quando um resultado é clicado */
   onResultClick?: () => void;
+  /** Texto placeholder do input de busca */
   placeholder?: string;
+  /** Classes CSS adicionais */
   className?: string;
 }
 
+/**
+ * Componente de barra de busca com resultados em tempo real
+ * 
+ * @param props - Props do componente
+ * @returns Componente de busca
+ * 
+ * @example
+ * ```tsx
+ * <SearchBar 
+ *   placeholder="Buscar artigos..."
+ *   onResultClick={() => console.log('Resultado clicado')}
+ * />
+ * ```
+ */
 export function SearchBar({ onResultClick, placeholder = "Buscar na base de conhecimento...", className = "" }: SearchBarProps) {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<SearchResult[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
-  const [isLoading, setIsLoading] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const { toast } = useToast();
+  const { isLoading, withLoading } = useLoading();
 
   // Debounced search
   useEffect(() => {
     if (!query.trim()) {
       setResults([]);
       setIsOpen(false);
-      setIsLoading(false);
       return;
     }
 
-    setIsLoading(true);
     const timeoutId = setTimeout(async () => {
       try {
-        const searchResults = await searchArticles(query);
-        setResults(searchResults.slice(0, 5));
-        setIsOpen(true);
+        await withLoading('search', async () => {
+          const searchResults = await searchArticles(query);
+          setResults(searchResults.slice(0, 5));
+          setIsOpen(true);
+        });
       } catch (error) {
-        console.error('Erro na busca:', error);
+        logger.error('Erro na busca:', error);
+        const errorMessage = error instanceof Error ? error.message : 'Erro ao buscar artigos';
+        
+        toast({
+          variant: 'destructive',
+          title: 'Erro na busca',
+          description: errorMessage,
+        });
+        
         setResults([]);
         setIsOpen(false);
-      } finally {
-        setIsLoading(false);
       }
     }, 300);
 
     return () => clearTimeout(timeoutId);
-  }, [query]);
+  }, [query, withLoading, toast]);
 
   const handleResultClick = useCallback(() => {
     onResultClick?.();
@@ -165,7 +195,7 @@ export function SearchBar({ onResultClick, placeholder = "Buscar na base de conh
             transition={{ duration: 0.2 }}
             className="absolute top-full left-0 right-0 mt-1 bg-card border border-border rounded-xl shadow-xl overflow-hidden z-50 max-h-80 overflow-y-auto"
           >
-            {isLoading ? (
+            {isLoading('search') ? (
               <div className="p-6 text-center">
                 <div className="inline-block h-6 w-6 border-2 border-green-500/30 border-t-green-500 rounded-full animate-spin"></div>
                 <p className="mt-2 text-sm text-muted-foreground">Buscando...</p>

@@ -1,25 +1,27 @@
 1:"$Sreact.fragment"
-2:I[5380,["177","static/chunks/app/layout-5d93536109c1ffcf.js"],"AuthProvider"]
-3:I[176,["177","static/chunks/app/layout-5d93536109c1ffcf.js"],"default"]
-4:I[9766,[],""]
-5:I[8924,[],""]
-6:I[3486,["345","static/chunks/app/not-found-260d48c8b807916a.js"],"default"]
-7:I[1959,[],"ClientPageRoot"]
-a:I[4431,[],"OutletBoundary"]
-c:I[5278,[],"AsyncMetadataOutlet"]
-e:I[4431,[],"ViewportBoundary"]
-10:I[4431,[],"MetadataBoundary"]
-11:"$Sreact.suspense"
-13:I[7150,[],""]
+2:I[7088,["177","static/chunks/app/layout-006615158e2a6ebf.js"],"ErrorBoundary"]
+3:I[5380,["177","static/chunks/app/layout-006615158e2a6ebf.js"],"AuthProvider"]
+4:I[176,["177","static/chunks/app/layout-006615158e2a6ebf.js"],"default"]
+5:I[9766,[],""]
+6:I[8924,[],""]
+7:I[3486,["345","static/chunks/app/not-found-432115e4bdd733ef.js"],"default"]
+8:I[8516,["177","static/chunks/app/layout-006615158e2a6ebf.js"],"Toaster"]
+9:I[1959,[],"ClientPageRoot"]
+c:I[4431,[],"OutletBoundary"]
+e:I[5278,[],"AsyncMetadataOutlet"]
+10:I[4431,[],"ViewportBoundary"]
+12:I[4431,[],"MetadataBoundary"]
+13:"$Sreact.suspense"
+15:I[7150,[],""]
 :HL["/_next/static/media/4cf2300e9c8272f7-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/_next/static/media/93f479601ee12b01-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/_next/static/css/de70bee13400563f.css","style"]
-:HL["/_next/static/css/ea3aa4dbcb48ddc6.css","style"]
-0:{"P":null,"b":"yHMWfjBvzKZC_tj0e36J2","p":"","c":["","_not-found"],"i":false,"f":[[["",{"children":["/_not-found",{"children":["__PAGE__",{}]}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/de70bee13400563f.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","1",{"rel":"stylesheet","href":"/_next/static/css/ea3aa4dbcb48ddc6.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"pt-BR","children":["$","body",null,{"className":"__variable_188709 __variable_9a8899 antialiased","children":["$","$L2",null,{"children":[["$","$L3",null,{}],["$","main",null,{"className":"min-h-screen","children":["$","$L4",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","$L6",null,{}],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}]]}]}]}]]}],{"children":["/_not-found",["$","$1","c",{"children":[null,["$","$L4",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":["__PAGE__",["$","$1","c",{"children":[["$","$L7",null,{"Component":"$6","searchParams":{},"params":{},"promises":["$@8","$@9"]}],null,["$","$La",null,{"children":["$Lb",["$","$Lc",null,{"promise":"$@d"}]]}]]}],{},null,false]},null,false]},null,false],["$","$1","h",{"children":[["$","meta",null,{"name":"robots","content":"noindex"}],[["$","$Le",null,{"children":"$Lf"}],["$","meta",null,{"name":"next-size-adjust","content":""}]],["$","$L10",null,{"children":["$","div",null,{"hidden":true,"children":["$","$11",null,{"fallback":null,"children":"$L12"}]}]}]]}],false]],"m":"$undefined","G":["$13",[]],"s":false,"S":true}
-8:{}
-9:"$0:f:0:1:2:children:2:children:1:props:children:0:props:params"
-f:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
-b:null
-14:I[622,[],"IconMark"]
-d:{"metadata":[["$","title","0",{"children":"Aplot Cloud"}],["$","meta","1",{"name":"description","content":"Plataforma moderna e elegante para seus projetos"}],["$","link","2",{"rel":"icon","href":"/favicon.ico","type":"image/x-icon","sizes":"16x16"}],["$","$L14","3",{}]],"error":null,"digest":"$undefined"}
-12:"$d:metadata"
+:HL["/_next/static/css/fbb46f8dd1866d13.css","style"]
+0:{"P":null,"b":"sSQQPjUv_D_PZTpQSdu5a","p":"","c":["","_not-found"],"i":false,"f":[[["",{"children":["/_not-found",{"children":["__PAGE__",{}]}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/de70bee13400563f.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","1",{"rel":"stylesheet","href":"/_next/static/css/fbb46f8dd1866d13.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"pt-BR","children":["$","body",null,{"className":"__variable_188709 __variable_9a8899 antialiased","children":["$","$L2",null,{"children":["$","$L3",null,{"children":[["$","$L4",null,{}],["$","main",null,{"className":"min-h-screen","children":["$","$L5",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","$L7",null,{}],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}],["$","$L8",null,{}]]}]}]}]}]]}],{"children":["/_not-found",["$","$1","c",{"children":[null,["$","$L5",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":["__PAGE__",["$","$1","c",{"children":[["$","$L9",null,{"Component":"$7","searchParams":{},"params":{},"promises":["$@a","$@b"]}],null,["$","$Lc",null,{"children":["$Ld",["$","$Le",null,{"promise":"$@f"}]]}]]}],{},null,false]},null,false]},null,false],["$","$1","h",{"children":[["$","meta",null,{"name":"robots","content":"noindex"}],[["$","$L10",null,{"children":"$L11"}],["$","meta",null,{"name":"next-size-adjust","content":""}]],["$","$L12",null,{"children":["$","div",null,{"hidden":true,"children":["$","$13",null,{"fallback":null,"children":"$L14"}]}]}]]}],false]],"m":"$undefined","G":["$15",[]],"s":false,"S":true}
+a:{}
+b:"$0:f:0:1:2:children:2:children:1:props:children:0:props:params"
+11:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+d:null
+16:I[622,[],"IconMark"]
+f:{"metadata":[["$","title","0",{"children":"Aplot Cloud"}],["$","meta","1",{"name":"description","content":"Plataforma moderna e elegante para hospedagem de servidores de Minecraft, VPS, Discord Bots e muito mais. Performance, segurança e suporte 24/7."}],["$","meta","2",{"name":"author","content":"Aplot Cloud"}],["$","meta","3",{"name":"keywords","content":"hospedagem,minecraft,vps,discord bot,servidor,cloud,aplot cloud,hospedagem de jogos,servidor de minecraft"}],["$","meta","4",{"name":"creator","content":"Aplot Cloud"}],["$","meta","5",{"name":"publisher","content":"Aplot Cloud"}],["$","meta","6",{"name":"robots","content":"index, follow"}],["$","meta","7",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","link","8",{"rel":"canonical","href":"https://aplotcloud.com"}],["$","meta","9",{"property":"og:title","content":"Aplot Cloud"}],["$","meta","10",{"property":"og:description","content":"Plataforma moderna e elegante para hospedagem de servidores de Minecraft, VPS, Discord Bots e muito mais. Performance, segurança e suporte 24/7."}],["$","meta","11",{"property":"og:url","content":"https://aplotcloud.com"}],["$","meta","12",{"property":"og:site_name","content":"Aplot Cloud"}],["$","meta","13",{"property":"og:locale","content":"pt_BR"}],["$","meta","14",{"property":"og:image","content":"https://aplotcloud.com/og-image.png"}],["$","meta","15",{"property":"og:image:width","content":"1200"}],["$","meta","16",{"property":"og:image:height","content":"630"}],["$","meta","17",{"property":"og:image:alt","content":"Aplot Cloud"}],["$","meta","18",{"property":"og:type","content":"website"}],["$","meta","19",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","20",{"name":"twitter:site","content":"@aplotcloud"}],["$","meta","21",{"name":"twitter:creator","content":"@aplotcloud"}],["$","meta","22",{"name":"twitter:title","content":"Aplot Cloud"}],["$","meta","23",{"name":"twitter:description","content":"Plataforma moderna e elegante para hospedagem de servidores de Minecraft, VPS, Discord Bots e muito mais. Performance, segurança e suporte 24/7."}],["$","meta","24",{"name":"twitter:image","content":"https://aplotcloud.com/og-image.png"}],["$","link","25",{"rel":"icon","href":"/favicon.ico","type":"image/x-icon","sizes":"16x16"}],["$","$L16","26",{}]],"error":null,"digest":"$undefined"}
+14:"$f:metadata"

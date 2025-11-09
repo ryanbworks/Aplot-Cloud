@@ -8,27 +8,55 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { loginSchema, type LoginFormData } from '@/lib/validations/auth';
+import { useToast } from '@/hooks/use-toast';
+import { logger } from '@/lib/logger';
 
 export const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { login } = useAuth();
+  const { toast } = useToast();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    
-    // Simulação de login - aceita qualquer email/senha
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    // Fazer login usando o contexto
-    login(email, password);
-    
-    // Redirecionar para o dashboard após login bem-sucedido
-    router.push('/dashboard');
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+  });
+
+  const onSubmit = async (data: LoginFormData) => {
+    try {
+      setIsLoading(true);
+      
+      // Simulação de login - aceita qualquer email/senha
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      // Fazer login usando o contexto
+      login(data.email, data.password);
+      
+      toast({
+        variant: 'success',
+        title: 'Login realizado com sucesso!',
+        description: 'Bem-vindo de volta!',
+      });
+      
+      // Redirecionar para o dashboard após login bem-sucedido
+      router.push('/dashboard');
+    } catch (error) {
+      logger.error('Erro ao fazer login:', error);
+      toast({
+        variant: 'destructive',
+        title: 'Erro ao fazer login',
+        description: 'Verifique suas credenciais e tente novamente.',
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -63,7 +91,7 @@ export const LoginForm = () => {
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           {/* Email Field */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -79,12 +107,13 @@ export const LoginForm = () => {
                 id="email"
                 type="email"
                 placeholder="seu@email.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="pl-11"
-                required
+                className={`pl-11 ${errors.email ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''}`}
+                {...register('email')}
               />
             </div>
+            {errors.email && (
+              <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>
+            )}
           </motion.div>
 
           {/* Password Field */}
@@ -102,15 +131,14 @@ export const LoginForm = () => {
                 id="password"
                 type={showPassword ? 'text' : 'password'}
                 placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="pl-11 pr-11"
-                required
+                className={`pl-11 pr-11 ${errors.password ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''}`}
+                {...register('password')}
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-green-500 transition-colors"
+                aria-label={showPassword ? 'Ocultar senha' : 'Mostrar senha'}
               >
                 {showPassword ? (
                   <EyeOff className="w-5 h-5" />
@@ -119,6 +147,9 @@ export const LoginForm = () => {
                 )}
               </button>
             </div>
+            {errors.password && (
+              <p className="mt-1 text-sm text-red-500">{errors.password.message}</p>
+            )}
           </motion.div>
 
           {/* Forgot Password Link */}

@@ -12,6 +12,8 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { useAuth } from '@/contexts/AuthContext';
+import { useRouter } from 'next/navigation';
 
 interface UserMenuProps {
   userName?: string;
@@ -19,11 +21,17 @@ interface UserMenuProps {
 }
 
 export const UserMenu: React.FC<UserMenuProps> = ({ 
-  userName = "Ryan", 
-  userEmail = "ryan@example.com" 
+  userName: propUserName, 
+  userEmail: propUserEmail 
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const { user, logout } = useAuth();
+  const router = useRouter();
+  
+  // Usar dados do contexto ou props como fallback
+  const userName = user?.name || propUserName || "Usuário";
+  const userEmail = user?.email || propUserEmail || "usuario@example.com";
 
   // Fechar menu quando clicar fora
   useEffect(() => {
@@ -65,9 +73,9 @@ export const UserMenu: React.FC<UserMenuProps> = ({
   ];
 
   const handleLogout = () => {
-    // Implementar lógica de logout
-    console.log('Logout realizado');
+    logout();
     setIsOpen(false);
+    router.push('/');
   };
 
   return (

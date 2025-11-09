@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import { serverLogger } from '@/lib/logger-server';
 // Icons are stored as strings in the categories array
 
 // Configuração das categorias
@@ -86,7 +87,7 @@ function readMarkdownFile(filePath: string) {
       content
     };
   } catch (error) {
-    console.error(`Erro ao ler arquivo ${filePath}:`, error);
+    serverLogger.error(`Erro ao ler arquivo ${filePath}:`, error);
     return null;
   }
 }
@@ -111,19 +112,43 @@ function getArticlesByCategory(categoryId: string) {
   return articles;
 }
 
+/**
+ * Handler GET para rota de categorias
+ * Retorna todas as categorias com contagem de artigos
+ */
 export async function GET() {
   try {
     const categoriesWithCount = categories.map(category => {
-      const articles = getArticlesByCategory(category.id);
-      return {
-        ...category,
-        articleCount: articles.length
-      };
+      try {
+        const articles = getArticlesByCategory(category.id);
+        return {
+          ...category,
+          articleCount: articles.length
+        };
+      } catch (error) {
+        serverLogger.warn(`Erro ao contar artigos da categoria ${category.id}:`, error);
+        return {
+          ...category,
+          articleCount: 0
+        };
+      }
     });
     
+    serverLogger.info(`Categorias recuperadas: ${categoriesWithCount.length} categorias`);
     return NextResponse.json(categoriesWithCount);
   } catch (error) {
-    console.error('Erro ao buscar categorias:', error);
-    return NextResponse.json({ error: 'Erro interno do servidor' }, { status: 500 });
+    serverLogger.error('Erro ao buscar categorias:', error);
+    
+    // Em produção, não expor detalhes do erro
+    const errorMessage = process.env.NODE_ENV === 'production'
+      ? 'Erro interno do servidor'
+      : error instanceof Error
+      ? error.message
+      : 'Erro desconhecido';
+
+    return NextResponse.json(
+      { error: errorMessage },
+      { status: 500 }
+    );
   }
 }

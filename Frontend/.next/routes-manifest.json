@@ -23,6 +23,26 @@
         {
           "key": "X-Frame-Options",
           "value": "DENY"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=31536000; includeSubDomains; preload"
         }
       ],
       "regex": "^(?:/(.*))(?:/)?$"
@@ -98,12 +118,6 @@
       "namedRegex": "^/dashboard/conta(?:/)?$"
     },
     {
-      "page": "/dashboard/faturamento",
-      "regex": "^/dashboard/faturamento(?:/)?$",
-      "routeKeys": {},
-      "namedRegex": "^/dashboard/faturamento(?:/)?$"
-    },
-    {
       "page": "/dashboard/seguranca",
       "regex": "^/dashboard/seguranca(?:/)?$",
       "routeKeys": {},
@@ -132,6 +146,18 @@
       "regex": "^/hospedagem/minecraft(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/hospedagem/minecraft(?:/)?$"
+    },
+    {
+      "page": "/robots.txt",
+      "regex": "^/robots\\.txt(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/robots\\.txt(?:/)?$"
+    },
+    {
+      "page": "/sitemap.xml",
+      "regex": "^/sitemap\\.xml(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/sitemap\\.xml(?:/)?$"
     },
     {
       "page": "/status",

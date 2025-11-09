@@ -3,6 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ConditionalHeader from "@/components/ConditionalHeader";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { Toaster } from "@/components/ui/toaster";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { generateMetadata as generateMetadataUtil, defaultMetadata } from "@/lib/metadata";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,10 +17,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Aplot Cloud",
-  description: "Plataforma moderna e elegante para seus projetos",
-};
+export const metadata: Metadata = generateMetadataUtil(defaultMetadata);
 
 export default function RootLayout({
   children,
@@ -29,12 +29,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <AuthProvider>
-          <ConditionalHeader />
-          <main className="min-h-screen">
-            {children}
-          </main>
-        </AuthProvider>
+        <ErrorBoundary>
+          <AuthProvider>
+            <ConditionalHeader />
+            <main className="min-h-screen">
+              {children}
+            </main>
+            <Toaster />
+          </AuthProvider>
+        </ErrorBoundary>
       </body>
     </html>
   );

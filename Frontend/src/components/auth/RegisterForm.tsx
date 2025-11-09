@@ -6,41 +6,66 @@ import { Mail, Lock, User, UserPlus, Eye, EyeOff, Sparkles, CheckCircle } from '
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { registerSchema, type RegisterFormData } from '@/lib/validations/auth';
+import { useToast } from '@/hooks/use-toast';
+import { logger } from '@/lib/logger';
+import { useRouter } from 'next/navigation';
 
 export const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-  });
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+  const { toast } = useToast();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (formData.password !== formData.confirmPassword) {
-      alert('As senhas não coincidem!');
-      return;
-    }
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<RegisterFormData>({
+    resolver: zodResolver(registerSchema),
+  });
 
-    setIsLoading(true);
-    
-    // Simulação de registro
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    setIsLoading(false);
-    console.log('Register:', formData);
-  };
+  const password = watch('password');
 
   const passwordRequirements = [
-    { text: 'Mínimo 8 caracteres', met: formData.password.length >= 8 },
-    { text: 'Uma letra maiúscula', met: /[A-Z]/.test(formData.password) },
-    { text: 'Uma letra minúscula', met: /[a-z]/.test(formData.password) },
-    { text: 'Um número', met: /\d/.test(formData.password) },
+    { text: 'Mínimo 8 caracteres', met: !password ? false : password.length >= 8 },
+    { text: 'Uma letra maiúscula', met: !password ? false : /[A-Z]/.test(password) },
+    { text: 'Uma letra minúscula', met: !password ? false : /[a-z]/.test(password) },
+    { text: 'Um número', met: !password ? false : /\d/.test(password) },
   ];
+
+  const onSubmit = async (data: RegisterFormData) => {
+    try {
+      setIsLoading(true);
+      
+      // Simulação de registro
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      logger.info('Registro realizado:', { email: data.email });
+      
+      toast({
+        variant: 'success',
+        title: 'Conta criada com sucesso!',
+        description: 'Bem-vindo à Aplot Cloud!',
+      });
+      
+      // Redirecionar para login após registro bem-sucedido
+      router.push('/auth/login');
+    } catch (error) {
+      logger.error('Erro ao registrar:', error);
+      toast({
+        variant: 'destructive',
+        title: 'Erro ao criar conta',
+        description: 'Ocorreu um erro ao criar sua conta. Tente novamente.',
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <motion.div
@@ -74,7 +99,7 @@ export const RegisterForm = () => {
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
           {/* Name Field */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -90,12 +115,13 @@ export const RegisterForm = () => {
                 id="name"
                 type="text"
                 placeholder="Seu nome completo"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="pl-11"
-                required
+                className={`pl-11 ${errors.name ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''}`}
+                {...register('name')}
               />
             </div>
+            {errors.name && (
+              <p className="mt-1 text-sm text-red-500">{errors.name.message}</p>
+            )}
           </motion.div>
 
           {/* Email Field */}
@@ -113,12 +139,13 @@ export const RegisterForm = () => {
                 id="email"
                 type="email"
                 placeholder="seu@email.com"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="pl-11"
-                required
+                className={`pl-11 ${errors.email ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''}`}
+                {...register('email')}
               />
             </div>
+            {errors.email && (
+              <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>
+            )}
           </motion.div>
 
           {/* Password Field */}
@@ -136,15 +163,14 @@ export const RegisterForm = () => {
                 id="password"
                 type={showPassword ? 'text' : 'password'}
                 placeholder="••••••••"
-                value={formData.password}
-                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                className="pl-11 pr-11"
-                required
+                className={`pl-11 pr-11 ${errors.password ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''}`}
+                {...register('password')}
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-green-500 transition-colors"
+                aria-label={showPassword ? 'Ocultar senha' : 'Mostrar senha'}
               >
                 {showPassword ? (
                   <EyeOff className="w-5 h-5" />
@@ -155,7 +181,7 @@ export const RegisterForm = () => {
             </div>
             
             {/* Password Requirements */}
-            {formData.password && (
+            {password && (
               <motion.div
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
@@ -183,6 +209,9 @@ export const RegisterForm = () => {
                 ))}
               </motion.div>
             )}
+            {errors.password && (
+              <p className="mt-1 text-sm text-red-500">{errors.password.message}</p>
+            )}
           </motion.div>
 
           {/* Confirm Password Field */}
@@ -200,15 +229,14 @@ export const RegisterForm = () => {
                 id="confirmPassword"
                 type={showConfirmPassword ? 'text' : 'password'}
                 placeholder="••••••••"
-                value={formData.confirmPassword}
-                onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                className="pl-11 pr-11"
-                required
+                className={`pl-11 pr-11 ${errors.confirmPassword ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''}`}
+                {...register('confirmPassword')}
               />
               <button
                 type="button"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-green-500 transition-colors"
+                aria-label={showConfirmPassword ? 'Ocultar senha' : 'Mostrar senha'}
               >
                 {showConfirmPassword ? (
                   <EyeOff className="w-5 h-5" />
@@ -217,14 +245,8 @@ export const RegisterForm = () => {
                 )}
               </button>
             </div>
-            {formData.confirmPassword && formData.password !== formData.confirmPassword && (
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-xs text-red-500 mt-2"
-              >
-                As senhas não coincidem
-              </motion.p>
+            {errors.confirmPassword && (
+              <p className="mt-1 text-sm text-red-500">{errors.confirmPassword.message}</p>
             )}
           </motion.div>
 
