@@ -7,12 +7,13 @@ import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '../../../../components/ui/textarea';
+import { DashboardPageHeader } from '@/components/dashboard/DashboardPageHeader';
 import { 
-  ArrowLeft, 
   Send, 
   CheckCircle,
   Clock,
-  Sparkles
+  Sparkles,
+  MessageSquarePlus
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -108,26 +109,16 @@ export default function NovoTicketPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-green-500/5">
-      {/* Header Compacto */}
-      <div className="bg-background/95 backdrop-blur border-b border-border/40 sticky top-0 z-10">
-        <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-4">
-          <div className="max-w-3xl mx-auto flex items-center justify-between">
-            <Link 
-              href="/dashboard"
-              className="flex items-center gap-1.5 sm:gap-2 text-muted-foreground hover:text-green-500 transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              <span className="text-xs sm:text-sm font-medium">Voltar</span>
-            </Link>
-            <h1 className="text-base sm:text-xl font-bold text-foreground">Novo Ticket</h1>
-            <div className="w-14 sm:w-20"></div>
-          </div>
-        </div>
-      </div>
+    <div className="min-h-screen bg-gradient-to-b from-background via-background to-green-500/5">
+      <DashboardPageHeader
+        title="Novo Ticket"
+        description="Descreva seu problema ou dúvida que nossa equipe irá te ajudar"
+        icon={MessageSquarePlus}
+        backHref="/dashboard/suporte/ticket"
+      />
 
       {/* Formulário Compacto */}
-      <div className="container mx-auto px-3 sm:px-4 py-4 sm:py-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

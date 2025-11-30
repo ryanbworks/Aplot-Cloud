@@ -5,8 +5,8 @@ import { motion } from 'framer-motion';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
+import { DashboardPageHeader } from '@/components/dashboard/DashboardPageHeader';
 import { 
-  ArrowLeft, 
   Send, 
   Paperclip, 
   Smile, 
@@ -190,90 +190,68 @@ export default function TicketDetailPage() {
   const StatusIcon = statusInfo.icon;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-green-500/5">
-      {/* Header */}
-      <div className="border-b border-border/40 bg-background/95 backdrop-blur sticky top-0 z-40">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2">
-                <Link href="/dashboard">
-                  <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
-                    <ArrowLeft className="w-4 h-4 mr-2" />
-                    Dashboard
-                  </Button>
-                </Link>
-                <Link href="/dashboard/suporte/ticket">
-                  <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
-                    <ArrowLeft className="w-4 h-4 mr-2" />
-                    Tickets
-                  </Button>
-                </Link>
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold text-foreground">
-                  {mockTicket.title}
-                </h1>
-                <div className="flex items-center gap-3 mt-1">
-                  <span className={`px-3 py-1 rounded-lg text-sm font-bold flex items-center gap-2 ${statusInfo.bg} ${statusInfo.color}`}>
-                    <StatusIcon className="w-4 h-4" />
-                    {statusInfo.label}
-                  </span>
-                  <span className={`px-3 py-1 rounded-lg text-sm font-semibold ${priorityInfo.bg} ${priorityInfo.color}`}>
-                    {priorityInfo.label}
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <div className="relative">
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
-                  className="text-muted-foreground hover:text-foreground"
-                  onClick={() => setOpenDropdown(!openDropdown)}
-                >
-                  <MoreHorizontal className="w-4 h-4 mr-2" />
-                  Ações
-                  <ChevronDown className="w-3 h-3 ml-1" />
-                </Button>
-                
-                {openDropdown && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="absolute right-0 top-full mt-2 w-48 bg-card border border-border rounded-lg shadow-xl z-50"
-                  >
-                    <div className="py-2">
-                      <button className="w-full px-4 py-2 text-left text-sm text-foreground hover:bg-muted flex items-center gap-2">
-                        <Star className="w-4 h-4" />
-                        Favoritar
-                      </button>
-                      <button className="w-full px-4 py-2 text-left text-sm text-foreground hover:bg-muted flex items-center gap-2">
-                        <Copy className="w-4 h-4" />
-                        Copiar link
-                      </button>
-                      <button className="w-full px-4 py-2 text-left text-sm text-foreground hover:bg-muted flex items-center gap-2">
-                        <Download className="w-4 h-4" />
-                        Baixar conversa
-                      </button>
-                      <div className="border-t border-border my-1" />
-                      <button className="w-full px-4 py-2 text-left text-sm text-foreground hover:bg-muted flex items-center gap-2">
-                        <Archive className="w-4 h-4" />
-                        Arquivar
-                      </button>
-                    </div>
-                  </motion.div>
-                )}
-              </div>
-            </div>
-          </div>
+    <div className="min-h-screen bg-gradient-to-b from-background via-background to-green-500/5">
+      <DashboardPageHeader
+        title={mockTicket.title}
+        description={`Ticket #${mockTicket.id} • ${statusInfo.label} • ${priorityInfo.label}`}
+        icon={MessageSquare}
+        backHref="/dashboard/suporte/ticket"
+      >
+        <div className="flex items-center gap-3">
+          <Button variant="outline" className="border-green-500/30 hover:bg-green-500/10 hover:border-green-500/50">
+            <Star className="w-4 h-4 mr-2" />
+            <span className="hidden sm:inline">Marcar</span>
+          </Button>
+          <Button variant="outline" className="border-green-500/30 hover:bg-green-500/10 hover:border-green-500/50">
+            <Archive className="w-4 h-4 mr-2" />
+            <span className="hidden sm:inline">Arquivar</span>
+          </Button>
         </div>
-      </div>
+      </DashboardPageHeader>
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Status e Prioridade Cards */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          <div className="bg-card border border-border rounded-lg p-4">
+            <div className="flex items-center gap-2 mb-2">
+              <StatusIcon className={`w-4 h-4 ${statusInfo.color}`} />
+              <span className="text-xs text-muted-foreground">Status</span>
+            </div>
+            <span className={`text-sm font-bold ${statusInfo.color}`}>
+              {statusInfo.label}
+            </span>
+          </div>
+          <div className="bg-card border border-border rounded-lg p-4">
+            <div className="flex items-center gap-2 mb-2">
+              <Tag className={`w-4 h-4 ${priorityInfo.color}`} />
+              <span className="text-xs text-muted-foreground">Prioridade</span>
+            </div>
+            <span className={`text-sm font-bold ${priorityInfo.color}`}>
+              {priorityInfo.label}
+            </span>
+          </div>
+          <div className="bg-card border border-border rounded-lg p-4">
+            <div className="flex items-center gap-2 mb-2">
+              <Calendar className="w-4 h-4 text-muted-foreground" />
+              <span className="text-xs text-muted-foreground">Criado</span>
+            </div>
+            <span className="text-sm font-medium text-foreground">
+              {new Date(mockTicket.createdAt).toLocaleDateString('pt-BR')}
+            </span>
+          </div>
+          <div className="bg-card border border-border rounded-lg p-4">
+            <div className="flex items-center gap-2 mb-2">
+              <User className="w-4 h-4 text-muted-foreground" />
+              <span className="text-xs text-muted-foreground">Atribuído</span>
+            </div>
+            <span className="text-sm font-medium text-foreground">
+              {mockTicket.assignedTo}
+            </span>
+          </div>
+        </div>
+        
+        {/* Messages and Sidebar */}
         <div className="grid lg:grid-cols-3 gap-6">
           {/* Chat Area */}
           <div className="lg:col-span-2">

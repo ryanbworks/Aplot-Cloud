@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, Power, MoreVertical, Calendar, Server } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface ServiceCardProps {
@@ -68,78 +68,49 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1 }}
-      className="bg-card border border-border rounded-xl overflow-hidden hover:border-green-500/50 hover:shadow-lg hover:shadow-green-500/10 transition-all duration-300"
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay: index * 0.05 }}
+      className="bg-card border border-border rounded-lg p-3 hover:border-green-500/50 hover:bg-green-500/5 transition-all duration-200 cursor-pointer group"
     >
-      {/* Header */}
-      <div className="p-6 border-b border-border">
-        <div className="flex items-start justify-between mb-4">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-green-500/10 border border-green-500/20 rounded-lg flex items-center justify-center text-2xl">
-              {serviceIcons[type]}
-            </div>
-            <div>
-              <h3 className="text-lg font-bold text-foreground mb-1">{name}</h3>
-              <p className="text-sm text-muted-foreground">{serviceTypes[type]}</p>
-            </div>
+      <div className="flex items-center justify-between gap-4">
+        {/* Info Principal */}
+        <div className="flex items-center gap-3 flex-1 min-w-0">
+          <div className="w-8 h-8 bg-green-500/10 border border-green-500/20 rounded-lg flex items-center justify-center text-base flex-shrink-0">
+            {serviceIcons[type]}
           </div>
-          <button className="text-muted-foreground hover:text-green-500 transition-colors">
-            <MoreVertical className="w-5 h-5" />
-          </button>
+          <div className="flex-1 min-w-0">
+            <h3 className="text-sm font-bold text-foreground group-hover:text-green-500 transition-colors truncate">
+              {name}
+            </h3>
+            <p className="text-xs text-muted-foreground">{serviceTypes[type]} • {plan}</p>
+          </div>
         </div>
 
-        {/* Status Badge */}
-        <div className="flex items-center gap-2">
-          <div className={`inline-flex items-center gap-2 ${statusStyle.bg} ${statusStyle.border} border rounded-full px-3 py-1`}>
-            <div className={`w-2 h-2 rounded-full ${statusStyle.dot} animate-pulse`} />
-            <span className={`text-xs font-semibold ${statusStyle.color}`}>
+        {/* Status e Info */}
+        <div className="flex items-center gap-3">
+          {ip && (
+            <code className="hidden md:block bg-muted/50 px-2 py-1 rounded text-foreground font-mono text-xs">
+              {ip}{port && `:${port}`}
+            </code>
+          )}
+          <span className="hidden sm:block text-xs text-muted-foreground whitespace-nowrap">
+            {expiryDate}
+          </span>
+          <div className="flex items-center gap-2">
+            <div className={`w-2 h-2 rounded-full ${statusStyle.dot} ${status === 'online' ? 'animate-pulse' : ''}`} />
+            <span className={`hidden lg:block text-xs font-medium ${statusStyle.color}`}>
               {statusStyle.label}
             </span>
           </div>
-          <div className="inline-flex items-center gap-1 bg-muted/50 rounded-full px-3 py-1">
-            <Server className="w-3 h-3 text-muted-foreground" />
-            <span className="text-xs text-muted-foreground font-medium">{plan}</span>
-          </div>
+          <Button
+            className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white h-7 px-3 text-xs"
+            size="sm"
+          >
+            <ExternalLink className="w-3 h-3 lg:mr-1" />
+            <span className="hidden lg:inline">Acessar</span>
+          </Button>
         </div>
-      </div>
-
-      {/* Info */}
-      <div className="p-6 space-y-3">
-        {ip && (
-          <div className="flex items-center justify-between text-sm">
-            <span className="text-muted-foreground">IP:</span>
-            <code className="bg-muted/50 px-2 py-1 rounded text-foreground font-mono">
-              {ip}{port && `:${port}`}
-            </code>
-          </div>
-        )}
-        <div className="flex items-center justify-between text-sm">
-          <span className="text-muted-foreground">Vencimento:</span>
-          <div className="flex items-center gap-1">
-            <Calendar className="w-4 h-4 text-muted-foreground" />
-            <span className="text-foreground font-medium">{expiryDate}</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Actions */}
-      <div className="p-6 pt-0 flex gap-3">
-        <Button
-          className="flex-1 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white"
-          size="sm"
-        >
-          <ExternalLink className="w-4 h-4 mr-2" />
-          Acessar Painel
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          className="border-green-500/30 hover:bg-green-500/10 hover:border-green-500/50"
-        >
-          <Power className="w-4 h-4" />
-        </Button>
       </div>
     </motion.div>
   );

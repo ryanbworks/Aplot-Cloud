@@ -10,16 +10,45 @@ Sistema completo de dashboard para gerenciamento de serviços de hospedagem, int
 src/
 ├── components/
 │   └── dashboard/
-│       ├── StatsCard.tsx       # Cards de estatísticas
-│       ├── ServiceCard.tsx     # Cards de serviços ativos
-│       ├── InvoiceCard.tsx     # Cards de faturas
-│       └── README.md           # Este arquivo
+│       ├── DashboardPageHeader.tsx  # Header para páginas internas
+│       ├── StatsCard.tsx            # Cards de estatísticas
+│       ├── ServiceCard.tsx          # Cards de serviços ativos
+│       ├── InvoiceCard.tsx          # Cards de faturas
+│       └── README.md                # Este arquivo
 └── app/
     └── dashboard/
-        └── page.tsx            # Página principal do dashboard
+        └── page.tsx                 # Página principal do dashboard
 ```
 
 ## 🎨 Componentes
+
+### 0. DashboardPageHeader
+**Arquivo**: `components/dashboard/DashboardPageHeader.tsx`
+
+Header padrão e bonito para páginas internas do dashboard com navegação.
+
+**Props**:
+```typescript
+{
+  title: string;                    // Título da página
+  description?: string;             // Descrição opcional
+  icon?: React.ElementType;         // Ícone opcional
+  showBackButton?: boolean;         // Mostrar botão voltar (padrão: true)
+  backHref?: string;                // URL de retorno (padrão: '/dashboard')
+  children?: React.ReactNode;       // Ações customizadas (botões extras)
+}
+```
+
+**Exemplo**:
+```tsx
+<DashboardPageHeader
+  title="Segurança"
+  description="Proteja sua conta e gerencie suas configurações"
+  icon={Shield}
+>
+  <Button>Ação Extra</Button>
+</DashboardPageHeader>
+```
 
 ### 1. StatsCard
 **Arquivo**: `components/dashboard/StatsCard.tsx`

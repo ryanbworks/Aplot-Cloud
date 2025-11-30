@@ -9,7 +9,6 @@ import {
   Users, 
   Activity,
   Plus,
-  Bell,
   Sparkles,
   TrendingUp,
   AlertCircle,
@@ -25,6 +24,7 @@ const StatsCard = dynamic(() => import('@/components/dashboard/StatsCard').then(
 const ServiceCard = dynamic(() => import('@/components/dashboard/ServiceCard').then(mod => ({ default: mod.ServiceCard })));
 const InvoiceCard = dynamic(() => import('@/components/dashboard/InvoiceCard').then(mod => ({ default: mod.InvoiceCard })));
 const UserMenu = dynamic(() => import('@/components/dashboard/UserMenu').then(mod => ({ default: mod.UserMenu })));
+const NotificationsMenu = dynamic(() => import('@/components/dashboard/NotificationsMenu').then(mod => ({ default: mod.NotificationsMenu })));
 
 /**
  * Página principal do dashboard
@@ -184,16 +184,7 @@ export default function DashboardPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.2 }}
               >
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="border-green-500/30 hover:bg-green-500/10 hover:border-green-500/50 relative"
-                >
-                  <Bell className="w-4 h-4" />
-                  <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full text-xs flex items-center justify-center text-white">
-                    2
-                  </span>
-                </Button>
+                <NotificationsMenu />
               </motion.div>
 
               <motion.div
@@ -279,8 +270,8 @@ export default function DashboardPage() {
               </Link>
             </motion.div>
 
-            {/* Grid de Serviços */}
-            <div className="grid md:grid-cols-2 gap-6">
+            {/* Lista de Serviços */}
+            <div className="space-y-3">
               {services.map((service, index) => (
                 <ServiceCard key={service.id} {...service} index={index} />
               ))}
@@ -297,12 +288,11 @@ export default function DashboardPage() {
                 <Sparkles className="w-5 h-5 text-green-500" />
                 <h3 className="text-lg font-bold text-foreground">Ações Rápidas</h3>
               </div>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                 {[
                   { icon: Plus, label: 'Novo Servidor', href: '/dashboard/servicos/novo' },
-                  { icon: TrendingUp, label: 'Fazer Upgrade', href: '/dashboard/servicos' },
                   { icon: Wallet, label: 'Faturamento', href: '/dashboard/faturamento' },
-                  { icon: Users, label: 'Suporte', href: '/dashboard/suporte' },
+                  { icon: Activity, label: 'Painel de Controle', href: '/dashboard' },
                 ].map((action, index) => (
                   <Link key={action.label} href={action.href}>
                     <motion.button
@@ -395,12 +385,17 @@ export default function DashboardPage() {
                 <h3 className="text-lg font-bold text-foreground">
                   Status do Sistema
                 </h3>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                  <span className="text-xs font-semibold text-green-500">
-                    Operacional
-                  </span>
-                </div>
+                <Link href="/status">
+                  <button className="text-sm text-green-500 hover:text-green-400 font-medium transition-colors">
+                    Ver detalhes →
+                  </button>
+                </Link>
+              </div>
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                <span className="text-xs font-semibold text-green-500">
+                  Operacional
+                </span>
               </div>
               <div className="space-y-3">
                 {[

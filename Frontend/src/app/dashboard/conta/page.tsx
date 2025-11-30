@@ -1,517 +1,437 @@
 'use client';
 
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  User, 
-  Mail, 
-  Phone, 
-  Building, 
-  Globe,
-  Clock,
-  Calendar,
-  DollarSign,
-  Bell,
-  Save,
-  ArrowLeft,
-  Settings,
-  ChevronRight,
-  Sparkles
-} from 'lucide-react';
+import { DashboardPageHeader } from '@/components/dashboard/DashboardPageHeader';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import Link from 'next/link';
+import { motion } from 'framer-motion';
+import {
+  AlertCircle,
+  Bell,
+  Building,
+  Calendar,
+  Camera,
+  Globe,
+  Mail,
+  MapPin,
+  Phone,
+  Save,
+  Shield,
+  Trash2,
+  User,
+} from 'lucide-react';
+import { useState } from 'react';
 
+/**
+ * Página de Conta do Usuário
+ * Permite gerenciar informações pessoais e preferências
+ */
 export default function ContaPage() {
+  const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const [activeTab, setActiveTab] = useState<'perfil' | 'preferencias' | 'notificacoes'>('perfil');
 
-  // Dados do usuário (em produção virá da API)
+  // Mock data - em produção virá da API
   const [userData, setUserData] = useState({
-    name: 'Ryan Silva',
+    nome: 'Ryan Silva',
     email: 'ryan@aplotcloud.com',
-    phone: '+55 11 99999-9999',
-    company: 'Gaming Studio',
-    language: 'pt-BR',
-    timezone: 'America/Sao_Paulo',
-    dateFormat: 'DD/MM/YYYY',
-    currency: 'BRL'
-  });
-
-  const [notifications, setNotifications] = useState({
-    email: {
-      serverDown: false,
-      maintenance: true,
-      billing: true,
-      security: true
-    }
+    telefone: '+55 11 98765-4321',
+    cpf: '123.456.789-00',
+    dataNascimento: '1995-05-15',
+    empresa: 'AplotCloud',
+    cargo: 'Desenvolvedor Full Stack',
+    endereco: 'São Paulo, SP',
+    pais: 'Brasil',
+    biografia: 'Desenvolvedor apaixonado por tecnologia e inovação.',
   });
 
   const handleSave = async () => {
     setIsSaving(true);
     // Simular salvamento
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1500));
     setIsSaving(false);
-    // Em produção, aqui seria feita a chamada para a API
+    setIsEditing(false);
   };
 
-  const handleInputChange = (field: string, value: string) => {
-    setUserData(prev => ({
-      ...prev,
-      [field]: value
-    }));
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
   };
 
-  const updateNotification = (path: string, value: boolean) => {
-    setNotifications((prev) => {
-      const keys = path.split('.');
-      // Estrutura imutável (somente para email neste caso):
-      if (keys[0] === 'email' && keys.length === 2) {
-        return {
-          ...prev,
-          email: {
-            ...prev.email,
-            [keys[1]]: value
-          }
-        };
-      }
-      return prev;
-    });
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5 },
+    },
   };
-
-  const sidebarItems = [
-    { id: 'perfil', icon: User, label: 'Perfil' },
-    { id: 'preferencias', icon: Settings, label: 'Preferências' },
-    { id: 'notificacoes', icon: Bell, label: 'Notificações' },
-  ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background via-background to-green-500/5">
-      {/* Header */}
-      <div className="border-b border-border/40 bg-background/95 backdrop-blur">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center gap-4">
-            <Link href="/dashboard">
-              <Button variant="outline" size="sm" className="border-border hover:bg-muted">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Voltar
+    <div className="from-background via-background min-h-screen bg-gradient-to-b to-green-500/5">
+      <DashboardPageHeader
+        title="Minha Conta"
+        description="Gerencie suas informações pessoais e preferências"
+        icon={User}
+      >
+        <Button
+          variant="outline"
+          className="border-green-500/30 hover:border-green-500/50 hover:bg-green-500/10"
+          onClick={() => (window.location.href = '/dashboard/seguranca')}
+        >
+          <Shield className="mr-2 h-4 w-4" />
+          <span className="hidden sm:inline">Segurança</span>
+        </Button>
+      </DashboardPageHeader>
+
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+        className="container mx-auto max-w-5xl space-y-6 px-4 py-8 sm:px-6 lg:px-8"
+      >
+        {' '}
+        {/* Profile Picture Card */}
+        <motion.div variants={itemVariants}>
+          <div className="bg-card border-border rounded-2xl border p-8 transition-all duration-300 hover:border-green-500/30">
+            <div className="flex flex-col items-center gap-6 md:flex-row">
+              {/* Avatar */}
+              <div className="group relative">
+                <div className="flex h-32 w-32 items-center justify-center rounded-full border-2 border-green-500/30 bg-gradient-to-br from-green-500/20 to-green-500/10 text-4xl font-bold text-green-500">
+                  {userData.nome
+                    .split(' ')
+                    .map((n) => n[0])
+                    .join('')}
+                </div>
+                <button className="absolute right-0 bottom-0 rounded-full bg-green-500 p-2 text-white shadow-lg transition-all duration-300 hover:bg-green-500/90">
+                  <Camera className="h-4 w-4" />
+                </button>
+              </div>
+
+              {/* Info Rápida */}
+              <div className="flex-1 text-center md:text-left">
+                <h2 className="text-foreground text-2xl font-bold">
+                  {userData.nome}
+                </h2>
+                <p className="text-muted-foreground">
+                  {userData.cargo} • {userData.empresa}
+                </p>
+                <div className="mt-3 flex flex-wrap items-center justify-center gap-4 md:justify-start">
+                  <span className="text-muted-foreground flex items-center gap-2 text-sm">
+                    <Mail className="h-4 w-4 text-green-500" />
+                    {userData.email}
+                  </span>
+                  <span className="text-muted-foreground flex items-center gap-2 text-sm">
+                    <MapPin className="h-4 w-4 text-green-500" />
+                    {userData.endereco}
+                  </span>
+                </div>
+              </div>
+
+              {/* Action Button */}
+              <Button
+                onClick={() => setIsEditing(!isEditing)}
+                className="bg-green-500 text-white hover:bg-green-500/90"
+              >
+                {isEditing ? 'Cancelar' : 'Editar Perfil'}
               </Button>
-            </Link>
-            <div>
-              <motion.h1
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                className="text-3xl font-bold text-foreground mb-2"
-              >
-                Conta e Perfil
-              </motion.h1>
-              <motion.p
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.1 }}
-                className="text-muted-foreground"
-              >
-                Gerencie suas informações pessoais e preferências
-              </motion.p>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Main Content */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 lg:py-8">
-        <div className="flex flex-col lg:flex-row gap-4 lg:gap-8">
-          {/* Sidebar */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="lg:w-72 flex-shrink-0"
-          >
-            <div className="bg-gradient-to-b from-card to-card/50 backdrop-blur border border-border rounded-xl lg:rounded-2xl shadow-lg lg:sticky lg:top-8 overflow-hidden">
-              {/* Sidebar Header */}
-              <div className="bg-gradient-to-r from-green-500/10 to-green-500/5 p-4 border-b border-border">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-green-500/20 rounded-xl flex items-center justify-center">
-                    <User className="w-5 h-5 text-green-500" />
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-semibold text-foreground">Menu de Conta</h3>
-                    <p className="text-xs text-muted-foreground">Perfil e configurações</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Sidebar Navigation */}
-              <nav className="p-2 lg:p-3 space-y-1.5 lg:space-y-2">
-                {sidebarItems.map((item) => (
-                  <motion.button
-                    key={item.id}
-                    onClick={() => setActiveTab(item.id as 'perfil' | 'preferencias' | 'notificacoes')}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className={`w-full flex items-center justify-between p-2.5 lg:p-3.5 rounded-lg lg:rounded-xl transition-all group relative ${
-                      activeTab === item.id
-                        ? 'bg-gradient-to-r from-green-500/10 to-green-500/5 border border-green-500/30 shadow-md'
-                        : 'hover:bg-muted/50 border border-transparent'
-                    }`}
-                  >
-                    <div className="flex items-center gap-2 lg:gap-3">
-                      <div className={`w-8 h-8 lg:w-10 lg:h-10 flex items-center justify-center rounded-lg lg:rounded-xl transition-all ${
-                        activeTab === item.id
-                          ? 'bg-green-500/20 shadow-lg'
-                          : 'bg-muted/50 group-hover:bg-green-500/10'
-                      }`}>
-                        <item.icon className={`w-4 h-4 lg:w-5 lg:h-5 transition-all ${
-                          activeTab === item.id ? 'text-green-500' : 'text-muted-foreground group-hover:text-green-500'
-                        }`} />
-                      </div>
-                      <div className="text-left">
-                        <span className={`font-semibold text-xs lg:text-sm block ${
-                          activeTab === item.id ? 'text-foreground' : 'text-muted-foreground group-hover:text-foreground'
-                        }`}>
-                          {item.label}
-                        </span>
-                      </div>
-                    </div>
-                    <ChevronRight 
-                      className={`w-3 h-3 lg:w-4 lg:h-4 transition-all ${
-                        activeTab === item.id ? 'text-green-500 rotate-90' : 'text-muted-foreground group-hover:text-green-500'
-                      }`} 
-                    />
-                    {activeTab === item.id && (
-                      <motion.div
-                        layoutId="activeTab"
-                        className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-green-500 to-green-600 rounded-r-full"
-                      />
-                    )}
-                  </motion.button>
-                ))}
-              </nav>
-
-              {/* Sidebar Footer */}
-              <div className="p-4 pt-3 border-t border-border">
-                <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-3">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Sparkles className="w-4 h-4 text-blue-500" />
-                    <span className="text-xs font-semibold text-foreground">Dica</span>
-                  </div>
-                  <p className="text-xs text-muted-foreground">
-                    Mantenha suas informações atualizadas para melhor experiência
-                  </p>
-                </div>
-              </div>
+        </motion.div>
+        {/* Informações Pessoais */}
+        <motion.div variants={itemVariants}>
+          <div className="bg-card border-border rounded-2xl border p-6 transition-all duration-300 hover:border-green-500/30">
+            <div className="mb-6 flex items-center justify-between">
+              <h3 className="text-foreground flex items-center gap-2 text-xl font-bold">
+                <User className="h-5 w-5 text-green-500" />
+                Informações Pessoais
+              </h3>
             </div>
-          </motion.div>
 
-          {/* Content Area */}
-          <div className="flex-1 min-w-0">
-            <AnimatePresence mode="wait">
-              {/* Perfil Tab */}
-              {activeTab === 'perfil' && (
-                <motion.div
-                  key="perfil"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  className="space-y-6"
-                >
-                  {/* Avatar Section */}
-                  <div className="bg-card border border-border rounded-xl p-4 lg:p-6">
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 lg:gap-6">
-                      <div className="w-16 h-16 lg:w-20 lg:h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white font-bold text-xl lg:text-2xl flex-shrink-0">
-                        {userData.name.charAt(0)}
-                      </div>
-                      <div className="flex-1 w-full sm:w-auto">
-                        <h3 className="text-base lg:text-lg font-semibold text-foreground mb-1">Foto do Perfil</h3>
-                        <p className="text-sm text-muted-foreground mb-3">
-                          Avatar gerado automaticamente com suas iniciais
-                        </p>
-                        <Button variant="outline" size="sm" className="w-full sm:w-auto border-green-500/30 hover:bg-green-500/10">
-                          Alterar Avatar
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Informações Pessoais */}
-                  <div className="bg-card border border-border rounded-xl p-4 lg:p-6">
-            <h3 className="text-base lg:text-lg font-semibold text-foreground mb-4 lg:mb-6 flex items-center gap-2">
-              <User className="w-4 h-4 lg:w-5 lg:h-5 text-green-500" />
-              Informações Pessoais
-            </h3>
-            
-            <div className="grid gap-4 lg:gap-6 md:grid-cols-2">
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+              {/* Nome Completo */}
+              <div className="space-y-2">
+                <label className="text-muted-foreground flex items-center gap-2 text-sm font-medium">
+                  <User className="h-4 w-4 text-green-500" />
                   Nome Completo
                 </label>
-                <Input
-                  value={userData.name}
-                  onChange={(e) => handleInputChange('name', e.target.value)}
-                  placeholder="Seu nome completo"
-                  className="border-border focus:border-green-500"
+                <input
+                  type="text"
+                  value={userData.nome}
+                  onChange={(e) =>
+                    setUserData({ ...userData, nome: e.target.value })
+                  }
+                  disabled={!isEditing}
+                  className="bg-background border-border w-full rounded-lg border px-4 py-3 transition-all duration-300 focus:border-green-500 focus:ring-2 focus:ring-green-500/20 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
                 />
               </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
+
+              {/* Email */}
+              <div className="space-y-2">
+                <label className="text-muted-foreground flex items-center gap-2 text-sm font-medium">
+                  <Mail className="h-4 w-4 text-green-500" />
                   Email
                 </label>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                  <Input
-                    value={userData.email}
-                    onChange={(e) => handleInputChange('email', e.target.value)}
-                    placeholder="seu@email.com"
-                    className="pl-10 border-border focus:border-green-500"
-                    type="email"
-                  />
-                </div>
+                <input
+                  type="email"
+                  value={userData.email}
+                  onChange={(e) =>
+                    setUserData({ ...userData, email: e.target.value })
+                  }
+                  disabled={!isEditing}
+                  className="bg-background border-border w-full rounded-lg border px-4 py-3 transition-all duration-300 focus:border-green-500 focus:ring-2 focus:ring-green-500/20 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
+                />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
+              {/* Telefone */}
+              <div className="space-y-2">
+                <label className="text-muted-foreground flex items-center gap-2 text-sm font-medium">
+                  <Phone className="h-4 w-4 text-green-500" />
                   Telefone
                 </label>
-                <div className="relative">
-                  <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                  <Input
-                    value={userData.phone}
-                    onChange={(e) => handleInputChange('phone', e.target.value)}
-                    placeholder="+55 11 99999-9999"
-                    className="pl-10 border-border focus:border-green-500"
-                  />
-                </div>
+                <input
+                  type="tel"
+                  value={userData.telefone}
+                  onChange={(e) =>
+                    setUserData({ ...userData, telefone: e.target.value })
+                  }
+                  disabled={!isEditing}
+                  className="bg-background border-border w-full rounded-lg border px-4 py-3 transition-all duration-300 focus:border-green-500 focus:ring-2 focus:ring-green-500/20 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
+                />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
-                  Empresa/Organização
+              {/* CPF */}
+              <div className="space-y-2">
+                <label className="text-muted-foreground flex items-center gap-2 text-sm font-medium">
+                  <Shield className="h-4 w-4 text-green-500" />
+                  CPF
                 </label>
-                <div className="relative">
-                  <Building className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                  <Input
-                    value={userData.company}
-                    onChange={(e) => handleInputChange('company', e.target.value)}
-                    placeholder="Nome da sua empresa"
-                    className="pl-10 border-border focus:border-green-500"
-                  />
-                </div>
+                <input
+                  type="text"
+                  value={userData.cpf}
+                  disabled
+                  className="bg-background border-border w-full cursor-not-allowed rounded-lg border px-4 py-3 opacity-60"
+                />
+              </div>
+
+              {/* Data de Nascimento */}
+              <div className="space-y-2">
+                <label className="text-muted-foreground flex items-center gap-2 text-sm font-medium">
+                  <Calendar className="h-4 w-4 text-green-500" />
+                  Data de Nascimento
+                </label>
+                <input
+                  type="date"
+                  value={userData.dataNascimento}
+                  onChange={(e) =>
+                    setUserData({ ...userData, dataNascimento: e.target.value })
+                  }
+                  disabled={!isEditing}
+                  className="bg-background border-border w-full rounded-lg border px-4 py-3 transition-all duration-300 focus:border-green-500 focus:ring-2 focus:ring-green-500/20 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
+                />
+              </div>
+
+              {/* País */}
+              <div className="space-y-2">
+                <label className="text-muted-foreground flex items-center gap-2 text-sm font-medium">
+                  <Globe className="h-4 w-4 text-green-500" />
+                  País
+                </label>
+                <input
+                  type="text"
+                  value={userData.pais}
+                  onChange={(e) =>
+                    setUserData({ ...userData, pais: e.target.value })
+                  }
+                  disabled={!isEditing}
+                  className="bg-background border-border w-full rounded-lg border px-4 py-3 transition-all duration-300 focus:border-green-500 focus:ring-2 focus:ring-green-500/20 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
+                />
               </div>
             </div>
-                  </div>
-
-                  {/* Save Button */}
-                  <div className="flex justify-end pt-4 lg:pt-6">
-                    <Button
-                      onClick={handleSave}
-                      disabled={isSaving}
-                      className="w-full sm:w-auto bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-6 lg:px-8 py-2.5 lg:py-3"
-                    >
-                      {isSaving ? (
-                        <>
-                          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
-                          Salvando...
-                        </>
-                      ) : (
-                        <>
-                          <Save className="w-4 h-4 mr-2" />
-                          Salvar Alterações
-                        </>
-                      )}
-                    </Button>
-                  </div>
-                </motion.div>
-              )}
-
-              {/* Preferências Tab */}
-              {activeTab === 'preferencias' && (
-                <motion.div
-                  key="preferencias"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  className="space-y-6"
-                >
-                  <div className="bg-card border border-border rounded-xl p-4 lg:p-6">
-            <h3 className="text-base lg:text-lg font-semibold text-foreground mb-4 lg:mb-6 flex items-center gap-2">
-              <Settings className="w-4 h-4 lg:w-5 lg:h-5 text-green-500" />
-              Preferências
-            </h3>
-            
-            <div className="grid gap-4 lg:gap-6 md:grid-cols-2">
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
-                  Idioma
-                </label>
-                <div className="relative">
-                  <Globe className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                  <select
-                    value={userData.language}
-                    onChange={(e) => handleInputChange('language', e.target.value)}
-                    className="w-full pl-10 pr-3 py-2 border border-border rounded-lg bg-background text-foreground focus:border-green-500 appearance-none"
-                  >
-                    <option value="pt-BR">Português (Brasil)</option>
-                    <option value="en-US">English (US)</option>
-                    <option value="es-ES">Español</option>
-                  </select>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
-                  Fuso Horário
-                </label>
-                <div className="relative">
-                  <Clock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                  <select
-                    value={userData.timezone}
-                    onChange={(e) => handleInputChange('timezone', e.target.value)}
-                    className="w-full pl-10 pr-3 py-2 border border-border rounded-lg bg-background text-foreground focus:border-green-500 appearance-none"
-                  >
-                    <option value="America/Sao_Paulo">São Paulo (GMT-3)</option>
-                    <option value="America/New_York">New York (GMT-5)</option>
-                    <option value="Europe/London">London (GMT+0)</option>
-                    <option value="Asia/Tokyo">Tokyo (GMT+9)</option>
-                  </select>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
-                  Formato de Data
-                </label>
-                <div className="relative">
-                  <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                  <select
-                    value={userData.dateFormat}
-                    onChange={(e) => handleInputChange('dateFormat', e.target.value)}
-                    className="w-full pl-10 pr-3 py-2 border border-border rounded-lg bg-background text-foreground focus:border-green-500 appearance-none"
-                  >
-                    <option value="DD/MM/YYYY">DD/MM/YYYY</option>
-                    <option value="MM/DD/YYYY">MM/DD/YYYY</option>
-                    <option value="YYYY-MM-DD">YYYY-MM-DD</option>
-                  </select>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
-                  Moeda
-                </label>
-                <div className="relative">
-                  <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                  <select
-                    value={userData.currency}
-                    onChange={(e) => handleInputChange('currency', e.target.value)}
-                    className="w-full pl-10 pr-3 py-2 border border-border rounded-lg bg-background text-foreground focus:border-green-500 appearance-none"
-                  >
-                    <option value="BRL">Real (R$)</option>
-                    <option value="USD">Dollar ($)</option>
-                    <option value="EUR">Euro (€)</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-                  </div>
-
-                  {/* Save Button */}
-                  <div className="flex justify-end pt-4 lg:pt-6">
-                    <Button
-                      onClick={handleSave}
-                      disabled={isSaving}
-                      className="w-full sm:w-auto bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-6 lg:px-8 py-2.5 lg:py-3"
-                    >
-                      {isSaving ? (
-                        <>
-                          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
-                          Salvando...
-                        </>
-                      ) : (
-                        <>
-                          <Save className="w-4 h-4 mr-2" />
-                          Salvar Alterações
-                        </>
-                      )}
-                    </Button>
-                  </div>
-                </motion.div>
-              )}
-
-              {/* Notificações Tab */}
-              {activeTab === 'notificacoes' && (
-                <motion.div
-                  key="notificacoes"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  className="space-y-6"
-                >
-                  <div className="bg-card border border-border rounded-xl p-4 lg:p-6">
-            <h3 className="text-base lg:text-lg font-semibold text-foreground mb-4 lg:mb-6 flex items-center gap-2">
-              <Bell className="w-4 h-4 lg:w-5 lg:h-5 text-green-500" />
-              Notificações
-            </h3>
-            
-            {/* Email Notifications */}
-            <div className="mb-6">
-              <h4 className="text-sm lg:text-md font-medium text-foreground mb-4 flex items-center gap-2">
-                <Mail className="w-3 h-3 lg:w-4 lg:h-4 text-green-500" />
-                Notificações por Email
-              </h4>
-              <div className="space-y-3">
-                {[
-                  { key: 'serverDown', label: 'Servidores Offline', desc: 'Receber email quando seus servidores ficarem offline' },
-                  { key: 'maintenance', label: 'Alertas de Manutenção', desc: 'Notificações sobre manutenção programada' },
-                  { key: 'billing', label: 'Lembretes de Faturamento', desc: 'Notificações sobre faturas pendentes' },
-                  { key: 'security', label: 'Alertas de Segurança', desc: 'Notificações importantes sobre segurança' }
-                ].map((item) => (
-                  <div key={item.key} className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
-                    <div>
-                      <p className="font-medium text-foreground">{item.label}</p>
-                      <p className="text-sm text-muted-foreground">{item.desc}</p>
-                    </div>
-                    <label className="relative inline-flex items-center cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={notifications.email[item.key as keyof typeof notifications.email] as boolean}
-                        onChange={(e) => updateNotification(`email.${item.key}`, e.target.checked)}
-                        className="sr-only peer"
-                      />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-green-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
-                    </label>
-                  </div>
-                ))}
-              </div>
-            </div>
-                  </div>
-
-                  {/* Save Button */}
-                  <div className="flex justify-end pt-4 lg:pt-6">
-                    <Button
-                      onClick={handleSave}
-                      disabled={isSaving}
-                      className="w-full sm:w-auto bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-6 lg:px-8 py-2.5 lg:py-3"
-                    >
-                      {isSaving ? (
-                        <>
-                          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
-                          Salvando...
-                        </>
-                      ) : (
-                        <>
-                          <Save className="w-4 h-4 mr-2" />
-                          Salvar Alterações
-                        </>
-                      )}
-                    </Button>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
           </div>
-        </div>
-      </div>
+        </motion.div>
+        {/* Informações Profissionais */}
+        <motion.div variants={itemVariants}>
+          <div className="bg-card border-border rounded-2xl border p-6 transition-all duration-300 hover:border-green-500/30">
+            <div className="mb-6 flex items-center justify-between">
+              <h3 className="text-foreground flex items-center gap-2 text-xl font-bold">
+                <Building className="h-5 w-5 text-green-500" />
+                Informações Profissionais
+              </h3>
+            </div>
+
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+              {/* Empresa */}
+              <div className="space-y-2">
+                <label className="text-muted-foreground flex items-center gap-2 text-sm font-medium">
+                  <Building className="h-4 w-4 text-green-500" />
+                  Empresa
+                </label>
+                <input
+                  type="text"
+                  value={userData.empresa}
+                  onChange={(e) =>
+                    setUserData({ ...userData, empresa: e.target.value })
+                  }
+                  disabled={!isEditing}
+                  className="bg-background border-border w-full rounded-lg border px-4 py-3 transition-all duration-300 focus:border-green-500 focus:ring-2 focus:ring-green-500/20 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
+                />
+              </div>
+
+              {/* Cargo */}
+              <div className="space-y-2">
+                <label className="text-muted-foreground flex items-center gap-2 text-sm font-medium">
+                  <User className="h-4 w-4 text-green-500" />
+                  Cargo
+                </label>
+                <input
+                  type="text"
+                  value={userData.cargo}
+                  onChange={(e) =>
+                    setUserData({ ...userData, cargo: e.target.value })
+                  }
+                  disabled={!isEditing}
+                  className="bg-background border-border w-full rounded-lg border px-4 py-3 transition-all duration-300 focus:border-green-500 focus:ring-2 focus:ring-green-500/20 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
+                />
+              </div>
+
+              {/* Biografia */}
+              <div className="space-y-2 md:col-span-2">
+                <label className="text-muted-foreground text-sm font-medium">
+                  Biografia
+                </label>
+                <textarea
+                  value={userData.biografia}
+                  onChange={(e) =>
+                    setUserData({ ...userData, biografia: e.target.value })
+                  }
+                  disabled={!isEditing}
+                  rows={4}
+                  className="bg-background border-border w-full resize-none rounded-lg border px-4 py-3 transition-all duration-300 focus:border-green-500 focus:ring-2 focus:ring-green-500/20 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
+                />
+              </div>
+            </div>
+          </div>
+        </motion.div>
+        {/* Preferências */}
+        <motion.div variants={itemVariants}>
+          <div className="bg-card border-border rounded-2xl border p-6 transition-all duration-300 hover:border-green-500/30">
+            <div className="mb-6 flex items-center justify-between">
+              <h3 className="text-foreground flex items-center gap-2 text-xl font-bold">
+                <Bell className="h-5 w-5 text-green-500" />
+                Preferências de Notificação
+              </h3>
+            </div>
+
+            <div className="space-y-4">
+              {/* Notificações por Email */}
+              <div className="bg-background border-border flex items-center justify-between rounded-lg border p-4 transition-all duration-300 hover:border-green-500/20">
+                <div className="flex items-center gap-3">
+                  <div className="rounded-lg bg-green-500/20 p-2">
+                    <Mail className="h-5 w-5 text-green-500" />
+                  </div>
+                  <div>
+                    <p className="text-foreground font-medium">
+                      Notificações por Email
+                    </p>
+                    <p className="text-muted-foreground text-sm">
+                      Receba atualizações no seu email
+                    </p>
+                  </div>
+                </div>
+                <label className="relative inline-flex cursor-pointer items-center">
+                  <input
+                    type="checkbox"
+                    className="peer sr-only"
+                    defaultChecked
+                  />
+                  <div className="bg-border peer h-6 w-11 rounded-full peer-checked:bg-green-500 peer-focus:ring-2 peer-focus:ring-green-500/20 peer-focus:outline-none after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-white rtl:peer-checked:after:-translate-x-full"></div>
+                </label>
+              </div>
+
+              {/* Notificações Push */}
+              <div className="bg-background border-border flex items-center justify-between rounded-lg border p-4 transition-all duration-300 hover:border-green-500/20">
+                <div className="flex items-center gap-3">
+                  <div className="rounded-lg bg-green-500/20 p-2">
+                    <Bell className="h-5 w-5 text-green-500" />
+                  </div>
+                  <div>
+                    <p className="text-foreground font-medium">
+                      Notificações Push
+                    </p>
+                    <p className="text-muted-foreground text-sm">
+                      Receba alertas no navegador
+                    </p>
+                  </div>
+                </div>
+                <label className="relative inline-flex cursor-pointer items-center">
+                  <input
+                    type="checkbox"
+                    className="peer sr-only"
+                    defaultChecked
+                  />
+                  <div className="bg-border peer h-6 w-11 rounded-full peer-checked:bg-green-500 peer-focus:ring-2 peer-focus:ring-green-500/20 peer-focus:outline-none after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-white rtl:peer-checked:after:-translate-x-full"></div>
+                </label>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+        {/* Zona de Perigo */}
+        <motion.div variants={itemVariants}>
+          <div className="bg-card rounded-2xl border border-red-500/30 p-6">
+            <div className="mb-4 flex items-center gap-2">
+              <AlertCircle className="h-5 w-5 text-red-500" />
+              <h3 className="text-foreground text-xl font-bold">
+                Zona de Perigo
+              </h3>
+            </div>
+            <p className="text-muted-foreground mb-4">
+              Ações irreversíveis que afetam permanentemente sua conta.
+            </p>
+            <Button
+              variant="outline"
+              className="border-red-500/30 text-red-500 hover:border-red-500 hover:bg-red-500/10"
+            >
+              <Trash2 className="mr-2 h-4 w-4" />
+              Excluir Conta
+            </Button>
+          </div>
+        </motion.div>
+        {/* Botão de Salvar */}
+        {isEditing && (
+          <motion.div
+            variants={itemVariants}
+            className="flex justify-end gap-3"
+          >
+            <Button
+              onClick={() => setIsEditing(false)}
+              variant="outline"
+              className="border-border hover:bg-muted"
+            >
+              Cancelar
+            </Button>
+            <Button
+              onClick={handleSave}
+              disabled={isSaving}
+              className="bg-green-500 text-white hover:bg-green-500/90"
+            >
+              {isSaving ? (
+                <>
+                  <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                  Salvando...
+                </>
+              ) : (
+                <>
+                  <Save className="mr-2 h-4 w-4" />
+                  Salvar Alterações
+                </>
+              )}
+            </Button>
+          </motion.div>
+        )}
+      </motion.div>
     </div>
   );
 }

@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { DashboardPageHeader } from '@/components/dashboard/DashboardPageHeader';
 import { 
   Search, 
   Plus, 
@@ -16,7 +17,6 @@ import {
   Calendar,
   User,
   Tag,
-  ArrowLeft,
   ArrowRight,
   RefreshCw,
   Eye,
@@ -259,54 +259,25 @@ export default function TicketManagerPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-green-500/5">
-      {/* Header */}
-      <div className="border-b border-border/40 bg-background/95 backdrop-blur sticky top-0 z-10">
-        <div className="container mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-6">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-            <div className="flex items-center gap-3 w-full sm:w-auto">
-              <Link href="/dashboard">
-                <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
-                  <ArrowLeft className="w-4 h-4 sm:mr-2" />
-                  <span className="hidden sm:inline">Dashboard</span>
-                </Button>
-              </Link>
-              <div className="flex-1">
-                <div className="flex items-center gap-2 flex-wrap">
-                  <h1 className="text-xl sm:text-3xl font-bold text-foreground">
-                    Meus Tickets
-                  </h1>
-                  {/* Indicador de tickets respondidos */}
-                  {stats.responded > 0 && (
-                    <div className="bg-green-500 text-white px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs sm:text-sm font-bold animate-pulse">
-                      {stats.responded}
-                    </div>
-                  )}
-                </div>
-                <p className="text-xs sm:text-sm text-muted-foreground hidden sm:block">
-                  Gerencie todos os seus tickets de suporte
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
-              {/* Botão de refresh */}
-              <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
-                <RefreshCw className="w-4 h-4" />
-              </Button>
-              <Link href="/dashboard/suporte/novo-ticket" className="flex-1 sm:flex-initial">
-                <Button className="bg-green-500 hover:bg-green-600 text-white shadow-lg shadow-green-500/25 w-full sm:w-auto text-sm sm:text-base">
-                  <Plus className="w-4 h-4 sm:mr-2" />
-                  <span className="hidden sm:inline">Novo Ticket</span>
-                  <span className="sm:hidden">Novo</span>
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className="min-h-screen bg-gradient-to-b from-background via-background to-green-500/5">
+      <DashboardPageHeader
+        title="Meus Tickets"
+        description="Gerencie todos os seus tickets de suporte"
+        icon={MessageSquare}
+      >
+        <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
+          <RefreshCw className="w-4 h-4" />
+        </Button>
+        <Link href="/dashboard/suporte/novo-ticket">
+          <Button className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white shadow-lg shadow-green-500/20">
+            <Plus className="w-4 h-4 sm:mr-2" />
+            <span className="hidden sm:inline">Novo Ticket</span>
+          </Button>
+        </Link>
+      </DashboardPageHeader>
 
       {/* Main Content */}
-      <div className="container mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Stats Cards */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-2 sm:gap-4 mb-4 sm:mb-8">
           <motion.div
